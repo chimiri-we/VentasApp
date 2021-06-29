@@ -1,0 +1,33 @@
+<resources>
+
+    <dimen name="espacio_norma_1">16dp</dimen>
+    <dimen name="espacio_norma_2">8dp</dimen>
+
+    <dimen name="padding_izquierdo_cabecera">16dp</dimen>
+
+    <dimen name="altura_miniatura_comida">250dp</dimen>
+
+    <dimen name="ancho_logo">200dp</dimen>
+
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="nav_header_vertical_spacing">8dp</dimen>
+    <dimen name="nav_header_height">176dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+
+    <dimen name="app_bar_height">300dp</dimen>
+
+
+    <dimen name="headerTextSize">22sp</dimen>
+    <dimen name="newsMoreTextSize">12sp</dimen>
+    <dimen name="loginCardRadius">20dp</dimen>
+    <dimen name="loginViewsMargin">20dp</dimen>
+
+    <dimen name="signup_text_margin_top">5dp</dimen>
+
+
+    <dimen name="spacing">8dp</dimen>
+    <dimen name="edit_text_padding">16dp</dimen>
+    <dimen name="normal_padding">10dp</dimen>
+
+</resources>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.ventasapp">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.VentasApp.NoActionBar">
+        <activity
+            android:name=".ui.CarritoActivity"
+            android:label="@string/title_activity_carrito"
+            android:theme="@style/Theme.VentasApp.NoActionBar.NoActionBar">
+
+        </activity>
+        <activity
+            android:name=".ui.ActividadPrincipal"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.ConNavigationDrawer">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.ActividadConfiguracion"
+            android:label="@string/titulo_actividad_configuracion"
+            android:parentActivityName=".ui.ActividadPrincipal">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.ActividadPrincipal" />
+        </activity>
+        <activity
+            android:name=".detalles.ClienteDetalleActivity"
+            android:label="@string/titulo_actividad_configuracion"
+            android:parentActivityName=".ui.ActividadPrincipal"/>
+
+    </application>
+
+</manifest>
