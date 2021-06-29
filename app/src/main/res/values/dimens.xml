@@ -30,4 +30,9 @@
     <dimen name="edit_text_padding">16dp</dimen>
     <dimen name="normal_padding">10dp</dimen>
 
+    <dimen name="headerbar_elevation">4dp</dimen>
+    <dimen name="card_margin">16dp</dimen>
+    <dimen name="size_fab">56dp</dimen>
+    <dimen name="avatar_size">40dp</dimen>
+
 </resources>

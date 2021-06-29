@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.ventasapp.R;
 import com.example.ventasapp.detalles.ClienteDetalleActivity;
 import com.example.ventasapp.modelo.Comida;
+import com.example.ventasapp.ui.CarritoActivity;
 
 import java.util.List;
 
@@ -34,7 +35,7 @@ Context context;
         // Campos respectivos de un item
         public TextView nombre;
         public TextView precio;
-        public ImageView imagen;
+        public ImageView imagen, agregar;
 
         public ViewHolder(View v) {
             super(v);
@@ -42,6 +43,7 @@ Context context;
             nombre = (TextView) v.findViewById(R.id.nombre_comida);
             precio = (TextView) v.findViewById(R.id.precio_comida);
             imagen = (ImageView) v.findViewById(R.id.miniatura_comida);
+
         }
     }
 
@@ -74,7 +76,7 @@ Context context;
         viewHolder.nombre.setText(item.getNombre());
         viewHolder.precio.setText("$" + item.getPrecio());
 
-        viewHolder.nombre.setOnClickListener(new View.OnClickListener() {
+        viewHolder.imagen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String nombre = item.getNombre();
@@ -105,7 +107,7 @@ Context context;
     }
 
     private void detalle(Comida item) {
-        Intent miIntent = new Intent(context, ClienteDetalleActivity.class);
+        Intent miIntent = new Intent(context, CarritoActivity.class);
         miIntent.putExtra("nombre", item.getNombre());
         miIntent.putExtra("imagen", item.getIdDrawable());
         miIntent.putExtra("precio", item.getPrecio());

@@ -5,19 +5,19 @@
         <item
             android:id="@+id/item_inicio"
             android:checked="true"
-            android:icon="@drawable/ic_person"
+            android:icon="@drawable/ic_inicio_base"
             android:title="@string/item_inicio" />
         <item
             android:id="@+id/item_cuenta"
-            android:icon="@drawable/ic_refresh"
+            android:icon="@drawable/ic_persona"
             android:title="@string/item_cuenta" />
         <item
             android:id="@+id/item_categorias"
-            android:icon="@drawable/ic_lista"
+            android:icon="@drawable/ic_categorias"
             android:title="@string/item_categorias" />
         <item
             android:id="@+id/item_configuracion"
-            android:icon="@drawable/ic_lista"
+            android:icon="@drawable/ic_config"
             android:title="@string/item_configuracion" />
     </group>
 

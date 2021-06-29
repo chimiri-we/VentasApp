@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,23 +16,51 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.example.ventasapp.R;
+import com.example.ventasapp.datos.BaseDatos;
 import com.example.ventasapp.detalles.ClienteDetalleActivity;
+import com.example.ventasapp.entidades.Usuarios;
 import com.example.ventasapp.fragmentos.FragmentoCategorias;
 import com.example.ventasapp.fragmentos.FragmentoCuenta;
 import com.example.ventasapp.fragmentos.FragmentoInicio;
+import com.example.ventasapp.login.ContentLogin;
+import com.example.ventasapp.login.LoginActivity;
+import com.example.ventasapp.login.LoginFormState;
+import com.example.ventasapp.login.LoginRepository;
+import com.example.ventasapp.login.LoginViewModelFactory;
+import com.example.ventasapp.login.Result;
 import com.google.android.material.navigation.NavigationView;
 
 
 public class ActividadPrincipal extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
+    BaseDatos bdLocal;
+    Usuarios usuario=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        bdLocal = new BaseDatos(this);
+
+
+       usuario = bdLocal.validarUsuario();
+        if (usuario != null) {
+            Toast.makeText(this, "el usuario es  "+usuario.getNombre(), Toast.LENGTH_SHORT).show();
+
+           // Toast.makeText(this, "no te has registrado ", Toast.LENGTH_SHORT).show();
+          //  startActivity(new Intent(this, ContentLogin.class));
+        //   finish();
+         //   return;
+        }else {
+          // Toast.makeText(this, "el usuario es  "+usuario.getNombre(), Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(this, ContentLogin.class));
+               finish();
+               return;
+        }
         setContentView(R.layout.actividad_principal);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
         final ActionBar ab = getSupportActionBar();
         if (ab != null) {
             // Poner ícono del drawer toggle

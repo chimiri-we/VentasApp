@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.ventasapp">
-
+    <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -35,6 +35,10 @@
         </activity>
         <activity
             android:name=".detalles.ClienteDetalleActivity"
+            android:label="@string/titulo_actividad_configuracion"
+            android:parentActivityName=".ui.ActividadPrincipal"/>
+        <activity
+            android:name=".login.ContentLogin"
             android:label="@string/titulo_actividad_configuracion"
             android:parentActivityName=".ui.ActividadPrincipal"/>
 

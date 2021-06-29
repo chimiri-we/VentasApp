@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 public class BaseDatos extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 5;
+    private static final int DATABASE_VERSION = 6;
     private static final String DATABASE_NAME = "Ventas.db";
 
     private static final String TABLE_USUARIO = "Usuario";
@@ -193,4 +193,45 @@ public class BaseDatos extends SQLiteOpenHelper {
     }
 
 
+    public Usuarios validarUsuario() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor;
+Usuarios usuario=null;
+        cursor = db.rawQuery("select * from Usuario", null);
+        if (cursor.moveToFirst()) {
+
+            usuario = new Usuarios();
+            usuario.setNombre(cursor.getString(1));
+            usuario.setCorreo(cursor.getString(4));
+
+
+        }
+        cursor.close();
+        return usuario;
+
+    }
+
+    public Usuarios verdatosUsuario() {
+        SQLiteDatabase db = this.getWritableDatabase();
+Usuarios usuarios = null;
+Cursor cursor;
+
+        cursor = db.rawQuery("select * from Usuario", null);
+        if (cursor.moveToFirst()) {
+
+            usuarios = new Usuarios();
+            usuarios.setId_usuario(cursor.getInt(0));
+            //usuarios.setId_R(cursor.getInt(1));
+            usuarios.setNombre(cursor.getString(1));
+            usuarios.setDireccion(cursor.getString(3));
+            usuarios.setCorreo(cursor.getString(4));
+            usuarios.setTelefono(cursor.getString(5));
+            usuarios.setUser(cursor.getString(6));
+            usuarios.setPassword(cursor.getString(7));
+
+
+        }
+        cursor.close();
+        return usuarios;
+    }
 }

@@ -10,7 +10,7 @@
 
     <item
         android:id="@+id/action_carrito"
-        android:icon="@drawable/ic_shopping_cart"
+        android:icon="@drawable/ic_carrito"
         android:orderInCategory="1"
         android:title="@string/action_carrito"
         app:showAsAction="ifRoom" />
