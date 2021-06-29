@@ -62,6 +62,7 @@ ClienteDetalleFragment fragment = new ClienteDetalleFragment();
         txtNombre = root.findViewById(R.id.tv_bio);
 
 
+        if (idProducto != null){
         bdLocal = new BaseDatos(getContext());
        producto = bdLocal.verProducto(Integer.parseInt(idProducto));
 
@@ -72,7 +73,7 @@ ClienteDetalleFragment fragment = new ClienteDetalleFragment();
        }else {
            Toast.makeText(getContext(), "no esta pasando el id", Toast.LENGTH_SHORT).show();
        }
-
+        }
 /*           Glide.with(this)
                     .load(producto.getUrlImagen())
                     .centerCrop()

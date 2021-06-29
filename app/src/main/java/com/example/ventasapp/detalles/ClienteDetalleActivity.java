@@ -37,9 +37,8 @@ public class ClienteDetalleActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
       collapser = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
         id = getIntent().getStringExtra("id");
-        if (id != null)
-
-        bdLocal = new BaseDatos(ClienteDetalleActivity.this);
+        if (id != null){
+            bdLocal = new BaseDatos(ClienteDetalleActivity.this);
         producto = bdLocal.verProducto(Integer.parseInt(id));
         if (producto != null) {
 
@@ -52,6 +51,9 @@ public class ClienteDetalleActivity extends AppCompatActivity {
                     .into(imageView);
         }
 
+        }else {
+            Toast.makeText(this, "no hay id", Toast.LENGTH_SHORT).show();
+        }
         String extras = getIntent().getStringExtra("nombre");
 
 
