@@ -18,7 +18,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        card_view:cardCornerRadius="@android:dimen/app_icon_size">
+        card_view:cardCornerRadius="10dp">
 
         <GridLayout
             android:layout_width="wrap_content"
@@ -32,8 +32,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginBottom="32dp"
                 android:layout_marginRight="@dimen/espacio_norma_2"
+                android:layout_marginBottom="32dp"
                 android:src="@drawable/ic_person" />
 
             <TextView

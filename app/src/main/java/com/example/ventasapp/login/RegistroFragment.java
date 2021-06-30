@@ -72,11 +72,34 @@ public class RegistroFragment extends Fragment {
         final String direccion = edtDireccion.getText().toString().trim();
         final String username = edtUsername.getText().toString().trim();
 
-        Usuarios nuwvousuario = new Usuarios(nombre, password, email, telefono, direccion, username);
-        bdLocal.registrarUser(nuwvousuario);
+        usuarios = new Usuarios();
+        usuarios.setNombre(nombre);
+        usuarios.setUser(username);
+        usuarios.setCorreo(email);
+        usuarios.setPassword(password);
+        usuarios.setDireccion(direccion);
+        usuarios.setTelefono(telefono);
 
+        ContentValues values = new ContentValues();
+     //   values.put("id_usuario", usuarios.getId_usuario());
+        values.put("nombre", usuarios.getNombre());
+        values.put("telefono", usuarios.getTelefono());
+        values.put("direccion", usuarios.getDireccion());
+        values.put("user", usuarios.getUser());
+        values.put("password", usuarios.getPassword());
+      //  values.put("url_imagen", usuarios.getUrlImagen());
+        values.put("correo", usuarios.getCorreo());
 
-         Toast.makeText(getContext(), "El id remoto es" +usuarios.getId_usuario(), Toast.LENGTH_LONG).show();
+        bdLocal = new BaseDatos(requireContext().getApplicationContext());
+        SQLiteDatabase db = bdLocal.getReadableDatabase();
+        if(db!= null) {
+            Toast.makeText(getContext(), "Datos guardados"+usuarios.getId_usuario(), Toast.LENGTH_SHORT).show();
+
+        } else {
+            Toast.makeText(getContext(), "Tienes un problema" , Toast.LENGTH_SHORT).show();
+        }
+        db.insert(TABLE_USUARIO, null, values);
+
 
         progressDialog.hide();
 

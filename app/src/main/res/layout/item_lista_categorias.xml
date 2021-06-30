@@ -11,30 +11,57 @@
 
         android:layout_height="192dp" />
 
-    <LinearLayout
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#E6E6E6"
         android:orientation="vertical"
-        android:padding="@dimen/espacio_norma_1">
-
-        <TextView
-            android:id="@+id/precio_comida"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Precio"
-            android:textAppearance="@style/TextAppearance.AppCompat.Subhead.Inverse"
-            android:textColor="@color/primaryColor"
-            android:textStyle="normal|bold" />
+        android:padding="@dimen/activity_horizontal_margin">
 
         <TextView
             android:id="@+id/nombre_comida"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Nombre"
-            android:textAppearance="@style/TextAppearance.AppCompat.Subhead.Inverse"
-            android:textColor="@color/primaryDarkColor"
-            android:textSize="12sp" />
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@android:color/black" />
 
-    </LinearLayout>
+        <TextView
+            android:id="@+id/descripcion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/nombre_comida"
+            android:layout_alignStart="@+id/nombre_comida"
+            android:layout_alignLeft="@+id/nombre_comida"
+            android:text="Descripción"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <TextView
+            android:id="@+id/precio_comida"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/descripcion"
+            android:layout_alignStart="@+id/descripcion"
+            android:layout_alignLeft="@+id/descripcion"
+            android:text="$ Precio"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="?colorPrimary" />
+
+        <RatingBar
+            android:id="@+id/rating"
+            style="?android:attr/ratingBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/precio_comida"
+            android:layout_alignLeft="@+id/precio_comida"
+            android:layout_gravity="center_horizontal"
+            android:clickable="true"
+            android:isIndicator="true"
+            android:paddingTop="8dp"
+            android:progressTint="#FDDB39"
+            android:rating="3"
+            android:secondaryProgressTint="#FDDB39" />
+    </RelativeLayout>
+
 </LinearLayout>

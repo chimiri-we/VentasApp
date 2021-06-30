@@ -47,7 +47,7 @@ public class LoginActivity extends Fragment {
         loginViewModel = new ViewModelProvider(this, new LoginViewModelFactory())
                 .get(LoginViewModel.class);
 
-       usernameEditText = v.findViewById(R.id.username);
+       usernameEditText = v.findViewById(R.id.correo);
        passwordEditText = v.findViewById(R.id.password);
         final Button loginButton = v.findViewById(R.id.login);
         final ProgressBar loadingProgressBar = v.findViewById(R.id.loading);

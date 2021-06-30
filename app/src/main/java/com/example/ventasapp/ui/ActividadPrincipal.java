@@ -64,7 +64,7 @@ public class ActividadPrincipal extends AppCompatActivity {
         final ActionBar ab = getSupportActionBar();
         if (ab != null) {
             // Poner ícono del drawer toggle
-            ab.setHomeAsUpIndicator(R.drawable.ic_lista);
+            ab.setHomeAsUpIndicator(R.drawable.ic_inicio_base);
             ab.setDisplayHomeAsUpEnabled(true);
         }
 

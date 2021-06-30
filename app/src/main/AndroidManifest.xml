@@ -39,8 +39,7 @@
             android:parentActivityName=".ui.ActividadPrincipal"/>
         <activity
             android:name=".login.ContentLogin"
-            android:label="@string/titulo_actividad_configuracion"
-            android:parentActivityName=".ui.ActividadPrincipal"/>
+            android:label="@string/titulo_actividad_configuracion"/>
 
     </application>
 

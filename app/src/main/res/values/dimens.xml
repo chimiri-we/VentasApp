@@ -35,4 +35,9 @@
     <dimen name="size_fab">56dp</dimen>
     <dimen name="avatar_size">40dp</dimen>
 
+
+    <dimen name="grid_item_text_size">11sp</dimen>
+    <dimen name="grid_view_padding">5dp</dimen>
+    <dimen name="grid_item_image_size">90dp</dimen>
+
 </resources>
