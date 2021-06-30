@@ -36,6 +36,7 @@ public class ActividadPrincipal extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     BaseDatos bdLocal;
     Usuarios usuario=null;
+    String nombreUsuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +48,7 @@ public class ActividadPrincipal extends AppCompatActivity {
         if (usuario != null) {
             Toast.makeText(this, "el usuario es  "+usuario.getNombre(), Toast.LENGTH_SHORT).show();
 
+            nombreUsuario = usuario.getNombre();
            // Toast.makeText(this, "no te has registrado ", Toast.LENGTH_SHORT).show();
           //  startActivity(new Intent(this, ContentLogin.class));
         //   finish();

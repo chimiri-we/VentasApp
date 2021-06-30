@@ -81,7 +81,7 @@ public class RegistroFragment extends Fragment {
         usuarios.setTelefono(telefono);
 
         ContentValues values = new ContentValues();
-     //   values.put("id_usuario", usuarios.getId_usuario());
+        values.put("id_usuario", usuarios.getId_usuario());
         values.put("nombre", usuarios.getNombre());
         values.put("telefono", usuarios.getTelefono());
         values.put("direccion", usuarios.getDireccion());

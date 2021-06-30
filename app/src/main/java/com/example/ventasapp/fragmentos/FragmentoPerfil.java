@@ -27,7 +27,7 @@ public class FragmentoPerfil extends Fragment {
     public FragmentoPerfil() {
     }
 
-    private TextView nombre, correo;
+    private TextView nombre, correo, tvusuario, direccion, telefono;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -35,6 +35,9 @@ public class FragmentoPerfil extends Fragment {
 
         nombre = v.findViewById(R.id.texto_nombre);
         correo = v.findViewById(R.id.texto_email);
+        tvusuario = v.findViewById(R.id.texto_usuario);
+        direccion = v.findViewById(R.id.tv_direccion_usuario);
+        telefono = v.findViewById(R.id.texto_telefono);
         usuarios = new Usuarios();
         verdatosUsuario();
 
@@ -42,6 +45,9 @@ public class FragmentoPerfil extends Fragment {
 
             nombre.setText(usuarios.getNombre().toString());
             correo.setText(usuarios.getCorreo().toString().toLowerCase());
+            tvusuario.setText(usuarios.getUser().toString().toLowerCase());
+            direccion.setText(usuarios.getDireccion().toString().toLowerCase());
+            telefono.setText(usuarios.getTelefono().toString().toLowerCase());
         }
 
 

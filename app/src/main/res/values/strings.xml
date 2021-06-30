@@ -46,4 +46,8 @@
     <string name="login_failed">No puede ingresar</string>
     <string name="invalid_username">Usuario Invalido</string>
     <string name="invalid_password">Password Incorrecta</string>
+    <string name="titulo_tab_compras">COMPRAS</string>
+    <string name="titulo_tab_pedidos">PEDIDOS</string>
+    <string name="texto_cambiar_direccion">Actualiza tu direccion</string>
+    <string name="etiqueta_direccion">Direccion</string>
 </resources>
