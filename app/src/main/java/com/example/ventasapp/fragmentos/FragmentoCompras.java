@@ -55,17 +55,6 @@ public class FragmentoCompras extends Fragment implements Response.Listener<JSON
         recyclerUsuarios = (RecyclerView) v.findViewById(R.id.reciclerProductos);
         recyclerUsuarios.setLayoutManager(new LinearLayoutManager(this.getContext()));
         recyclerUsuarios.setHasFixedSize(true);
-        recyclerUsuarios.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getContext(), "el id es"+ID_PRODUCTO, Toast.LENGTH_SHORT).show();
-
-                Intent intent = new Intent(getContext(), ClienteDetalleActivity.class);
-                intent.putExtra("id", ID_PRODUCTO);
-
-                startActivity(intent);
-            }
-        });
 
 
 
@@ -108,7 +97,7 @@ public class FragmentoCompras extends Fragment implements Response.Listener<JSON
             usuario.setDescripcion(jsonObject.optString("Descripcion"));
             usuario.setDato(jsonObject.optString("Imagen_producto"));
             listaUsuarios.add(usuario);
-            ID_PRODUCTO = String.valueOf(usuario.getId_producto());
+          //  ID_PRODUCTO = String.valueOf(usuario.getId_producto());
              }
             dialog.hide();
             AdapterCompras adapter=new AdapterCompras(listaUsuarios);
@@ -132,7 +121,7 @@ public class FragmentoCompras extends Fragment implements Response.Listener<JSON
 
     public void verdetalle(View view) {
         Intent intent = new Intent(getContext(), ClienteDetalleActivity.class);
-        intent.putExtra("id", ID_PRODUCTO);
+       // intent.putExtra("id", ID_PRODUCTO);
         startActivity(intent);
 
     }

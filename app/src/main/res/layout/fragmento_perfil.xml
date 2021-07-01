@@ -18,6 +18,53 @@
             android:orientation="vertical"
             android:padding="@dimen/espacio_norma_1">
 
+            <androidx.cardview.widget.CardView
+                card_view:cardCornerRadius="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/espacio_norma_1">
+
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/img_perfil"
+                        android:layout_width="@dimen/avatar_size"
+                        android:layout_height="@dimen/avatar_size"
+
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="8dp"
+                        android:src="@drawable/ic_person" />
+
+
+
+                    <TextView
+                        android:id="@+id/texto_foto_perfil"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center_vertical"
+                        android:layout_toRightOf="@+id/img_perfil"
+                        android:text="@string/texto_cambiar_contrasena"
+                        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <ImageView
+                        android:id="@+id/ic_cambiar_imagen"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:src="@android:drawable/ic_menu_camera" />
+
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
             <TextView
                 android:id="@+id/titulo_informacion_usuario"
                 android:layout_width="wrap_content"
@@ -207,7 +254,8 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:src="@drawable/ic_pencil" />
+                        android:src="@drawable/ic_pencil"
+                        card_view:tint="#0B0A0A" />
 
                     <TextView
                         android:id="@+id/tv_direccion_usuario"

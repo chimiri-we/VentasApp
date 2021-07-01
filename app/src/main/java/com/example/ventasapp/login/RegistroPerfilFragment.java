@@ -1,12 +1,10 @@
-package com.example.ventasapp.fragmentos;
+package com.example.ventasapp.login;
 
-
-import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
@@ -17,38 +15,35 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.provider.Settings;
+import android.text.TextUtils;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ventasapp.R;
 import com.example.ventasapp.datos.BaseDatos;
 import com.example.ventasapp.entidades.Usuarios;
-import com.example.ventasapp.ui.ActividadPrincipal;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.util.Objects;
 
+import static android.Manifest.permission.CAMERA;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
-import static android.Manifest.permission_group.CAMERA;
 
-/**
- * Fragmento para la pestaña "PERFIL" De la sección "Mi Cuenta"
- */
-public class FragmentoPerfil extends Fragment {
+public class RegistroPerfilFragment extends Fragment {
 
     private static final String CARPETA_PRINCIPAL = "misImagenesApp/";//directorio principal
     private static final String CARPETA_IMAGEN = "imagenes";//carpeta donde se guardan las fotos
@@ -56,79 +51,68 @@ public class FragmentoPerfil extends Fragment {
     private String path;//almacena la ruta de la imagen
     File fileImagen;
     Bitmap bitmap;
-    ImageView imgFoto, imgperfil;
+    ImageView imgFoto;
 
     private final int MIS_PERMISOS = 100;
     private static final int COD_SELECCIONA = 10;
     private static final int COD_FOTO = 20;
+   // TextView tvCambiarFoto;
+
+    private EditText edtNombreCliente, edtUsername, edtEmailCliente;
+    Button btnSigiente, tvCambiarFoto;
     BaseDatos bdLocal;
     Usuarios usuarios;
-    public FragmentoPerfil() {
-    }
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             ViewGroup container, Bundle savedInstanceState) {
+        View v = inflater.inflate(R.layout.fragment_registro_perfil, container, false);
 
-    private TextView nombre, correo, tvusuario, direccion, telefono;
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-       View v = inflater.inflate(R.layout.fragmento_perfil, container, false);
-
-        nombre = v.findViewById(R.id.texto_nombre);
-        correo = v.findViewById(R.id.texto_email);
-        tvusuario = v.findViewById(R.id.texto_usuario);
-        direccion = v.findViewById(R.id.tv_direccion_usuario);
-        telefono = v.findViewById(R.id.texto_telefono);
-        imgFoto = v.findViewById(R.id.ic_cambiar_imagen);
-        imgperfil = v.findViewById(R.id.img_perfil);
-        usuarios = new Usuarios();
-        verdatosUsuario();
-
-        if (usuarios != null) {
-
-            nombre.setText(usuarios.getNombre().toString());
-            correo.setText(usuarios.getCorreo().toString().toLowerCase());
-            tvusuario.setText(usuarios.getUser().toString().toLowerCase());
-            direccion.setText(usuarios.getDireccion().toString().toLowerCase());
-            telefono.setText(usuarios.getTelefono().toString().toLowerCase());
-        }
-        imgFoto.setOnClickListener(new View.OnClickListener() {
+        imgFoto = v.findViewById(R.id.img_registro_user);
+        edtNombreCliente = v.findViewById(R.id.edt_nombre_usuario);
+        edtEmailCliente = v.findViewById(R.id.edt_correo);
+        edtUsername = v.findViewById(R.id.edt_username);
+        tvCambiarFoto = v.findViewById(R.id.tv_cambiar_foto);
+        tvCambiarFoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                tomarFoto();
+                mostrarDialogOpciones();
             }
         });
 
 
+     if(solicitaPermisosVersionesSuperiores()){
+       tvCambiarFoto.setEnabled(true);
+    }else{
+        tvCambiarFoto.setEnabled(false);
+    }
+     btnSigiente = v.findViewById(R.id.btn_siguiente);
+
+
+
         return v;
+}
+
+
+public  void pasarDatos() {
+    final String usuarioNombre = edtNombreCliente.getText().toString().trim();
+    final String usuarioEmail = edtEmailCliente.getText().toString().trim();
+    final String usuarioUser = edtUsername.getText().toString().trim();
+    String imagen=convertirImgString(bitmap);
+
+    if (TextUtils.isEmpty(usuarioNombre)) {
+        Toast.makeText(getContext(), "Algo salió mal. Verifique sus valores de entrada", Toast.LENGTH_LONG).show();
     }
+    else {
 
-    private void verdatosUsuario() {
-        bdLocal = new BaseDatos(getContext());
-        SQLiteDatabase db = bdLocal.getWritableDatabase();
+        Usuarios usuarios = new Usuarios(usuarioNombre, usuarioEmail, usuarioUser, imagen);
+        Intent pasardatos = new Intent();
+        pasardatos.putExtra("usuario", String.valueOf(usuarios));
 
-        Cursor cursor;
-        cursor = db.rawQuery("select * from Usuario", null);
-        if (cursor.moveToFirst()) {
+        startActivity(pasardatos);
 
-            usuarios = new Usuarios();
-            usuarios.setId_usuario(cursor.getInt(0));
-            //usuarios.setId_R(cursor.getInt(1));
-            usuarios.setNombre(cursor.getString(1));
-            usuarios.setDireccion(cursor.getString(3));
-            usuarios.setCorreo(cursor.getString(4));
-            usuarios.setTelefono(cursor.getString(5));
-            usuarios.setUser(cursor.getString(6));
-            usuarios.setPassword(cursor.getString(7));
-
-
-        }
     }
-
-    public void tomarFoto() {
-        mostrarDialogOpciones();
-    }
+}
 
     private void mostrarDialogOpciones() {
-
         final CharSequence[] opciones={"Tomar Foto","Elegir de Galeria","Cancelar"};
         final AlertDialog.Builder builder=new AlertDialog.Builder(getContext());
         builder.setTitle("Elige una Opción");
@@ -139,10 +123,10 @@ public class FragmentoPerfil extends Fragment {
                     abriCamara();
                 }else{
                     if (opciones[i].equals("Elegir de Galeria")){
-                        @SuppressLint("IntentReset") Intent intent=new Intent(Intent.ACTION_PICK,
+                        Intent intent=new Intent(Intent.ACTION_PICK,
                                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                         intent.setType("image/");
-                        startActivityForResult(Intent.createChooser(intent,"Seleccione"),COD_SELECCIONA);
+                        startActivityForResult(intent.createChooser(intent,"Seleccione"),COD_SELECCIONA);
                     }else{
                         dialogInterface.dismiss();
                     }
@@ -164,7 +148,7 @@ public class FragmentoPerfil extends Fragment {
             Long consecutivo= System.currentTimeMillis()/1000;
             String nombre=consecutivo.toString()+".jpg";
 
-            path=Environment.getExternalStorageDirectory()+File.separator+DIRECTORIO_IMAGEN
+            path= Environment.getExternalStorageDirectory()+File.separator+DIRECTORIO_IMAGEN
                     +File.separator+nombre;//indicamos la ruta de almacenamiento
 
             fileImagen=new File(path);
@@ -173,10 +157,10 @@ public class FragmentoPerfil extends Fragment {
             intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(fileImagen));
 
             ////
-            if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.N)
+            if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.N)
             {
                 String authorities=getContext().getPackageName()+".provider";
-                Uri imageUri= FileProvider.getUriForFile(requireContext(),authorities,fileImagen);
+                Uri imageUri= FileProvider.getUriForFile(getContext(),authorities,fileImagen);
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
             }else
             {
@@ -222,7 +206,7 @@ public class FragmentoPerfil extends Fragment {
 
                 break;
         }
-        bitmap=redimensionarImagen(bitmap,(R.dimen.avatar_size),(R.dimen.avatar_size));
+        bitmap=redimensionarImagen(bitmap,400,600);
     }
 
     private Bitmap redimensionarImagen(Bitmap bitmap, float anchoNuevo, float altoNuevo) {
@@ -276,7 +260,7 @@ public class FragmentoPerfil extends Fragment {
         if (requestCode==MIS_PERMISOS){
             if(grantResults.length==2 && grantResults[0]==PackageManager.PERMISSION_GRANTED && grantResults[1]==PackageManager.PERMISSION_GRANTED){//el dos representa los 2 permisos
                 Toast.makeText(getContext(),"Permisos aceptados",Toast.LENGTH_SHORT);
-                // btnFoto.setEnabled(true);
+                tvCambiarFoto.setEnabled(true);
             }
         }else{
             solicitarPermisosManual();
@@ -289,18 +273,12 @@ public class FragmentoPerfil extends Fragment {
         final AlertDialog.Builder alertOpciones=new AlertDialog.Builder(getContext());//estamos en fragment
         alertOpciones.setTitle("¿Desea configurar los permisos de forma manual?");
         alertOpciones.setItems(opciones, new DialogInterface.OnClickListener() {
-            private String packageName;
-
-            public String getPackageName() {
-                return packageName;
-            }
-
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 if (opciones[i].equals("si")){
                     Intent intent=new Intent();
                     intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-                    Uri uri=Uri.fromParts("package",this.getPackageName(),null);
+                    Uri uri=Uri.fromParts("package",getContext().getPackageName(),null);
                     intent.setData(uri);
                     startActivity(intent);
                 }else{
@@ -319,7 +297,6 @@ public class FragmentoPerfil extends Fragment {
         dialogo.setMessage("Debe aceptar los permisos para el correcto funcionamiento de la App");
 
         dialogo.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 requestPermissions(new String[]{WRITE_EXTERNAL_STORAGE,CAMERA},100);
@@ -328,4 +305,22 @@ public class FragmentoPerfil extends Fragment {
         dialogo.show();
     }
 
+    ///////////////
+
+  //  String imagen=convertirImgString(bitmap);
+
+
+
+
+    private String convertirImgString(Bitmap bitmap) {
+
+        ByteArrayOutputStream array=new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG,100,array);
+        byte[] imagenByte=array.toByteArray();
+        String imagenString= Base64.encodeToString(imagenByte,Base64.DEFAULT);
+
+        return imagenString;
+    }
+
 }
+

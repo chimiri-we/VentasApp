@@ -1,16 +1,33 @@
 package com.example.ventasapp.ui;
 
+import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.media.MediaScannerConnection;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.provider.Settings;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.FileProvider;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
@@ -18,18 +35,18 @@ import androidx.fragment.app.FragmentManager;
 
 import com.example.ventasapp.R;
 import com.example.ventasapp.datos.BaseDatos;
-import com.example.ventasapp.detalles.ClienteDetalleActivity;
 import com.example.ventasapp.entidades.Usuarios;
 import com.example.ventasapp.fragmentos.FragmentoCategorias;
 import com.example.ventasapp.fragmentos.FragmentoCuenta;
 import com.example.ventasapp.fragmentos.FragmentoInicio;
 import com.example.ventasapp.login.ContentLogin;
-import com.example.ventasapp.login.LoginActivity;
-import com.example.ventasapp.login.LoginFormState;
-import com.example.ventasapp.login.LoginRepository;
-import com.example.ventasapp.login.LoginViewModelFactory;
-import com.example.ventasapp.login.Result;
 import com.google.android.material.navigation.NavigationView;
+
+import java.io.File;
+import java.io.IOException;
+
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+import static android.Manifest.permission_group.CAMERA;
 
 
 public class ActividadPrincipal extends AppCompatActivity {
@@ -49,12 +66,8 @@ public class ActividadPrincipal extends AppCompatActivity {
             Toast.makeText(this, "el usuario es  "+usuario.getNombre(), Toast.LENGTH_SHORT).show();
 
             nombreUsuario = usuario.getNombre();
-           // Toast.makeText(this, "no te has registrado ", Toast.LENGTH_SHORT).show();
-          //  startActivity(new Intent(this, ContentLogin.class));
-        //   finish();
-         //   return;
+
         }else {
-          // Toast.makeText(this, "el usuario es  "+usuario.getNombre(), Toast.LENGTH_SHORT).show();
             startActivity(new Intent(this, ContentLogin.class));
                finish();
                return;
@@ -70,9 +83,11 @@ public class ActividadPrincipal extends AppCompatActivity {
             ab.setDisplayHomeAsUpEnabled(true);
         }
 
-       // agregarToolbar();
-        TextView tvNombre = findViewById(R.id.tv_nombre_user);
-      //  tvNombre.setText(String.valueOf(nombreUsuario));
+
+
+      //  TextView tvNombre = findViewById(R.id.tv_nombre_user);
+       // String nombre = getIntent().getStringExtra("nombre");
+       // tvNombre.setText(nombre);
 
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -85,17 +100,7 @@ public class ActividadPrincipal extends AppCompatActivity {
         }
     }
 
-   /* private void agregarToolbar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-      //  setSupportActionBar(toolbar);
-        final ActionBar ab = getSupportActionBar();
-        if (ab != null) {
-            // Poner ícono del drawer toggle
-            ab.setHomeAsUpIndicator(R.drawable.ic_lista);
-            ab.setDisplayHomeAsUpEnabled(true);
-        }
 
-    }*/
 
     private void prepararDrawer(NavigationView navigationView) {
         navigationView.setNavigationItemSelectedListener(
@@ -165,7 +170,6 @@ public class ActividadPrincipal extends AppCompatActivity {
         startActivity(intent);
     }
 */
-    public void verdetalle(View view) {
+
 
     }
-}

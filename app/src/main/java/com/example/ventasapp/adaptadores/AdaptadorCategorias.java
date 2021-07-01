@@ -6,7 +6,9 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.MultiAutoCompleteTextView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,8 +21,11 @@ import com.example.ventasapp.R;
 import com.example.ventasapp.detalles.ClienteDetalleActivity;
 import com.example.ventasapp.modelo.Comida;
 import com.example.ventasapp.ui.CarritoActivity;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.List;
+
+import static com.example.ventasapp.R.drawable.ic_carrito;
 
 /**
  * Adaptador para comidas usadas en la sección "Categorías"
@@ -31,6 +36,7 @@ public class AdaptadorCategorias
 
     private final List<Comida> items;
 Context context;
+    String piezas;
     public static class ViewHolder extends RecyclerView.ViewHolder {
         // Campos respectivos de un item
         public TextView nombre;
@@ -87,17 +93,47 @@ Context context;
     }
 
     private void nuevaacticyty(Comida item) {
-        LayoutInflater inflater = LayoutInflater.from(context);
 
+        LayoutInflater inflater = LayoutInflater.from(context);
         View subView = inflater.inflate(R.layout.dialogo, null);
+        int cantPro = 1;
+        ImageView menosUno = subView.findViewById(R.id.btn_menosuno);
+        ImageView masUno = subView.findViewById(R.id.btn_masuno);
+        TextView mensaje = subView.findViewById(R.id.titulo_producto);
+        EditText cantidad = subView.findViewById(R.id.tv_cantidad_compra);
+
+        mensaje.setText(item.getNombre());
+        cantidad.setText(String.valueOf(cantPro));
+
+            masUno.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    int suma = Integer.parseInt(cantidad.getText().toString());
+                    int resultado = suma+1;
+                    cantidad.setText(String.valueOf(resultado));
+                }
+            });
+
+        menosUno.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+               int resta = Integer.parseInt(cantidad.getText().toString());
+                int residuo =  resta-1;
+                cantidad.setText(String.valueOf(residuo));
+
+            }
+        });
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
-        builder.setTitle("Actualiza tu base de Datos");
-        builder.setMessage("agregar "+item.getNombre());
+        builder.setTitle("Agrega al Carrito");
+        builder.setMessage("Proceso de compra");
         builder.setView(subView);
         builder.create();
-        builder.setPositiveButton("Agregar", (dialog, which) -> {
 
+        builder.setPositiveButton("AGREGAR", (dialog, which) -> {
+            piezas = cantidad.getText().toString();
             detalle(item);
             // finish();
             //  startActivity(getContext());
@@ -111,7 +147,8 @@ Context context;
         miIntent.putExtra("nombre", item.getNombre());
         miIntent.putExtra("imagen", item.getIdDrawable());
         miIntent.putExtra("precio", item.getPrecio());
-        Toast.makeText(context, " "+Integer.parseInt(String.valueOf(item.getIdDrawable())), Toast.LENGTH_SHORT).show();
+        miIntent.putExtra("cantidad", piezas);
+        Toast.makeText(context, " "+piezas, Toast.LENGTH_SHORT).show();
         context.startActivity(miIntent);
     }
 

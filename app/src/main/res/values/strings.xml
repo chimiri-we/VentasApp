@@ -50,4 +50,5 @@
     <string name="titulo_tab_pedidos">PEDIDOS</string>
     <string name="texto_cambiar_direccion">Actualiza tu direccion</string>
     <string name="etiqueta_direccion">Direccion</string>
+    <string name="cantidad">TextView</string>
 </resources>

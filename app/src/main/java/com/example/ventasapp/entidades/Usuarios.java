@@ -37,6 +37,13 @@ public class Usuarios {
 
     }
 
+    public Usuarios(String usuarioNombre, String usuarioEmail, String usuarioUser, String imagen) {
+        this.nombre = usuarioNombre;
+        this.correo = usuarioEmail;
+        this.user = usuarioUser;
+        this.urlImagen = imagen;
+    }
+
     public int getId_usuario() {
         return id_usuario;
     }
