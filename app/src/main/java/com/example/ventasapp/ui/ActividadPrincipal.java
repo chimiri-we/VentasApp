@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
@@ -41,9 +42,8 @@ public class ActividadPrincipal extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         bdLocal = new BaseDatos(this);
-
-
        usuario = bdLocal.validarUsuario();
         if (usuario != null) {
             Toast.makeText(this, "el usuario es  "+usuario.getNombre(), Toast.LENGTH_SHORT).show();
@@ -71,6 +71,9 @@ public class ActividadPrincipal extends AppCompatActivity {
         }
 
        // agregarToolbar();
+        TextView tvNombre = findViewById(R.id.tv_nombre_user);
+      //  tvNombre.setText(String.valueOf(nombreUsuario));
+
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -157,8 +160,12 @@ public class ActividadPrincipal extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void activyti(View view) {
+  /*  public void activyti(View view) {
         Intent intent = new Intent(this, ClienteDetalleActivity.class);
         startActivity(intent);
+    }
+*/
+    public void verdetalle(View view) {
+
     }
 }

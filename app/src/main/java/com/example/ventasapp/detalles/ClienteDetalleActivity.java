@@ -23,7 +23,8 @@ public class ClienteDetalleActivity extends AppCompatActivity {
     ImageView imageView;
 
  String id;
- int id_producto;
+ String nombre;
+ String id_producto;
  BaseDatos bdLocal;
  Producto producto;
     CollapsingToolbarLayout collapser;
@@ -37,6 +38,7 @@ public class ClienteDetalleActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
       collapser = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
         id = getIntent().getStringExtra("id");
+
         if (id != null){
             bdLocal = new BaseDatos(ClienteDetalleActivity.this);
         producto = bdLocal.verProducto(Integer.parseInt(id));
@@ -52,10 +54,13 @@ public class ClienteDetalleActivity extends AppCompatActivity {
         }
 
         }else {
-            Toast.makeText(this, "no hay id", Toast.LENGTH_SHORT).show();
+        //    Toast.makeText(this, "no hay id", Toast.LENGTH_SHORT).show();
         }
-        String extras = getIntent().getStringExtra("nombre");
 
+
+
+        String extras = getIntent().getStringExtra("nombre");
+        Toast.makeText(this, "el ide es"+extras, Toast.LENGTH_SHORT).show();
 
          // Cambiar título
 
