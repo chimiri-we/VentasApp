@@ -37,6 +37,7 @@ import com.example.ventasapp.R;
 import com.example.ventasapp.datos.BaseDatos;
 import com.example.ventasapp.entidades.Usuarios;
 import com.example.ventasapp.fragmentos.FragmentoCategorias;
+import com.example.ventasapp.fragmentos.FragmentoCompras;
 import com.example.ventasapp.fragmentos.FragmentoCuenta;
 import com.example.ventasapp.fragmentos.FragmentoInicio;
 import com.example.ventasapp.login.ContentLogin;
@@ -122,7 +123,7 @@ public class ActividadPrincipal extends AppCompatActivity {
 
         switch (itemDrawer.getItemId()) {
             case R.id.item_inicio:
-                fragmentoGenerico = new FragmentoInicio();
+                fragmentoGenerico = new FragmentoCompras();
                 break;
             case R.id.item_cuenta:
                 fragmentoGenerico = new FragmentoCuenta();
