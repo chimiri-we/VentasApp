@@ -10,6 +10,7 @@ import com.google.android.material.snackbar.Snackbar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -24,6 +25,7 @@ public class CarritoActivity extends AppCompatActivity {
     private AppBarConfiguration appBarConfiguration;
     private ActivityCarritoBinding binding;
 
+    int idProducto;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +34,8 @@ public class CarritoActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.toolbar);
+       // idProducto = Integer.parseInt(getIntent().getStringExtra("id_producto"));
+       // Toast.makeText(this, "el id es "+idProducto, Toast.LENGTH_SHORT).show();
 
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_carrito);
         appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();

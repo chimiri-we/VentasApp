@@ -7,18 +7,22 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.example.ventasapp.R;
+import com.example.ventasapp.entidades.DetalleVenta;
 import com.example.ventasapp.entidades.Producto;
 import com.example.ventasapp.entidades.Usuarios;
+import com.example.ventasapp.entidades.Venta;
 
 import java.util.ArrayList;
 
 public class BaseDatos extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 10;
+    private static final int DATABASE_VERSION = 12;
     private static final String DATABASE_NAME = "Ventas.db";
 
     private static final String TABLE_USUARIO = "Usuario";
     private static final String TABLE_PRODUCTO = "Producto";
+    private static final String TABLE_DETALLE_VENTA = "DetalleVenta";
+    private static final String TABLE_VENTA = "Venta";
 
 
     public BaseDatos(Context context) {
@@ -47,6 +51,29 @@ public class BaseDatos extends SQLiteOpenHelper {
                 "urlImagen TEXT,"+
                 "precio FLOAT)";
         db.execSQL(dbProducto);
+
+        String dbVenta="create table Venta("+
+                "id_venta INTEGER PRIMARY KEY AUTOINCREMENT,"+
+                "id_usuario INTEGER,"+
+                "fecha TEXT,"+
+                "total_venta integer,"+
+                "id_empleado INTEGER,"+
+                "FOREIGN KEY(id_usuario) REFERENCES Usuario(id_usuarioi))";
+
+        db.execSQL(dbVenta);
+
+        String dbDetalleVenta="create table DetalleVenta("+
+                "id_detalle INTEGER PRIMARY KEY AUTOINCREMENT,"+
+                "id_venta INTEGER,"+
+                "id_producto integer,"+
+                "nombre_producto TEXT,"+
+                "precio_producto TEXT,"+
+                "cantidad integer,"+
+                "total integer,"+
+
+                "FOREIGN KEY(id_producto) REFERENCES Producto(id_producto),"+
+                "FOREIGN KEY(id_venta) REFERENCES Venta(id_venta))";
+        db.execSQL(dbDetalleVenta);
 
         loadDummyData(db);
     }
@@ -120,7 +147,22 @@ public class BaseDatos extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_USUARIO);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_PRODUCTO);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_DETALLE_VENTA);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_VENTA);
         onCreate(db);
+    }
+    public void agregardetalleVenta(DetalleVenta detalleVenta) {
+
+        ContentValues values = new ContentValues();
+        values.put("nombre_producto", detalleVenta.getNombre_producto());
+        values.put("precio_producto", detalleVenta.getPrecio());
+        values.put("cantidad", detalleVenta.getCantidad());
+        values.put("id_venta", detalleVenta.getId_venta());
+        values.put("id_producto", detalleVenta.getId_producto());
+
+        values.put("total", detalleVenta.getTotal());
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.insert(TABLE_DETALLE_VENTA, null, values);
     }
 
     public void registrarUser(Usuarios usuario) {
@@ -233,5 +275,20 @@ Cursor cursor;
         }
         cursor.close();
         return usuarios;
+    }
+
+    public Venta ultimaVenta() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Venta venta = null;
+        Cursor cursor;
+
+        cursor = db.rawQuery("select MAX(id_venta) AS id_venta from Venta", null);
+        if (cursor.moveToFirst()) {
+
+            venta = new Venta();
+            venta.setId_venta(cursor.getInt(0));
+        }
+        cursor.close();
+        return venta;
     }
 }

@@ -24,6 +24,13 @@
             android:gravity="center"
             android:text="nombre de producto" />
 
+        <TextView
+            android:id="@+id/precio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="precio" />
+
         <androidx.cardview.widget.CardView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

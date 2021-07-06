@@ -1,5 +1,6 @@
 package com.example.ventasapp.fragmentos;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -38,6 +40,8 @@ public class FragmentoCompras extends Fragment implements Response.Listener<JSON
 
     ProgressDialog dialog;
     String ID_PRODUCTO;
+    private ImageView img;
+    private Button btnRecargar;
 
     // RequestQueue request;
     JsonObjectRequest jsonObjectRequest;
@@ -48,26 +52,23 @@ public class FragmentoCompras extends Fragment implements Response.Listener<JSON
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragmento_compras, container, false);
-        ImageView img = v.findViewById(R.id.miniatura_producto);
-
         listaUsuarios=new ArrayList<>();
-
         recyclerUsuarios = (RecyclerView) v.findViewById(R.id.reciclerProductos);
         recyclerUsuarios.setLayoutManager(new LinearLayoutManager(this.getContext()));
         recyclerUsuarios.setHasFixedSize(true);
-
-
-
+        cargarWebService();
+       img = v.findViewById(R.id.img_sinInternet);
+       img.setVisibility(View.GONE);
 
         // request= Volley.newRequestQueue(getContext());
 
-        cargarWebService();
+
         return v;
     }
 
     private void cargarWebService() {
         dialog=new ProgressDialog(getContext());
-        dialog.setMessage("Consultando Imagenes");
+        dialog.setMessage("Cargando Productos");
         dialog.show();
 
 
@@ -100,7 +101,7 @@ public class FragmentoCompras extends Fragment implements Response.Listener<JSON
           //  ID_PRODUCTO = String.valueOf(usuario.getId_producto());
              }
             dialog.hide();
-            AdapterCompras adapter=new AdapterCompras(listaUsuarios);
+            AdapterCompras adapter=new AdapterCompras(getContext(), listaUsuarios);
             recyclerUsuarios.setAdapter(adapter);
 
         } catch (JSONException e) {
@@ -117,6 +118,11 @@ public class FragmentoCompras extends Fragment implements Response.Listener<JSON
         System.out.println();
         dialog.hide();
         Log.d("ERROR: ", error.toString());
+        mostrarImagenSinInternet();
+    }
+
+    private void mostrarImagenSinInternet() {
+        img.setVisibility(View.VISIBLE);
     }
 
     public void verdetalle(View view) {
