@@ -20,24 +20,6 @@ public class Consultas  extends BaseDatos {
 
     }
 
-    public Venta ultimaventa() {
-        bdLocal = new BaseDatos(context.getApplicationContext());
-        SQLiteDatabase db = bdLocal.getWritableDatabase();
-
-        Venta venta=null;
-        Cursor cursor;
-
-        cursor = db.rawQuery("select MAX(id_venta) AS id_venta from Venta", null);
-        if (cursor.moveToFirst()) {
-
-            venta = new Venta();
-            venta.setId_venta(cursor.getInt(0));
-        }
-        cursor.close();
-
-
-        return venta;
-    }
 
     public void agregardetalleVenta(DetalleVenta detalleVenta) {
         bdLocal = new BaseDatos(context.getApplicationContext());

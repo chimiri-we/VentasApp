@@ -189,7 +189,7 @@
                         android:src="@android:drawable/ic_partial_secure" />
 
                     <TextView
-                        android:id="@+id/texto_password"
+                        android:id="@+id/detalle_nombre_producto"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"

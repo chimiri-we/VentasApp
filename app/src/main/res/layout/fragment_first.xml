@@ -13,16 +13,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:orientation="vertical"
             android:padding="@dimen/espacio_norma_1">
 
             <TextView
-                android:id="@+id/titulo_contrasena2"
-                android:layout_width="match_parent"
+                android:id="@+id/titulo_detalle_venta"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingTop="@dimen/espacio_norma_1"
 
@@ -30,13 +29,25 @@
                 android:text="Producto Agregado"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
 
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_datos_usuario"
+                android:layout_width="match_parent"
+
+                android:layout_height="match_parent"
+                android:layout_below="@id/titulo_detalle_venta"
                 android:layout_marginTop="10dp"
                 android:background="#dee4ee"
                 card_view:cardCornerRadius="10dp">
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center"
+                    android:text="DATOS COMPRA" />
 
                 <RelativeLayout
                     android:layout_width="wrap_content"
@@ -45,33 +56,21 @@
                     android:padding="@dimen/espacio_norma_1">
 
                     <TextView
-                        android:id="@+id/textView2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/texto_password"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentLeft="true"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginTop="30dp"
-                        android:text="precio $" />
-
-                    <TextView
-                        android:id="@+id/textView4"
+                        android:id="@+id/direccion_detallle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
-                        android:layout_marginStart="94dp"
-                        android:layout_marginLeft="94dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginLeft="20dp"
                         android:layout_marginBottom="30dp"
-                        android:layout_toEndOf="@+id/textView2"
-                        android:layout_toRightOf="@+id/textView2"
-                        android:text="cantidad" />
+                        android:layout_toEndOf="@+id/icono_password"
+                        android:layout_toRightOf="@+id/icono_password"
+                        android:text="Direccion" />
 
                     <ImageView
                         android:id="@+id/icono_password"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="@dimen/avatar_size"
+                        android:layout_height="@dimen/avatar_size"
                         android:layout_alignParentLeft="true"
                         android:layout_centerVertical="true"
                         android:layout_gravity="center"
@@ -79,41 +78,27 @@
                         android:src="@drawable/ic_categorias" />
 
                     <TextView
-                        android:id="@+id/texto_password"
+                        android:id="@+id/detalle_nombre_usuario"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_gravity="center_vertical"
                         android:layout_toRightOf="@+id/icono_password"
-                        android:text="nombre producto"
+                        android:text="nombre Usuario"
                         android:textAppearance="?android:attr/textAppearanceSmall" />
-
-                    <ImageView
-                        android:id="@+id/icono_indicador_derecho"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:src="@android:drawable/ic_menu_delete" />
 
                 </RelativeLayout>
 
             </androidx.cardview.widget.CardView>
 
-            <Button
-                android:id="@+id/button_first"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="PAGAR" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recicler_detalle_venta"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/card_datos_usuario"
+                android:layout_marginTop="5dp" />
 
-            <TextView
-                android:id="@+id/textview_first"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="finalizar compra" />
-
-        </LinearLayout>
+        </RelativeLayout>
     </ScrollView>
 
 </LinearLayout>

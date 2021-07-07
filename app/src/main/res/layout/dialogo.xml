@@ -13,7 +13,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical">
 
@@ -34,11 +34,11 @@
         <androidx.cardview.widget.CardView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp">
+            android:layout_marginBottom="10dp"
+            card_view:cardCornerRadius="15dp">
 
             <LinearLayout
-                android:layout_width="150dp"
+                android:layout_width="170dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
                 android:gravity="center"
@@ -47,7 +47,7 @@
                 <ImageView
                     android:id="@+id/btn_menosuno"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     card_view:srcCompat="@drawable/ic_menos_uno"
                     tools:ignore="VectorDrawableCompat" />
@@ -63,7 +63,7 @@
                 <ImageView
                     android:id="@+id/btn_masuno"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     card_view:srcCompat="@drawable/ic_suma_uno"
                     tools:ignore="VectorDrawableCompat" />

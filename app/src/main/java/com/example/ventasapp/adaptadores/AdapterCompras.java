@@ -2,6 +2,7 @@ package com.example.ventasapp.adaptadores;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,22 +21,31 @@ import com.example.ventasapp.datos.Consultas;
 import com.example.ventasapp.detalles.ClienteDetalleActivity;
 import com.example.ventasapp.entidades.DetalleVenta;
 import com.example.ventasapp.entidades.Producto;
+import com.example.ventasapp.entidades.Usuarios;
 import com.example.ventasapp.entidades.Venta;
-import com.example.ventasapp.ui.CarritoActivity;
+import com.example.ventasapp.ui.CarritoComprasActivity;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Objects;
 import java.util.List;
+
 
 public class AdapterCompras  extends RecyclerView.Adapter<AdapterCompras.ComprasHolder> {
     List<Producto> listaUsuarios;
+
+    private static final String TABLE_DETALLE_VENTA = "DetalleVenta";
     int id_producto;
     int precio;
     String nombre;
     Context context;
     String piezas;
-    BaseDatos bdLocal;
-     Consultas consultas;
-    int id_venta = 0;
-    int idVenta;
+    String formattedDate;
+    int status = 0;
+    int id_venta;
     public class ComprasHolder extends RecyclerView.ViewHolder{
 
         public TextView nombre;
@@ -147,8 +157,25 @@ public class AdapterCompras  extends RecyclerView.Adapter<AdapterCompras.Compras
         builder.create();
 
         builder.setPositiveButton("AGREGAR", (dialog, which) -> {
+           /* Date fechaActual= Calendar.getInstance().getTime();
+            SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+            formattedDate = df.format(fechaActual);
+            Usuarios usuarios;
+            BaseDatos bdLocal = new BaseDatos(context.getApplicationContext());
+            usuarios = bdLocal.verdatosUsuario();
+            if (usuarios != null){
+                int id_usuario = usuarios.getId_usuario();
+                Venta nuevaventa = new Venta(id_usuario, formattedDate, status);
+                bdLocal.generarVenta(nuevaventa);
 
-            piezas = cantidad.getText().toString();
+                id_venta = nuevaventa.getId_venta();
+
+                generarDetalleVenta(cantidad);
+            }
+
+*/
+
+           piezas = cantidad.getText().toString();
             String costo = String.valueOf(precio);
 
             int dato1 = Integer.parseInt(String.valueOf(precio));
@@ -156,18 +183,52 @@ public class AdapterCompras  extends RecyclerView.Adapter<AdapterCompras.Compras
             int suma = dato1 * dato2;
             String resultado = String.valueOf(suma);
 
-            BaseDatos bdLocal = new BaseDatos(context.getApplicationContext());
-            DetalleVenta detalleVenta = new DetalleVenta(id_producto, nombre, costo, piezas, resultado);
-            bdLocal.agregardetalleVenta(detalleVenta);
 
-            Intent mintent = new Intent(context, CarritoActivity.class);
-            mintent.putExtra("id_producto", id_producto);
-            Toast.makeText(context, "envio el id "+id_producto, Toast.LENGTH_SHORT).show();
+            BaseDatos bdLocal = new BaseDatos(context.getApplicationContext());
+            Venta idVen = bdLocal.ultimaVenta();
+
+            int idventa = 1+(idVen.getId_venta());
+            DetalleVenta detalleVenta = new DetalleVenta(idventa, id_producto, nombre, costo, piezas, resultado);
+           bdLocal.agregardetalleVenta(detalleVenta);
+
+            Toast.makeText(context, "el id de la venta es el id "+idventa, Toast.LENGTH_LONG).show();
+
+            Intent mintent = new Intent(context, CarritoComprasActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putInt("id_producto", id_producto);
+
+            mintent.putExtras(bundle);
+           // Toast.makeText(context, "envio el id "+id_producto, Toast.LENGTH_SHORT).show();
             context.startActivity(mintent);
 
 
         });
         builder.show();
+
+    }
+
+    private void generarDetalleVenta(EditText cantidad) {
+        piezas = cantidad.getText().toString();
+        String costo = String.valueOf(precio);
+
+        int dato1 = Integer.parseInt(String.valueOf(precio));
+        int dato2 = Integer.parseInt(cantidad.getText().toString());
+        int suma = dato1 * dato2;
+        String resultado = String.valueOf(suma);
+
+        BaseDatos bdLocal = new BaseDatos(context.getApplicationContext());
+        DetalleVenta detalleVenta = new DetalleVenta(id_venta, id_producto, nombre, costo, piezas, resultado);
+        bdLocal.agregardetalleVenta(detalleVenta);
+
+        // Toast.makeText(context, "envio el id "+id_detalle, Toast.LENGTH_LONG).show();
+
+        Intent mintent = new Intent(context, CarritoComprasActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putInt("id_venta", id_venta);
+
+        mintent.putExtras(bundle);
+        Toast.makeText(context, "envio el id de la venta "+id_venta, Toast.LENGTH_SHORT).show();
+        context.startActivity(mintent);
 
     }
 

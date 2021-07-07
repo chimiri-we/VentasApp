@@ -159,7 +159,7 @@ public class ActividadPrincipal extends AppCompatActivity {
                 drawerLayout.openDrawer(GravityCompat.START);
                 break;
             case R.id.action_carrito:
-                Intent carritoIntent = new Intent(this, CarritoActivity.class);
+                Intent carritoIntent = new Intent(this, CarritoComprasActivity.class);
                 startActivity(carritoIntent);
                 return true;
         }

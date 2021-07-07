@@ -61,13 +61,7 @@ public class DetalleVenta {
     }
 
 
-    public int getId() {
-        return id_detalle;
-    }
 
-    public void setId(int id) {
-        this.id_detalle = id;
-    }
 
     public int getId_producto() {
         return id_producto;

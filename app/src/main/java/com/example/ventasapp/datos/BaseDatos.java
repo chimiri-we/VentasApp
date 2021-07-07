@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 public class BaseDatos extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 12;
+    private static final int DATABASE_VERSION = 13;
     private static final String DATABASE_NAME = "Ventas.db";
 
     private static final String TABLE_USUARIO = "Usuario";
@@ -57,8 +57,8 @@ public class BaseDatos extends SQLiteOpenHelper {
                 "id_usuario INTEGER,"+
                 "fecha TEXT,"+
                 "total_venta integer,"+
-                "id_empleado INTEGER,"+
-                "FOREIGN KEY(id_usuario) REFERENCES Usuario(id_usuarioi))";
+                "status INTEGER,"+
+                "FOREIGN KEY(id_usuario) REFERENCES Usuario(id_usuario))";
 
         db.execSQL(dbVenta);
 
@@ -152,14 +152,12 @@ public class BaseDatos extends SQLiteOpenHelper {
         onCreate(db);
     }
     public void agregardetalleVenta(DetalleVenta detalleVenta) {
-
         ContentValues values = new ContentValues();
         values.put("nombre_producto", detalleVenta.getNombre_producto());
         values.put("precio_producto", detalleVenta.getPrecio());
         values.put("cantidad", detalleVenta.getCantidad());
         values.put("id_venta", detalleVenta.getId_venta());
         values.put("id_producto", detalleVenta.getId_producto());
-
         values.put("total", detalleVenta.getTotal());
         SQLiteDatabase db = this.getWritableDatabase();
         db.insert(TABLE_DETALLE_VENTA, null, values);
@@ -175,7 +173,6 @@ public class BaseDatos extends SQLiteOpenHelper {
         values.put("password", usuario.getPassword());
         values.put("url_imagen", usuario.getUrlImagen());
         values.put("correo", usuario.getCorreo());
-
         SQLiteDatabase db = this.getWritableDatabase();
         db.insert(TABLE_USUARIO, null, values);
     }
@@ -184,10 +181,8 @@ public class BaseDatos extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put("id_producto", producto.getId_producto());
         values.put("nombre_producto", producto.getNombre_producto());
-
         values.put("urlImagen", producto.getUrlImagen());
         values.put("precio", producto.getPrecio());
-
         SQLiteDatabase db = this.getWritableDatabase();
         db.insert(TABLE_PRODUCTO, null, values);
     }
@@ -277,6 +272,36 @@ Cursor cursor;
         return usuarios;
     }
 
+
+
+    public DetalleVenta consultarDetalleVenta(int idProducto) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        DetalleVenta dtventa=null;
+        Cursor cursor;
+
+        cursor = db.rawQuery("select * from  DetalleVenta WHERE id_producto = " + idProducto + "", null);
+        if (cursor.moveToFirst()) {
+            dtventa = new DetalleVenta();
+            dtventa.setId_detalle(cursor.getInt(0));
+            dtventa.setId_producto(cursor.getInt(2));
+            dtventa.setNombre_producto(cursor.getString(3));
+            dtventa.setPrecio(cursor.getString(4));
+            dtventa.setCantidad(cursor.getString(5));
+            dtventa.setTotal(cursor.getString(6));
+        }
+        cursor.close();
+        return dtventa;
+    }
+
+    public void generarVenta(Venta nuevaventa) {
+        ContentValues values = new ContentValues();
+        values.put("id_usuario", nuevaventa.getId_usuario());
+        values.put("fecha", nuevaventa.getFecha());
+        values.put("status", nuevaventa.getStatus());
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.insert(TABLE_VENTA, null, values);
+    }
+
     public Venta ultimaVenta() {
         SQLiteDatabase db = this.getWritableDatabase();
         Venta venta = null;
@@ -290,5 +315,45 @@ Cursor cursor;
         }
         cursor.close();
         return venta;
+    }
+
+    public ArrayList<DetalleVenta> listDetalleVenta(int idventa) {
+
+        String sql = "select * from  DetalleVenta WHERE id_venta = " + idventa + "";
+        SQLiteDatabase db = this.getReadableDatabase();
+        ArrayList<DetalleVenta> storeContacts = new ArrayList<>();
+        Cursor cursor = db.rawQuery(sql, null);
+        if (cursor.moveToFirst()) {
+            do {
+                int id_detalle = Integer.parseInt(cursor.getString(0));
+                int id_venta = Integer.parseInt(cursor.getString(1));
+                int id_producto = Integer.parseInt(cursor.getString(2));
+
+                String nombre_producto = cursor.getString(3);
+                String precio = cursor.getString(4);
+                String cantidad = cursor.getString(5);
+                String total = cursor.getString(6);
+
+                storeContacts.add(new DetalleVenta(id_producto, id_venta, nombre_producto, precio, cantidad, total));
+            }
+            while (cursor.moveToNext());
+        }
+        cursor.close();
+        return storeContacts;
+    }
+
+    public DetalleVenta sumarItems(int id_venta) {
+              SQLiteDatabase db = this.getWritableDatabase();
+        DetalleVenta dtVenta = null;
+        Cursor cursor;
+        cursor=db.rawQuery( "select SUM(total) from DetalleVenta WHERE id_venta = " + id_venta +"", null);
+        if (cursor.moveToNext()) {
+            dtVenta = new DetalleVenta();
+            dtVenta.setTotal(String.valueOf(cursor.getInt(0)));
+
+        }
+        cursor.close();
+        return  dtVenta;
+
     }
 }

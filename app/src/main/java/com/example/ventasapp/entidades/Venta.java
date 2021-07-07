@@ -2,52 +2,50 @@ package com.example.ventasapp.entidades;
 
 public class Venta {
     private int id_venta;
-    private int id_cliente;
-
+    private int id_usuario;
     private String fecha;
-    private int tota_venta;
+    private int total_venta;
+    private int status;
 
-    public Venta(int id_venta, int id_cliente, String nombre_cliente, String fecha, String detalle_venta, int tv) {
+    public Venta(int id_venta, int id_usuario, String fecha, int total_venta, int status) {
         this.id_venta = id_venta;
-        this.id_cliente = id_cliente;
-
+        this.id_usuario = id_usuario;
         this.fecha = fecha;
-        this.tota_venta = tv;
+        this.total_venta = total_venta;
+        this.status = status;
+    }
+    public Venta(){
+
     }
 
-    public Venta() {
-
-    }
-
-    public Venta(int id, String nombre, String formattedDate, int totaVenta) {
-        this.id_cliente = id;
-
+    public Venta(int id_usuario, String formattedDate, int status) {
+        this.id_usuario = id_usuario;
         this.fecha = formattedDate;
-        this.tota_venta = totaVenta;
+        this.status = status;
     }
 
-
-    public Venta(int idVenta, int idCliente, String nombreClient, String fechaVenta, int totalVenta) {
-        this.id_venta = idVenta;
-
-        this.id_cliente = idCliente;
-
-        this.fecha = fechaVenta;
-        this.tota_venta = totalVenta;
-    }
-
-    public Venta(String nombreCli, int id, String formattedDate, int totalV) {
-
-        this.id_cliente = id;
+    public Venta(int id_usuario, String formattedDate, int totalV, int status) {
+        this.id_usuario = id_usuario;
         this.fecha = formattedDate;
-        this.tota_venta = totalV;
-
-
-    }
-    public void setId_cliente(int id_cliente) {
-        this.id_cliente = id_cliente;
+        this.total_venta = totalV;
+        this.status = status;
     }
 
+    public int getId_venta() {
+        return id_venta;
+    }
+
+    public void setId_venta(int id_venta) {
+        this.id_venta = id_venta;
+    }
+
+    public int getId_usuario() {
+        return id_usuario;
+    }
+
+    public void setId_usuario(int id_usuario) {
+        this.id_usuario = id_usuario;
+    }
 
     public String getFecha() {
         return fecha;
@@ -57,27 +55,19 @@ public class Venta {
         this.fecha = fecha;
     }
 
-
-
-
-
-    public int getId_cliente() {
-        return id_cliente;
+    public int getTotal_venta() {
+        return total_venta;
     }
 
-    public int getTota_venta() {
-        return tota_venta;
+    public void setTotal_venta(int total_venta) {
+        this.total_venta = total_venta;
     }
 
-    public void setTota_venta(int tota_venta) {
-        this.tota_venta = tota_venta;
+    public int getStatus() {
+        return status;
     }
 
-    public int getId_venta() {
-        return id_venta;
-    }
-
-    public void setId_venta(int id_venta) {
-        this.id_venta = id_venta;
+    public void setStatus(int status) {
+        this.status = status;
     }
 }

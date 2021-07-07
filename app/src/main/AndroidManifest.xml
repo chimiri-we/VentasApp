@@ -15,12 +15,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.VentasApp.NoActionBar">
         <activity
-            android:name=".ui.CarritoActivity"
-            android:label="@string/title_activity_carrito"
-            android:theme="@style/Theme.VentasApp.NoActionBar.NoActionBar">
-
-        </activity>
-        <activity
             android:name=".ui.ActividadPrincipal"
             android:label="@string/app_name"
             android:theme="@style/Theme.ConNavigationDrawer">
@@ -40,6 +34,10 @@
         </activity>
         <activity
             android:name=".detalles.ClienteDetalleActivity"
+            android:label="@string/titulo_actividad_configuracion"
+            android:parentActivityName=".ui.ActividadPrincipal"/>
+        <activity
+            android:name=".ui.CarritoComprasActivity"
             android:label="@string/titulo_actividad_configuracion"
             android:parentActivityName=".ui.ActividadPrincipal"/>
         <activity

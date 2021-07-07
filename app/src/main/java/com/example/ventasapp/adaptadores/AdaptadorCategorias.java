@@ -14,13 +14,11 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 
 import androidx.appcompat.app.AlertDialog;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ventasapp.R;
-import com.example.ventasapp.entidades.DetalleVenta;
 import com.example.ventasapp.modelo.Comida;
-import com.example.ventasapp.ui.CarritoActivity;
+import com.example.ventasapp.ui.CarritoComprasActivity;
 
 import java.util.List;
 
@@ -142,7 +140,7 @@ Context context;
     }
 
     private void detalle(Comida item) {
-        Intent miIntent = new Intent(context, CarritoActivity.class);
+        Intent miIntent = new Intent(context, CarritoComprasActivity.class);
         miIntent.putExtra("nombre", item.getNombre());
         miIntent.putExtra("imagen", item.getIdDrawable());
         miIntent.putExtra("precio", item.getPrecio());

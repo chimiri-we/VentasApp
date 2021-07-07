@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.CarritoActivity">
+    tools:context=".ui.CarritoComprasActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -18,16 +18,26 @@
             android:background="?attr/colorPrimary"
             app:popupTheme="@style/Theme.VentasApp.NoActionBar.PopupOverlay" />
 
+        <TextView
+            android:id="@+id/tv_total_venta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_margin="5dp"
+            android:gravity="right"
+            android:text="TextView" />
+
     </com.google.android.material.appbar.AppBarLayout>
 
     <include layout="@layout/content_carrito" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
+        android:id="@+id/btnPagar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+        app:srcCompat="@drawable/ic_pagar"
+        tools:ignore="ContentDescription,VectorDrawableCompat" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
