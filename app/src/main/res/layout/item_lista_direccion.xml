@@ -10,7 +10,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/texto_direccion"
+            android:id="@+id/tv_venta_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Dirección"
@@ -18,21 +18,21 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/texto_departamento"
+            android:id="@+id/tv_venta_idProducto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Departamento"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <TextView
-            android:id="@+id/texto_ciudad"
+            android:id="@+id/tv_venta_total"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Ciudad"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <TextView
-            android:id="@+id/texto_telefono"
+            android:id="@+id/tv_venta_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Teléfono"

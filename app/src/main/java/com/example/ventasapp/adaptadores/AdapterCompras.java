@@ -17,21 +17,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ventasapp.R;
 import com.example.ventasapp.datos.BaseDatos;
-import com.example.ventasapp.datos.Consultas;
 import com.example.ventasapp.detalles.ClienteDetalleActivity;
 import com.example.ventasapp.entidades.DetalleVenta;
 import com.example.ventasapp.entidades.Producto;
-import com.example.ventasapp.entidades.Usuarios;
 import com.example.ventasapp.entidades.Venta;
 import com.example.ventasapp.ui.CarritoComprasActivity;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.Objects;
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 
 public class AdapterCompras  extends RecyclerView.Adapter<AdapterCompras.ComprasHolder> {
@@ -75,7 +69,7 @@ public class AdapterCompras  extends RecyclerView.Adapter<AdapterCompras.Compras
     @Override
     public ComprasHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View vista= LayoutInflater.from(parent.getContext()).inflate(R.layout.item_lista_producto,parent,false);
-        RecyclerView.LayoutParams layoutParams=new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+        RecyclerView.LayoutParams layoutParams=new RecyclerView.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
         vista.setLayoutParams(layoutParams);
         return new ComprasHolder(vista);
@@ -122,13 +116,13 @@ public class AdapterCompras  extends RecyclerView.Adapter<AdapterCompras.Compras
 
 
 
-        ImageView menosUno = subView.findViewById(R.id.btn_menosuno);
-        ImageView masUno = subView.findViewById(R.id.btn_masuno);
+        CircleImageView menosUno = subView.findViewById(R.id.btn_menosuno);
+        CircleImageView masUno = subView.findViewById(R.id.btn_masuno);
         TextView mensaje = subView.findViewById(R.id.titulo_producto);
         TextView tvprecio = subView.findViewById(R.id.precio);
         EditText cantidad = subView.findViewById(R.id.tv_cantidad_compra);
         mensaje.setText(nombre);
-        tvprecio.setText(String.valueOf(precio));
+        tvprecio.setText("$"+(String.valueOf(precio)));
         cantidad.setText(String.valueOf(cantPro));
         masUno.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -151,12 +145,9 @@ public class AdapterCompras  extends RecyclerView.Adapter<AdapterCompras.Compras
         });
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle("Agrega al Carrito");
-        builder.setMessage("Proceso de compra");
         builder.setView(subView);
         builder.create();
-
-        builder.setPositiveButton("AGREGAR", (dialog, which) -> {
+        builder.setPositiveButton("AGREGAR",  (dialog, which) -> {
            /* Date fechaActual= Calendar.getInstance().getTime();
             SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
             formattedDate = df.format(fechaActual);

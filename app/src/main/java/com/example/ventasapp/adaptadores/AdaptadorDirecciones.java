@@ -20,7 +20,7 @@ import java.util.List;
  * Adaptador para poblar la lista de direcciones de la sección "Mi Cuenta"
  */
 public class AdaptadorDirecciones
-        extends RecyclerView.Adapter<AdaptadorDirecciones.ViewHolder> {
+        {
 
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -34,9 +34,9 @@ public class AdaptadorDirecciones
 
         public ViewHolder(View v) {
             super(v);
-            direccion = (TextView) v.findViewById(R.id.texto_direccion);
-            departamento = (TextView) v.findViewById(R.id.texto_departamento);
-            ciudad = (TextView) v.findViewById(R.id.texto_ciudad);
+        //    direccion = (TextView) v.findViewById(R.id.texto_direccion);
+         //   departamento = (TextView) v.findViewById(R.id.texto_departamento);
+         //   ciudad = (TextView) v.findViewById(R.id.texto_ciudad);
             telefono = (TextView) v.findViewById(R.id.texto_telefono);
             imageView = v.findViewById(R.id.icono_indicador_derecho);
         }
@@ -46,19 +46,19 @@ public class AdaptadorDirecciones
     public AdaptadorDirecciones() {
     }
 
-    @Override
+
     public int getItemCount() {
         return Direccion.DIRECCIONES.size();
     }
-
+/*
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext())
+     /*   View v = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.item_lista_direccion, viewGroup, false);
-        return new ViewHolder(v);
-    }
+        return new ViewHolder();
+    }*/
 
-    @Override
+
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
         Direccion item = Direccion.DIRECCIONES.get(i);
         viewHolder.direccion.setText(item.numeroDireccion);

@@ -29,10 +29,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.FileProvider;
+import androidx.core.graphics.drawable.RoundedBitmapDrawable;
+import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.example.ventasapp.R;
 import com.example.ventasapp.datos.BaseDatos;
 import com.example.ventasapp.entidades.Usuarios;
@@ -41,6 +45,8 @@ import com.example.ventasapp.ui.ActividadPrincipal;
 import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 import static android.Manifest.permission_group.CAMERA;
@@ -56,7 +62,8 @@ public class FragmentoPerfil extends Fragment {
     private String path;//almacena la ruta de la imagen
     File fileImagen;
     Bitmap bitmap;
-    ImageView imgFoto, imgperfil;
+    ImageView imgFoto;
+    CircleImageView imgperfil;
 
     private final int MIS_PERMISOS = 100;
     private static final int COD_SELECCIONA = 10;
@@ -89,6 +96,14 @@ public class FragmentoPerfil extends Fragment {
             tvusuario.setText(usuarios.getUser().toString().toLowerCase());
             direccion.setText(usuarios.getDireccion().toString().toLowerCase());
             telefono.setText(usuarios.getTelefono().toString().toLowerCase());
+            String urlImagen = usuarios.getUrlImagen().toLowerCase();
+
+            Glide.with(requireContext())
+                    .asBitmap()
+                    .load(usuarios.getUrlImagen())
+                    .error(R.drawable.ic_persona)
+                    .centerCrop()
+                    .into(imgperfil);
         }
         imgFoto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,6 +128,7 @@ public class FragmentoPerfil extends Fragment {
             usuarios.setId_usuario(cursor.getInt(0));
             //usuarios.setId_R(cursor.getInt(1));
             usuarios.setNombre(cursor.getString(1));
+            usuarios.setUrlImagen(cursor.getString(2));
             usuarios.setDireccion(cursor.getString(3));
             usuarios.setCorreo(cursor.getString(4));
             usuarios.setTelefono(cursor.getString(5));
@@ -198,14 +214,21 @@ public class FragmentoPerfil extends Fragment {
         switch (requestCode){
             case COD_SELECCIONA:
                 Uri miPath=data.getData();
-                imgFoto.setImageURI(miPath);
+                imgperfil.setImageURI(miPath);
+                BaseDatos bdLocal = new BaseDatos(getContext().getApplicationContext());
+                bdLocal.obtenerRutaImagen(miPath);
 
                 try {
                     bitmap=MediaStore.Images.Media.getBitmap(getContext().getContentResolver(),miPath);
-                    imgFoto.setImageBitmap(bitmap);
+                    imgperfil.setImageBitmap(bitmap);
+                    if (imgperfil != null){
+
+                    }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                Toast.makeText(getContext(), "Ruta "+imgperfil, Toast.LENGTH_LONG).show();
+
 
                 break;
             case COD_FOTO:
@@ -217,12 +240,22 @@ public class FragmentoPerfil extends Fragment {
                             }
                         });
 
+
                 bitmap= BitmapFactory.decodeFile(path);
-                imgFoto.setImageBitmap(bitmap);
+                imgperfil.setImageBitmap(bitmap);
+                if (imgperfil != null){
+                    bdLocal = new BaseDatos(getContext().getApplicationContext());
+                    bdLocal.guardarImagen(path);
+                }
 
                 break;
         }
         bitmap=redimensionarImagen(bitmap,(R.dimen.avatar_size),(R.dimen.avatar_size));
+
+    }
+
+    private void guardarImagen(Uri miPath) {
+
     }
 
     private Bitmap redimensionarImagen(Bitmap bitmap, float anchoNuevo, float altoNuevo) {
@@ -256,7 +289,7 @@ public class FragmentoPerfil extends Fragment {
         }
 
         //validamos si los permisos ya fueron aceptados
-        if((getContext().checkSelfPermission(WRITE_EXTERNAL_STORAGE)== PackageManager.PERMISSION_GRANTED)&&getContext().checkSelfPermission(CAMERA)==PackageManager.PERMISSION_GRANTED){
+        if((requireContext().checkSelfPermission(WRITE_EXTERNAL_STORAGE)== PackageManager.PERMISSION_GRANTED)&& requireContext().checkSelfPermission(CAMERA)==PackageManager.PERMISSION_GRANTED){
             return true;
         }
 
@@ -275,7 +308,7 @@ public class FragmentoPerfil extends Fragment {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode==MIS_PERMISOS){
             if(grantResults.length==2 && grantResults[0]==PackageManager.PERMISSION_GRANTED && grantResults[1]==PackageManager.PERMISSION_GRANTED){//el dos representa los 2 permisos
-                Toast.makeText(getContext(),"Permisos aceptados",Toast.LENGTH_SHORT);
+                Toast.makeText(getContext(),"Permisos aceptados",Toast.LENGTH_SHORT).show();
                 // btnFoto.setEnabled(true);
             }
         }else{

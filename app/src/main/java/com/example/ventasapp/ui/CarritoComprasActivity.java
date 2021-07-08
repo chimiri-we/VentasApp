@@ -40,6 +40,7 @@ public class CarritoComprasActivity extends AppCompatActivity {
     Usuarios usuarios;
     int id_producto=0;
     DetalleVenta detalleVenta;
+    private Fragment firstFragment, secondFragment;
     FloatingActionButton floatingActionButton;
     TextView tvTotal;
     @Override
@@ -62,13 +63,10 @@ public class CarritoComprasActivity extends AppCompatActivity {
             id_venta = (int) savedInstanceState.getSerializable("id_venta");
 
         }
-        BaseDatos bdLocal = new BaseDatos(this.getApplicationContext());
-        Venta idVen = bdLocal.ultimaVenta();
 
-        int idventa = 1+(idVen.getId_venta());
-        TotalVenta(idventa);
-        Fragment fragmentL = new FirstFragment();
-        getSupportFragmentManager().beginTransaction().add(R.id.nav_host_fragment_content_carrito, fragmentL).commit();
+        firstFragment = new FirstFragment();
+        secondFragment = new SecondFragment();
+        getSupportFragmentManager().beginTransaction().add(R.id.nav_host_fragment_content_carrito, firstFragment).commit();
 
         floatingActionButton = findViewById(R.id.btnPagar);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
@@ -77,6 +75,12 @@ public class CarritoComprasActivity extends AppCompatActivity {
                 ventaNueva();
             }
         });
+        BaseDatos bdLocal = new BaseDatos(this.getApplicationContext());
+        Venta idVen = bdLocal.ultimaVenta();
+
+        int idventa = 1+(idVen.getId_venta());
+
+        TotalVenta(idventa);
 
 
 
@@ -86,12 +90,28 @@ public class CarritoComprasActivity extends AppCompatActivity {
 
 
     }
+    public void onClick (View view) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+        switch (view.getId())
+        {
+            case R.id.btnPagar: transaction.replace(R.id.contenedorFragment, secondFragment);
+                transaction.addToBackStack(null);
+                break;
+            //  case R.id.recuperarPass: transaction.replace(R.id.contenedorFragment, fragmentP);
+            //       transaction.addToBackStack(null);
+            //        break;
+        }
+        transaction.commit();
+
+    }
 
     private void TotalVenta(int idventa) {
        BaseDatos bdLocal = new BaseDatos(this.getApplicationContext());
         // SQLiteDatabase db = bdLocal.getWritableDatabase();
         DetalleVenta dtVenta = bdLocal.sumarItems(idventa);
-        tvTotal.setText(dtVenta.getTotal());
+        totalV = Integer.parseInt(dtVenta.getTotal());
+        tvTotal.setText("$"+dtVenta.getTotal());
     }
 
     private void ventaNueva() {
@@ -105,13 +125,12 @@ public class CarritoComprasActivity extends AppCompatActivity {
         usuarios = bdLocal.verdatosUsuario();
        int id_usuario = usuarios.getId_usuario();
 
-        totalV = Integer.parseInt(tvTotal.getText().toString().trim());
+
 
         Venta venta = new Venta(id_usuario, formattedDate, totalV, status);
         bdLocal.generarVenta(venta);
+        startActivity(getIntent());
 
-        Intent intent = new Intent(this, ActividadPrincipal.class);
-        startActivity(intent);
-        Toast.makeText(this, "el total es" + totalV, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "el total es" + totalV + id_usuario, Toast.LENGTH_SHORT).show();
     }
 }

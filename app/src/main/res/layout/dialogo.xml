@@ -2,18 +2,20 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="250dp"
+    android:layout_width="300dp"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:layout_marginBottom="8dp"
-    card_view:cardElevation="@dimen/cardview_default_elevation"
-    card_view:cardCornerRadius="10dp"
     android:layout_marginTop="10dp"
+    android:layout_marginBottom="8dp"
+    card_view:cardCornerRadius="10dp"
+    card_view:cardElevation="@dimen/cardview_default_elevation"
     card_view:cardUseCompatPadding="true">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="40dp"
         android:gravity="center"
         android:orientation="vertical">
 
@@ -21,54 +23,72 @@
             android:id="@+id/titulo_producto"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
             android:gravity="center"
-            android:text="nombre de producto" />
+            android:text="nombre de producto"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/precio"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+
+            android:layout_marginLeft="5dp"
+            android:layout_marginBottom="20dp"
             android:gravity="center"
-            android:text="precio" />
+            android:text="precio"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            card_view:cardCornerRadius="15dp">
+            android:layout_gravity="center"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
+            android:weightSum="3">
 
-            <LinearLayout
-                android:layout_width="170dp"
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/btn_menosuno"
+                android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:layout_gravity="center"
+
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_rounded_border"
+                android:fadingEdge="vertical"
+                android:foreground="@drawable/ic_menos_uno" />
+
+            <EditText
+                android:id="@+id/tv_cantidad_compra"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_weight="1"
                 android:gravity="center"
-                android:weightSum="3">
+                android:text="1"
+                android:textSize="25sp" />
 
-                <ImageView
-                    android:id="@+id/btn_menosuno"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    card_view:srcCompat="@drawable/ic_menos_uno"
-                    tools:ignore="VectorDrawableCompat" />
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/btn_masuno"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
 
-                <EditText
-                    android:id="@+id/tv_cantidad_compra"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="1" />
+                android:layout_gravity="center"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_rounded_border"
+                android:foreground="@drawable/ic_suma_uno" />
+        </LinearLayout>
 
-                <ImageView
-                    android:id="@+id/btn_masuno"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    card_view:srcCompat="@drawable/ic_suma_uno"
-                    tools:ignore="VectorDrawableCompat" />
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

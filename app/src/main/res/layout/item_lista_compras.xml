@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:layout_marginTop="10dp">
+
+    <TableLayout
+        android:id="@+id/tab"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:stretchColumns="2">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/teal_200"
+            android:paddingLeft="5dp"
+            android:showDividers="beginning">
+
+            <TextView
+
+                android:id="@+id/dtNombre"
+
+                android:layout_column="0"
+                android:hint="@string/nombre_usuario"
+                android:maxLines="1"
+                android:textColor="#121010"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/dtIdusuario"
+
+                android:layout_height="18dp"
+                android:layout_column="3"
+                android:hint="@string/id_usuario"
+                android:inputType="textEmailAddress"
+                android:maxLines="1"
+                android:textSize="14sp"
+                tools:ignore="TextViewEdits" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5dp">
+
+            <TextView
+                android:id="@+id/colonia"
+
+                android:hint="Id venta"
+                android:maxLines="1"
+                android:textSize="14sp" />
+
+            <TextView
+
+                android:id="@+id/dtDireccion"
+
+                android:layout_column="2"
+                android:hint="@string/Direccion"
+                android:inputType="textEmailAddress"
+                android:maxLines="1"
+                android:textSize="14sp"
+                tools:ignore="TextViewEdits" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="5dp">
+
+            <TextView
+                android:id="@+id/dtTelefono"
+
+                android:hint="@string/telefono"
+                android:inputType="text"
+                android:maxLines="1"
+                android:textSize="14sp"
+                tools:ignore="TextViewEdits" />
+
+            <TextView
+                android:id="@+id/tvIdVenta"
+
+                android:layout_column="2"
+                android:hint="Id venta"
+                android:maxLines="1"
+                android:textSize="14sp" />
+
+            <TextView
+
+                android:id="@+id/dtTotalVenta"
+
+                android:layout_column="3"
+                android:hint="@string/Direccion"
+                android:inputType="textEmailAddress"
+                android:maxLines="1"
+                android:textSize="20sp"
+                tools:ignore="TextViewEdits" />
+
+        </TableRow>
+
+    </TableLayout>
+
+</androidx.cardview.widget.CardView>

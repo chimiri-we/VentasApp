@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.ventasapp">
+    <queries>
 
+    </queries>
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera"
+        android:required="true" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <uses-permission android:name="android.permission.CAMERA"/><!--- para usar la camara desde la App -->
@@ -27,6 +38,7 @@
         <activity
             android:name=".ui.ActividadConfiguracion"
             android:label="@string/titulo_actividad_configuracion"
+            android:theme="@style/Theme.ConNavigationDrawer"
             android:parentActivityName=".ui.ActividadPrincipal">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -35,10 +47,12 @@
         <activity
             android:name=".detalles.ClienteDetalleActivity"
             android:label="@string/titulo_actividad_configuracion"
+            android:theme="@style/Theme.ConNavigationDrawer"
             android:parentActivityName=".ui.ActividadPrincipal"/>
         <activity
             android:name=".ui.CarritoComprasActivity"
             android:label="@string/titulo_actividad_configuracion"
+            android:theme="@style/Theme.ConNavigationDrawer"
             android:parentActivityName=".ui.ActividadPrincipal"/>
         <activity
             android:name=".login.ContentLogin"

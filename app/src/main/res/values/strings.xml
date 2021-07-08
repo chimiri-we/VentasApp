@@ -51,4 +51,8 @@
     <string name="texto_cambiar_direccion">Actualiza tu direccion</string>
     <string name="etiqueta_direccion">Direccion</string>
     <string name="cantidad">TextView</string>
+    <string name="nombre_usuario">Nombre Usuario</string>
+    <string name="id_usuario">ID</string>
+    <string name="Direccion">Direccion</string>
+    <string name="telefono">Telefono</string>
 </resources>

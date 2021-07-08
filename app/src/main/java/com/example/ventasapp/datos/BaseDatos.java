@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.net.Uri;
 
 import com.example.ventasapp.R;
 import com.example.ventasapp.entidades.DetalleVenta;
@@ -16,13 +17,14 @@ import java.util.ArrayList;
 
 public class BaseDatos extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 13;
+    private static final int DATABASE_VERSION = 15;
     private static final String DATABASE_NAME = "Ventas.db";
 
     private static final String TABLE_USUARIO = "Usuario";
     private static final String TABLE_PRODUCTO = "Producto";
     private static final String TABLE_DETALLE_VENTA = "DetalleVenta";
     private static final String TABLE_VENTA = "Venta";
+    private static final String ID_USUARIO = "id_usuario";
 
 
     public BaseDatos(Context context) {
@@ -274,12 +276,12 @@ Cursor cursor;
 
 
 
-    public DetalleVenta consultarDetalleVenta(int idProducto) {
+    public DetalleVenta consultarDetalleVenta(int id_venta) {
         SQLiteDatabase db = this.getWritableDatabase();
         DetalleVenta dtventa=null;
         Cursor cursor;
 
-        cursor = db.rawQuery("select * from  DetalleVenta WHERE id_producto = " + idProducto + "", null);
+        cursor = db.rawQuery("select * from  DetalleVenta WHERE id_venta = " + id_venta + "", null);
         if (cursor.moveToFirst()) {
             dtventa = new DetalleVenta();
             dtventa.setId_detalle(cursor.getInt(0));
@@ -297,6 +299,7 @@ Cursor cursor;
         ContentValues values = new ContentValues();
         values.put("id_usuario", nuevaventa.getId_usuario());
         values.put("fecha", nuevaventa.getFecha());
+        values.put("total_venta", nuevaventa.getTotal_venta());
         values.put("status", nuevaventa.getStatus());
         SQLiteDatabase db = this.getWritableDatabase();
         db.insert(TABLE_VENTA, null, values);
@@ -355,5 +358,46 @@ Cursor cursor;
         cursor.close();
         return  dtVenta;
 
+    }
+
+    public ArrayList<Venta> listaVentas() {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ArrayList<Venta> venta = new ArrayList<>();
+        Cursor cursor;
+        cursor = db.rawQuery("select * from Venta", null);
+        if (cursor.moveToFirst()) {
+            do {
+                int id_venta = Integer.parseInt(cursor.getString(0));
+                int id_usuario = Integer.parseInt(cursor.getString(1));
+                String fecha = cursor.getString(2);
+                int total_venta = cursor.getInt(3);
+                int status = Integer.parseInt(cursor.getString(4));
+
+
+                venta.add(new Venta(id_venta, id_usuario, fecha, total_venta, status));
+            }
+            while (cursor.moveToNext());
+        }
+        cursor.close();
+        return venta;
+    }
+
+    public void guardarImagen(String path) {
+        Usuarios usuario = new Usuarios();
+        ContentValues values = new ContentValues();
+        values.put("uri_imagen", path);
+        SQLiteDatabase db = this.getWritableDatabase();
+      //  db.insert(TABLE_USUARIO, null, values);
+        db.update(TABLE_USUARIO, values, ID_USUARIO+ " = ?", new String[]{String.valueOf(usuario.getId_usuario())});
+    }
+
+    public void obtenerRutaImagen(Uri miPath) {
+        Usuarios usuario = new Usuarios();
+        ContentValues values = new ContentValues();
+        values.put("uri_imagen", String.valueOf(miPath));
+        SQLiteDatabase db = this.getWritableDatabase();
+        //  db.insert(TABLE_USUARIO, null, values);
+        db.update(TABLE_USUARIO, values, ID_USUARIO+ " = ?", new String[]{String.valueOf(usuario.getId_usuario())});
     }
 }
