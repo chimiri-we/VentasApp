@@ -105,11 +105,11 @@ public class FragmentoPerfil extends Fragment {
 
         if (usuarios != null) {
 
-            nombre.setText(usuarios.getNombre().toString());
-            correo.setText(usuarios.getCorreo().toString().toLowerCase());
-            tvusuario.setText(usuarios.getUser().toString().toLowerCase());
+            nombre.setText(usuarios.getNombre());
+            correo.setText(usuarios.getCorreo());
+            tvusuario.setText(usuarios.getUser());
             direccion.setText(usuarios.getDireccion());
-            telefono.setText(usuarios.getTelefono().toString().toLowerCase());
+            telefono.setText(usuarios.getTelefono());
 //            String urlImagen = usuarios.getUrlImagen().toLowerCase();
 
             Glide.with(requireContext())
@@ -181,7 +181,7 @@ public class FragmentoPerfil extends Fragment {
         builder.create();
 
         builder.setPositiveButton("GUARDAR DATOS", (dialog, which) -> {
-            final String ciudad = edtDireccionCiudad.getText().toString();
+            final String ciudad = edtDireccionCiudad.getText().toString().trim();
             if (TextUtils.isEmpty(ciudad)) {
                 Toast.makeText(getContext(), "Algo salió mal. Verifique sus valores de entrada", Toast.LENGTH_LONG).show();
             } else {

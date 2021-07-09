@@ -68,12 +68,12 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/label_password"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-app:endIconMode="password_toggle"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/label_direccion">
+            android:layout_below="@id/label_numero"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            app:endIconMode="password_toggle">
 
             <EditText
                 android:id="@+id/edt_password"
@@ -118,28 +118,11 @@ app:endIconMode="password_toggle"
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/label_correo"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/label_username"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edt_correo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="correo"
-                android:inputType="textEmailAddress" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/label_numero"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/label_correo"
+            android:layout_below="@id/label_username"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp">
 
@@ -148,24 +131,10 @@ app:endIconMode="password_toggle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="numero de telefono"
-                android:inputType="phone" />
+                android:inputType="phone"
+                android:phoneNumber="true" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/label_direccion"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/label_numero"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edt_direccion"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Direccion, colonia y ciudad" />
-        </com.google.android.material.textfield.TextInputLayout>
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>

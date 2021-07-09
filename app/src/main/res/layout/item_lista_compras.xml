@@ -4,108 +4,126 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="5dp"
-    android:layout_marginTop="10dp">
+    android:layout_marginStart="10dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginTop="15dp"
+    android:layout_marginEnd="10dp"
+    android:layout_marginRight="10dp">
 
-    <TableLayout
-        android:id="@+id/tab"
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
-        android:stretchColumns="2">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <TableRow
-            android:layout_width="match_parent"
+        <RelativeLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/teal_200"
-            android:paddingLeft="5dp"
-            android:showDividers="beginning">
+            android:orientation="horizontal"
+            android:padding="@dimen/espacio_norma_1">
 
-            <TextView
-
-                android:id="@+id/dtNombre"
-
-                android:layout_column="0"
-                android:hint="@string/nombre_usuario"
-                android:maxLines="1"
-                android:textColor="#121010"
-                android:textSize="14sp" />
+            <ImageView
+                android:id="@+id/icono"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
+                android:layout_marginRight="8dp"
+                android:src="@android:drawable/ic_partial_secure" />
 
             <TextView
                 android:id="@+id/dtIdusuario"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:layout_toRightOf="@+id/icono"
+                android:text="@string/id_usuario"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
 
-                android:layout_height="18dp"
-                android:layout_column="3"
-                android:hint="@string/id_usuario"
-                android:inputType="textEmailAddress"
-                android:maxLines="1"
-                android:textSize="14sp"
-                tools:ignore="TextViewEdits" />
+            <ImageView
+                android:id="@+id/icono_indicador_derecho"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_pencil"
+                app:tint="@color/black" />
 
-        </TableRow>
+        </RelativeLayout>
 
-        <TableRow
+        <TableLayout
+            android:id="@+id/tab"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="5dp">
+            android:layout_margin="10dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:stretchColumns="2">
 
-            <TextView
-                android:id="@+id/colonia"
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="5dp">
 
-                android:hint="Id venta"
-                android:maxLines="1"
-                android:textSize="14sp" />
+                <TextView
+                    android:id="@+id/colonia"
 
-            <TextView
+                    android:hint="Id venta"
+                    android:maxLines="1"
+                    android:textSize="14sp" />
 
-                android:id="@+id/dtDireccion"
+                <TextView
 
-                android:layout_column="2"
-                android:hint="@string/Direccion"
-                android:inputType="textEmailAddress"
-                android:maxLines="1"
-                android:textSize="14sp"
-                tools:ignore="TextViewEdits" />
+                    android:id="@+id/dtDireccion"
 
-        </TableRow>
+                    android:layout_column="2"
+                    android:hint="@string/Direccion"
+                    android:inputType="textEmailAddress"
+                    android:maxLines="1"
+                    android:textSize="14sp"
+                    tools:ignore="TextViewEdits" />
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingLeft="5dp">
+            </TableRow>
 
-            <TextView
-                android:id="@+id/dtTelefono"
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="5dp">
 
-                android:hint="@string/telefono"
-                android:inputType="text"
-                android:maxLines="1"
-                android:textSize="14sp"
-                tools:ignore="TextViewEdits" />
+                <TextView
+                    android:id="@+id/dtTelefono"
 
-            <TextView
-                android:id="@+id/tvIdVenta"
+                    android:hint="@string/telefono"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:textSize="14sp"
+                    tools:ignore="TextViewEdits" />
 
-                android:layout_column="2"
-                android:hint="Id venta"
-                android:maxLines="1"
-                android:textSize="14sp" />
+                <TextView
+                    android:id="@+id/tvIdVenta"
 
-            <TextView
+                    android:layout_column="2"
+                    android:hint="Id venta"
+                    android:maxLines="1"
+                    android:textSize="14sp" />
 
-                android:id="@+id/dtTotalVenta"
+                <TextView
 
-                android:layout_column="3"
-                android:hint="@string/Direccion"
-                android:inputType="textEmailAddress"
-                android:maxLines="1"
-                android:textSize="20sp"
-                tools:ignore="TextViewEdits" />
+                    android:id="@+id/dtTotalVenta"
 
-        </TableRow>
+                    android:layout_column="3"
+                    android:hint="@string/Direccion"
+                    android:inputType="textEmailAddress"
+                    android:maxLines="1"
+                    android:textSize="20sp"
+                    tools:ignore="TextViewEdits" />
 
-    </TableLayout>
+            </TableRow>
+
+        </TableLayout>
+
+    </LinearLayout>
 
 </androidx.cardview.widget.CardView>

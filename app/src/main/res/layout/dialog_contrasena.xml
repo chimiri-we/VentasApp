@@ -31,17 +31,18 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:hint="Confirma Pasword"
+            android:inputType="textPassword"
             app:endIconMode="password_toggle" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/label_password"
 
-            app:endIconMode="password_toggle"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/label_direccion">
+            android:layout_below="@id/edt_contras"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            app:endIconMode="password_toggle">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edt_confirmar"

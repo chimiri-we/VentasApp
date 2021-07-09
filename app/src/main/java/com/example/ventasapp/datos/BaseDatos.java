@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 public class BaseDatos extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 19;
+    private static final int DATABASE_VERSION = 25;
     private static final String DATABASE_NAME = "Ventas.db";
 
     private static final String TABLE_USUARIO = "Usuario";

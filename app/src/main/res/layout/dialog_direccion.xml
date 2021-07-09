@@ -25,13 +25,39 @@
         android:padding="20dp">
 
 
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Calle Numero" />
+
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edt_direcci_colonia"
+            android:id="@+id/edt_direcci_calle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:hint="Calle y numero"
             android:inputType="textEmailAddress" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Colonia" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edt_direcci_colonia"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:hint="Colonia"
+            android:inputType="textEmailAddress" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ciudad" />
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edt_direcci_ciudad"

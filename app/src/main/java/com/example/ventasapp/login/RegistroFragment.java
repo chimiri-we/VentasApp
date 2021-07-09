@@ -45,9 +45,9 @@ public class RegistroFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_registro, container, false);
         edtNombreCliente = v.findViewById(R.id.edt_nombre_usuario);
         edtNumeroCliente = v.findViewById(R.id.edt_numero);
-        edtEmailCliente = v.findViewById(R.id.edt_correo);
+
         edtPasswordCliente = v.findViewById(R.id.edt_password);
-        edtDireccion = v.findViewById(R.id.edt_direccion);
+
         edtUsername = v.findViewById(R.id.edt_username);
 
 
@@ -67,17 +67,17 @@ public class RegistroFragment extends Fragment {
 
         final String nombre = edtNombreCliente.getText().toString().trim();
         final String password = edtPasswordCliente.getText().toString().trim();
-        final String email = edtEmailCliente.getText().toString().trim();
+      //  final String email = edtEmailCliente.getText().toString().trim();
         final String telefono = edtNumeroCliente.getText().toString().trim();
-        final String direccion = edtDireccion.getText().toString().trim();
+      //  final String direccion = edtDireccion.getText().toString().trim();
         final String username = edtUsername.getText().toString().trim();
 
         usuarios = new Usuarios();
         usuarios.setNombre(nombre);
         usuarios.setUser(username);
-        usuarios.setCorreo(email);
+       // usuarios.setCorreo(email);
         usuarios.setPassword(password);
-        usuarios.setDireccion(direccion);
+      //  usuarios.setDireccion(direccion);
         usuarios.setTelefono(telefono);
 
         ContentValues values = new ContentValues();
@@ -106,9 +106,9 @@ public class RegistroFragment extends Fragment {
         edtPasswordCliente.setText("");
         edtNumeroCliente.setText("");
         edtNombreCliente.setText("");
-        edtEmailCliente.setText("");
+
         edtUsername.setText("");
-        edtDireccion.setText("");
+
         startActivity(new Intent(getContext(), ActividadPrincipal.class));
 
 
