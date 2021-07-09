@@ -83,12 +83,6 @@ public class CarritoComprasActivity extends AppCompatActivity {
         TotalVenta(idventa);
 
 
-
-        //  Toast.makeText(this, "el id es"+id_venta, Toast.LENGTH_SHORT).show();
-
-
-
-
     }
     public void onClick (View view) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -125,12 +119,10 @@ public class CarritoComprasActivity extends AppCompatActivity {
         usuarios = bdLocal.verdatosUsuario();
        int id_usuario = usuarios.getId_usuario();
 
-
-
         Venta venta = new Venta(id_usuario, formattedDate, totalV, status);
         bdLocal.generarVenta(venta);
         startActivity(getIntent());
 
-        Toast.makeText(this, "el total es" + totalV + id_usuario, Toast.LENGTH_SHORT).show();
+       // Toast.makeText(this, "el total es" + totalV + id_usuario, Toast.LENGTH_SHORT).show();
     }
 }

@@ -27,7 +27,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Perfil"
+                    android:text="Producto"
                     android:textAppearance="@style/TextAppearance.AppCompat.Title" />
                 <!--Texto de ejemplo-->
                 <TextView
@@ -42,8 +42,17 @@
                     android:id="@+id/tv_phone_number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/activity_vertical_margin"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                     tools:text="300 20 1111" />
+
+                <TextView
+                    android:id="@+id/tv_bio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textColor="#490AD1"
+                    tools:text="@string/hello_blank_fragment" />
 
 
             </LinearLayout>
@@ -67,7 +76,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Amigos(450)"
+                    android:text="Detalle"
                     android:textAppearance="@style/TextAppearance.AppCompat.Title" />
                 <!-- Texto de ejemplo -->
                 <TextView
@@ -77,14 +86,6 @@
                     android:layout_marginBottom="8dp"
                     android:text="Biografía"
                     android:textColor="?colorPrimary" />
-
-                <TextView
-                    android:id="@+id/tv_bio"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                    android:textColor="#490AD1"
-                    tools:text="@string/hello_blank_fragment" />
 
             </LinearLayout>
 

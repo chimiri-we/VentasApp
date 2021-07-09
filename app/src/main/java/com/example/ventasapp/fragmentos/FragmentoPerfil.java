@@ -122,7 +122,7 @@ public class FragmentoPerfil extends Fragment {
         imgFoto.setOnClickListener(v14 -> tomarFoto());
 
         imgEdit.setOnClickListener(v1 -> editarDatosUsuario(usuarios));
-     //   imgEditdirec.setOnClickListener(v12 -> editarDireccion(usuarios));
+        imgEditdirec.setOnClickListener(v12 -> editarDireccion(usuarios));
 
         imgEditContra.setOnClickListener(v13 -> editarContrasena(usuarios));
 
@@ -148,7 +148,7 @@ public class FragmentoPerfil extends Fragment {
             if (TextUtils.isEmpty(confirmar)) {
                 Toast.makeText(getContext(), "Algo salió mal. Verifique sus valores de entrada", Toast.LENGTH_LONG).show();
             } else {
-               // bdLocal = new BaseDatos(getContext().getApplicationContext());
+                bdLocal = new BaseDatos(getContext().getApplicationContext());
                 assert usuarios != null;
                 bdLocal.actualizarContrasena(new
                         Usuarios(usuarios.getId_usuario(), contra));
@@ -167,7 +167,7 @@ public class FragmentoPerfil extends Fragment {
         builder.show();
     }
 
-   /* private void editarDireccion(Usuarios usuarios) {
+    private void editarDireccion(Usuarios usuarios) {
         LayoutInflater inflater = LayoutInflater.from(getContext());
         View viewDir = inflater.inflate(R.layout.dialog_direccion, null, false);
         TextInputEditText edtDireccionColonia = viewDir.findViewById(R.id.edt_direcci_colonia);
@@ -189,6 +189,7 @@ public class FragmentoPerfil extends Fragment {
                 assert usuarios != null;
                 bdLocal.actualizarDireccion(new
                         Usuarios(usuarios.getId_usuario(), ciudad));
+
                 ((Activity) getContext()).finish();
                 getContext().startActivity(((Activity)
                         getContext()).getIntent());
@@ -203,7 +204,7 @@ public class FragmentoPerfil extends Fragment {
 
         builder.show();
     }
-*/
+
     private void editarDatosUsuario(Usuarios usuarios) {
         LayoutInflater inflater = LayoutInflater.from(getContext());
         View view = inflater.inflate(R.layout.fragment_registro_perfil, null, false);

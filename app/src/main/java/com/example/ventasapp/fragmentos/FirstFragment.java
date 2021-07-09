@@ -70,14 +70,6 @@ public class FirstFragment extends Fragment {
        nombreUsuario.setText(usuarios.getNombre());
        direcionUsuario.setText(usuarios.getDireccion());
 
-
-
-
-
-
-       // bdLocal = new BaseDatos(getContext());
-      //  consultarDetalleVenta();
-
         return v;
 }
 
