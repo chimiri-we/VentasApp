@@ -9,8 +9,10 @@ public class Usuarios {
     private String urlImagen;
     private String user;
     private String password;
+    private String colonia;
+    private String calle;
 
-    public Usuarios(int id_usuario, String nombre, String correo, String direccion, String telefono, String urlImagen, String user, String password) {
+    public Usuarios(int id_usuario, String nombre, String correo, String direccion, String telefono, String urlImagen, String user, String password, String colonia, String calle) {
 
         this.id_usuario = id_usuario;
         this.nombre = nombre;
@@ -20,17 +22,8 @@ public class Usuarios {
         this.urlImagen = urlImagen;
         this.user = user;
         this.password = password;
-    }
-
-
-    public Usuarios(String nombre, String password, String email, String telefono, String direccion, String username) {
-        this.nombre = nombre;
-        this.correo = email;
-        this.direccion = direccion;
-        this.telefono = telefono;
-
-        this.user = username;
-        this.password = password;
+        this.colonia = colonia;
+        this.calle = calle;
     }
 
     public Usuarios() {
@@ -59,6 +52,29 @@ public class Usuarios {
 
         this.user = user;
 
+    }
+
+    public Usuarios(int id_usuario, String ciudad, String newcalle, String newcolonia) {
+this.id_usuario = id_usuario;
+    this.direccion = ciudad;
+    this.colonia = newcolonia;
+    this.calle = newcalle;
+    }
+
+    public String getColonia() {
+        return colonia;
+    }
+
+    public void setColonia(String colonia) {
+        this.colonia = colonia;
+    }
+
+    public String getCalle() {
+        return calle;
+    }
+
+    public void setCalle(String calle) {
+        this.calle = calle;
     }
 
     public int getId_usuario() {

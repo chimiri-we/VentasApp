@@ -160,9 +160,12 @@ public class FragmentoPerfil extends Fragment {
         View viewDir = inflater.inflate(R.layout.dialog_direccion, null, false);
         TextInputEditText edtDireccionColonia = viewDir.findViewById(R.id.edt_direcci_colonia);
         TextInputEditText edtDireccionCiudad = viewDir.findViewById(R.id.edt_direcci_ciudad);
+        TextInputEditText edtDireccionCalle = viewDir.findViewById(R.id.edt_direcci_calle);
 
         if (usuarios != null){
             edtDireccionCiudad.setText(usuarios.getDireccion());
+            edtDireccionCalle.setText(usuarios.getDireccion());
+            edtDireccionColonia.setText(usuarios.getDireccion());
         }
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
         builder.setView(viewDir);
@@ -170,13 +173,16 @@ public class FragmentoPerfil extends Fragment {
 
         builder.setPositiveButton("GUARDAR DATOS", (dialog, which) -> {
             final String ciudad = Objects.requireNonNull(edtDireccionCiudad.getText()).toString().trim();
+            final String newcalle = Objects.requireNonNull(edtDireccionCalle.getText()).toString().trim();
+            final String newcolonia = Objects.requireNonNull(edtDireccionColonia.getText()).toString().trim();
+
             if (TextUtils.isEmpty(ciudad)) {
                 Toast.makeText(getContext(), "Algo salió mal. Verifique sus valores de entrada", Toast.LENGTH_LONG).show();
             } else {
                 bdLocal = new BaseDatos(requireContext().getApplicationContext());
                 assert usuarios != null;
                 bdLocal.actualizarDireccion(new
-                        Usuarios(usuarios.getId_usuario(), ciudad));
+                        Usuarios(usuarios.getId_usuario(), ciudad, newcalle, newcolonia));
 
                 ((Activity) requireContext()).finish();
                 requireContext().startActivity(((Activity)
@@ -249,6 +255,8 @@ public class FragmentoPerfil extends Fragment {
             usuarios.setTelefono(cursor.getString(5));
             usuarios.setUser(cursor.getString(6));
             usuarios.setPassword(cursor.getString(7));
+            usuarios.setColonia(cursor.getString(8));
+            usuarios.setCalle(cursor.getString(9));
 
 
         }

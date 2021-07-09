@@ -51,7 +51,7 @@
             android:parentActivityName=".ui.ActividadPrincipal"/>
         <activity
             android:name=".ui.CarritoComprasActivity"
-            android:label="@string/titulo_actividad_configuracion"
+            android:label="@string/titulo_actividad_carrito"
             android:theme="@style/Theme.ConNavigationDrawer"
             android:parentActivityName=".ui.ActividadPrincipal"/>
         <activity
