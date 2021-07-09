@@ -262,6 +262,7 @@ Cursor cursor;
             usuarios.setId_usuario(cursor.getInt(0));
             //usuarios.setId_R(cursor.getInt(1));
             usuarios.setNombre(cursor.getString(1));
+            usuarios.setUrlImagen(cursor.getString(2));
             usuarios.setDireccion(cursor.getString(3));
             usuarios.setCorreo(cursor.getString(4));
             usuarios.setTelefono(cursor.getString(5));

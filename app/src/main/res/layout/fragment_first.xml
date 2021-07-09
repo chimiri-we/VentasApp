@@ -63,12 +63,12 @@
                         android:layout_marginStart="20dp"
                         android:layout_marginLeft="20dp"
                         android:layout_marginBottom="30dp"
-                        android:layout_toEndOf="@+id/icono_password"
-                        android:layout_toRightOf="@+id/icono_password"
+                        android:layout_toEndOf="@+id/icono_perfil"
+                        android:layout_toRightOf="@+id/icono_perfil"
                         android:text="Direccion" />
 
                     <ImageView
-                        android:id="@+id/icono_password"
+                        android:id="@+id/icono_perfil"
                         android:layout_width="@dimen/avatar_size"
                         android:layout_height="@dimen/avatar_size"
                         android:layout_alignParentLeft="true"
@@ -83,7 +83,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_gravity="center_vertical"
-                        android:layout_toRightOf="@+id/icono_password"
+                        android:layout_toRightOf="@+id/icono_perfil"
                         android:text="nombre Usuario"
                         android:textAppearance="?android:attr/textAppearanceSmall" />
 

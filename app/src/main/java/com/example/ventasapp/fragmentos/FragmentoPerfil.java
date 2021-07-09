@@ -34,18 +34,12 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
-import androidx.core.graphics.drawable.RoundedBitmapDrawable;
-import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.example.ventasapp.R;
 import com.example.ventasapp.datos.BaseDatos;
 import com.example.ventasapp.entidades.Usuarios;
-import com.example.ventasapp.ui.ActividadPrincipal;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -80,25 +74,24 @@ public class FragmentoPerfil extends Fragment {
     public FragmentoPerfil() {
     }
 
-    private TextView nombre, correo, tvusuario, direccion, telefono;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
        View v = inflater.inflate(R.layout.fragmento_perfil, container, false);
 
-        nombre = v.findViewById(R.id.texto_nombre);
-        correo = v.findViewById(R.id.texto_email);
-        tvusuario = v.findViewById(R.id.texto_usuario);
-        direccion = v.findViewById(R.id.texto_direccion_usuario);
-        telefono = v.findViewById(R.id.texto_telefono);
+        TextView nombre = v.findViewById(R.id.texto_nombre);
+        TextView correo = v.findViewById(R.id.texto_email);
+        TextView tvusuario = v.findViewById(R.id.texto_usuario);
+        TextView direccion = v.findViewById(R.id.texto_direccion_usuario);
+        TextView telefono = v.findViewById(R.id.texto_telefono);
         imgFoto = v.findViewById(R.id.ic_cambiar_imagen);
         imgperfil = v.findViewById(R.id.img_perfil);
         imgEdit = v.findViewById(R.id.icono_edit_datos);
         imgEditContra = v.findViewById(R.id.icono_indicador_derecho);
         imgEditdirec = v.findViewById(R.id.icono_editar_derecho);
-        if(ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA)
+        if(ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
+            ActivityCompat.requestPermissions(requireActivity(), new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
         }
         usuarios = new Usuarios();
         verdatosUsuario();
@@ -138,17 +131,17 @@ public class FragmentoPerfil extends Fragment {
         if (usuarios != null){
             edtContra.setText(usuarios.getPassword());
         }
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
         builder.setView(viewCon);
         builder.create();
 
         builder.setPositiveButton("GUARDAR DATOS", (dialog, which) -> {
-            final String contra = edtContra.getText().toString();
+            final String contra = Objects.requireNonNull(edtContra.getText()).toString();
             final String confirmar = edtContra.getText().toString();
             if (TextUtils.isEmpty(confirmar)) {
                 Toast.makeText(getContext(), "Algo salió mal. Verifique sus valores de entrada", Toast.LENGTH_LONG).show();
             } else {
-                bdLocal = new BaseDatos(getContext().getApplicationContext());
+                bdLocal = new BaseDatos(requireContext().getApplicationContext());
                 assert usuarios != null;
                 bdLocal.actualizarContrasena(new
                         Usuarios(usuarios.getId_usuario(), contra));
@@ -157,12 +150,7 @@ public class FragmentoPerfil extends Fragment {
                         getContext()).getIntent());
             }
         });
-        builder.setNegativeButton("CANCELAR", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(getContext(), "Tarea Cancelada",Toast.LENGTH_LONG).show();
-            }
-        });
+        builder.setNegativeButton("CANCELAR", (dialog, which) -> Toast.makeText(getContext(), "Tarea Cancelada",Toast.LENGTH_LONG).show());
 
         builder.show();
     }
@@ -176,31 +164,26 @@ public class FragmentoPerfil extends Fragment {
         if (usuarios != null){
             edtDireccionCiudad.setText(usuarios.getDireccion());
         }
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
         builder.setView(viewDir);
         builder.create();
 
         builder.setPositiveButton("GUARDAR DATOS", (dialog, which) -> {
-            final String ciudad = edtDireccionCiudad.getText().toString().trim();
+            final String ciudad = Objects.requireNonNull(edtDireccionCiudad.getText()).toString().trim();
             if (TextUtils.isEmpty(ciudad)) {
                 Toast.makeText(getContext(), "Algo salió mal. Verifique sus valores de entrada", Toast.LENGTH_LONG).show();
             } else {
-                bdLocal = new BaseDatos(getContext().getApplicationContext());
+                bdLocal = new BaseDatos(requireContext().getApplicationContext());
                 assert usuarios != null;
                 bdLocal.actualizarDireccion(new
                         Usuarios(usuarios.getId_usuario(), ciudad));
 
-                ((Activity) getContext()).finish();
-                getContext().startActivity(((Activity)
-                        getContext()).getIntent());
+                ((Activity) requireContext()).finish();
+                requireContext().startActivity(((Activity)
+                        requireContext()).getIntent());
             }
         });
-        builder.setNegativeButton("CANCELAR", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(getContext(), "Tarea Cancelada",Toast.LENGTH_LONG).show();
-            }
-        });
+        builder.setNegativeButton("CANCELAR", (dialog, which) -> Toast.makeText(getContext(), "Tarea Cancelada",Toast.LENGTH_LONG).show());
 
         builder.show();
     }
@@ -221,37 +204,33 @@ public class FragmentoPerfil extends Fragment {
         }
 
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
         builder.setView(view);
         builder.create();
 
         builder.setPositiveButton("GUARDAR DATOS", (dialog, which) -> {
-            final String nombre = edtNombreCliente.getText().toString();
-            final String telefono = edtTelefono.getText().toString();
-            final String correo = edtEmailCliente.getText().toString();
-            final String user = edtUsername.getText().toString();
+            final String nombre = Objects.requireNonNull(edtNombreCliente.getText()).toString();
+            final String telefono = Objects.requireNonNull(edtTelefono.getText()).toString();
+            final String correo = Objects.requireNonNull(edtEmailCliente.getText()).toString();
+            final String user = Objects.requireNonNull(edtUsername.getText()).toString();
             if (TextUtils.isEmpty(nombre)) {
                 Toast.makeText(getContext(), "Algo salió mal. Verifique sus valores de entrada", Toast.LENGTH_LONG).show();
             } else {
-                bdLocal = new BaseDatos(getContext().getApplicationContext());
+                bdLocal = new BaseDatos(requireContext().getApplicationContext());
                 assert usuarios != null;
                 bdLocal.actualizarUsuario(new
                         Usuarios(usuarios.getId_usuario(), nombre, telefono, correo, user));
-                ((Activity) getContext()).finish();
-                getContext().startActivity(((Activity)
-                        getContext()).getIntent());
+                ((Activity) requireContext()).finish();
+                requireContext().startActivity(((Activity)
+                        requireContext()).getIntent());
             }
         });
-        builder.setNegativeButton("CANCELAR", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(getContext(), "Tarea Cancelada",Toast.LENGTH_LONG).show();
-            }
-        });
+        builder.setNegativeButton("CANCELAR", (dialog, which) -> Toast.makeText(getContext(), "Tarea Cancelada",Toast.LENGTH_LONG).show());
 
         builder.show();
     }
 
+    @SuppressLint("Recycle")
     private void verdatosUsuario() {
         bdLocal = new BaseDatos(getContext());
         SQLiteDatabase db = bdLocal.getWritableDatabase();
@@ -282,22 +261,19 @@ public class FragmentoPerfil extends Fragment {
     private void mostrarDialogOpciones() {
 
         final CharSequence[] opciones={"Tomar Foto","Elegir de Galeria","Cancelar"};
-        final AlertDialog.Builder builder=new AlertDialog.Builder(getContext());
+        final AlertDialog.Builder builder=new AlertDialog.Builder(requireContext());
         builder.setTitle("Elige una Opción");
-        builder.setItems(opciones, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                if (opciones[i].equals("Tomar Foto")){
-                    abriCamara();
+        builder.setItems(opciones, (dialogInterface, i) -> {
+            if (opciones[i].equals("Tomar Foto")){
+                abriCamara();
+            }else{
+                if (opciones[i].equals("Elegir de Galeria")){
+                    @SuppressLint("IntentReset") Intent intent=new Intent(Intent.ACTION_PICK,
+                            MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    intent.setType("image/");
+                    startActivityForResult(Intent.createChooser(intent,"Seleccione"),COD_SELECCIONA);
                 }else{
-                    if (opciones[i].equals("Elegir de Galeria")){
-                        @SuppressLint("IntentReset") Intent intent=new Intent(Intent.ACTION_PICK,
-                                MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                        intent.setType("image/");
-                        startActivityForResult(Intent.createChooser(intent,"Seleccione"),COD_SELECCIONA);
-                    }else{
-                        dialogInterface.dismiss();
-                    }
+                    dialogInterface.dismiss();
                 }
             }
         });
@@ -308,13 +284,13 @@ public class FragmentoPerfil extends Fragment {
         File miFile=new File(Environment.getExternalStorageDirectory(),DIRECTORIO_IMAGEN);
         boolean isCreada=miFile.exists();
 
-        if(isCreada==false){
+        if(!isCreada){
             isCreada=miFile.mkdirs();
         }
 
-        if(isCreada==true){
-            Long consecutivo= System.currentTimeMillis()/1000;
-            String nombre=consecutivo.toString()+".jpg";
+        if(isCreada){
+            long consecutivo= System.currentTimeMillis()/1000;
+            String nombre= consecutivo +".jpg";
 
             path=Environment.getExternalStorageDirectory()+File.separator+DIRECTORIO_IMAGEN
                     +File.separator+nombre;//indicamos la ruta de almacenamiento
@@ -327,7 +303,7 @@ public class FragmentoPerfil extends Fragment {
             ////
             if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.N)
             {
-                String authorities=getContext().getPackageName()+".provider";
+                String authorities= requireContext().getPackageName()+".provider";
                 Uri imageUri= FileProvider.getUriForFile(requireContext(),authorities,fileImagen);
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
             }else
@@ -351,11 +327,11 @@ public class FragmentoPerfil extends Fragment {
             case COD_SELECCIONA:
                 Uri miPath=data.getData();
                 imgperfil.setImageURI(miPath);
-                BaseDatos bdLocal = new BaseDatos(getContext().getApplicationContext());
+                BaseDatos bdLocal = new BaseDatos(requireContext().getApplicationContext());
                 bdLocal.obtenerRutaImagen(miPath);
 
                 try {
-                    bitmap=MediaStore.Images.Media.getBitmap(getContext().getContentResolver(),miPath);
+                    bitmap=MediaStore.Images.Media.getBitmap(requireContext().getContentResolver(),miPath);
                     imgperfil.setImageBitmap(bitmap);
                     if (imgperfil != null){
 
@@ -369,39 +345,31 @@ public class FragmentoPerfil extends Fragment {
                 break;
             case COD_FOTO:
                 MediaScannerConnection.scanFile(getContext(), new String[]{path}, null,
-                        new MediaScannerConnection.OnScanCompletedListener() {
-                            @Override
-                            public void onScanCompleted(String path, Uri uri) {
-                                Log.i("Path",""+path);
-                            }
-                        });
+                        (path, uri) -> Log.i("Path",""+path));
 
 
                 bitmap= BitmapFactory.decodeFile(path);
                 imgperfil.setImageBitmap(bitmap);
                 if (imgperfil != null){
-                    bdLocal = new BaseDatos(getContext().getApplicationContext());
+                    bdLocal = new BaseDatos(requireContext().getApplicationContext());
                     bdLocal.guardarImagen(path);
                 }
 
                 break;
         }
-        bitmap=redimensionarImagen(bitmap,(R.dimen.avatar_size),(R.dimen.avatar_size));
+        bitmap=redimensionarImagen(bitmap);
 
     }
 
-    private void guardarImagen(Uri miPath) {
 
-    }
-
-    private Bitmap redimensionarImagen(Bitmap bitmap, float anchoNuevo, float altoNuevo) {
+    private Bitmap redimensionarImagen(Bitmap bitmap) {
 
         int ancho=bitmap.getWidth();
         int alto=bitmap.getHeight();
 
-        if(ancho>anchoNuevo || alto>altoNuevo){
-            float escalaAncho=anchoNuevo/ancho;
-            float escalaAlto= altoNuevo/alto;
+        if(ancho> (float) 600048 || alto> (float) 600048){
+            float escalaAncho= (float) 600048 /ancho;
+            float escalaAlto= (float) 600048 /alto;
 
             Matrix matrix=new Matrix();
             matrix.postScale(escalaAncho,escalaAlto);
@@ -455,9 +423,13 @@ public class FragmentoPerfil extends Fragment {
 
     private void solicitarPermisosManual() {
         final CharSequence[] opciones={"si","no"};
-        final AlertDialog.Builder alertOpciones=new AlertDialog.Builder(getContext());//estamos en fragment
+        final AlertDialog.Builder alertOpciones=new AlertDialog.Builder(requireContext());//estamos en fragment
         alertOpciones.setTitle("¿Desea configurar los permisos de forma manual?");
         alertOpciones.setItems(opciones, new DialogInterface.OnClickListener() {
+            public void setPackageName(String packageName) {
+                this.packageName = packageName;
+            }
+
             private String packageName;
 
             public String getPackageName() {
@@ -482,18 +454,13 @@ public class FragmentoPerfil extends Fragment {
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     private void cargarDialogoRecomendacion() {
-        AlertDialog.Builder dialogo=new AlertDialog.Builder(getContext());
+        AlertDialog.Builder dialogo=new AlertDialog.Builder(requireContext());
         dialogo.setTitle("Permisos Desactivados");
         dialogo.setMessage("Debe aceptar los permisos para el correcto funcionamiento de la App");
 
-        dialogo.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.M)
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                requestPermissions(new String[]{WRITE_EXTERNAL_STORAGE,CAMERA},100);
-            }
-        });
+        dialogo.setPositiveButton("Aceptar", (dialogInterface, i) -> requestPermissions(new String[]{WRITE_EXTERNAL_STORAGE,CAMERA},100));
         dialogo.show();
     }
 

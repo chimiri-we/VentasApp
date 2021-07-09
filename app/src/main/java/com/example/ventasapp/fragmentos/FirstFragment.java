@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -12,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.ventasapp.R;
 import com.example.ventasapp.adaptadores.AdaptadorCarritoCompras;
 import com.example.ventasapp.datos.BaseDatos;
@@ -42,6 +44,7 @@ public class FirstFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_first, container, false);
+        ImageView imgPerfil = v.findViewById(R.id.icono_perfil);
 
         nombreUsuario = v.findViewById(R.id.detalle_nombre_usuario);
         direcionUsuario = v.findViewById(R.id.direccion_detallle);
@@ -69,6 +72,12 @@ public class FirstFragment extends Fragment {
         usuarios = bdLocal.verdatosUsuario();
        nombreUsuario.setText(usuarios.getNombre());
        direcionUsuario.setText(usuarios.getDireccion());
+        Glide.with(requireContext())
+                .asBitmap()
+                .load(usuarios.getUrlImagen())
+                .error(R.drawable.ic_persona)
+                .centerCrop()
+                .into(imgPerfil);
 
         return v;
 }
