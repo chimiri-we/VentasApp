@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 public class BaseDatos extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 15;
+    private static final int DATABASE_VERSION = 19;
     private static final String DATABASE_NAME = "Ventas.db";
 
     private static final String TABLE_USUARIO = "Usuario";
@@ -399,5 +399,30 @@ Cursor cursor;
         SQLiteDatabase db = this.getWritableDatabase();
         //  db.insert(TABLE_USUARIO, null, values);
         db.update(TABLE_USUARIO, values, ID_USUARIO+ " = ?", new String[]{String.valueOf(usuario.getId_usuario())});
+    }
+    public void actualizarUsuario(Usuarios usuarios) {
+        ContentValues values = new ContentValues();
+        values.put("nombre", usuarios.getNombre());
+        values.put("telefono", usuarios.getTelefono());
+        values.put("user", usuarios.getUser());
+        values.put("correo", usuarios.getCorreo());
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.update(TABLE_USUARIO, values, ID_USUARIO + " = ?", new String[]{String.valueOf(usuarios.getId_usuario())});
+    }
+
+    public void actualizarContrasena(Usuarios usuarios) {
+        ContentValues values = new ContentValues();
+
+        values.put("password", usuarios.getPassword());
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.update(TABLE_USUARIO, values, ID_USUARIO + " = ?", new String[]{String.valueOf(usuarios.getId_usuario())});
+    }
+
+    public void actualizarDireccion(Usuarios usuarios) {
+        ContentValues values = new ContentValues();
+        values.put("direccion", usuarios.getDireccion());
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.update(TABLE_USUARIO, values, ID_USUARIO + " = ?", new String[]{String.valueOf(usuarios.getId_usuario())});
     }
 }

@@ -24,34 +24,36 @@
         android:orientation="vertical"
         android:padding="20dp">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edt_correo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:hint="correo"
-            android:inputType="textEmailAddress" />
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edt_nombre_usuario"
+            android:id="@+id/edt_contras"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:hint="nombre" />
+            android:hint="Confirma Pasword"
+            app:endIconMode="password_toggle" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edt_username"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:hint="usuario" />
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/label_password"
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edt_telefono_user"
+            app:endIconMode="password_toggle"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:hint="Telefono" />
+            android:layout_below="@id/label_direccion">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edt_confirmar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:hint="Confirma Pasword"
+                android:inputType="textPassword"
+                app:endIconMode="password_toggle" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
 
     </LinearLayout>
 

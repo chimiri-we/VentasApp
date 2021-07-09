@@ -5,11 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:layout_marginStart="10dp"
-    android:layout_marginLeft="10dp"
+    android:layout_marginStart="20dp"
+    android:layout_marginLeft="20dp"
     android:layout_marginTop="@dimen/loginViewsMargin"
-    android:layout_marginEnd="10dp"
-    android:layout_marginRight="10dp"
+    android:layout_marginEnd="020dp"
+    android:layout_marginRight="020dp"
     android:layout_marginBottom="@dimen/loginViewsMargin"
     android:background="@color/white"
     android:elevation="5dp"
@@ -24,34 +24,22 @@
         android:orientation="vertical"
         android:padding="20dp">
 
+
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edt_correo"
+            android:id="@+id/edt_direcci_colonia"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:hint="correo"
+            android:hint="Calle y numero"
             android:inputType="textEmailAddress" />
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edt_nombre_usuario"
+            android:id="@+id/edt_direcci_ciudad"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:hint="nombre" />
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edt_username"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:hint="usuario" />
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edt_telefono_user"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:hint="Telefono" />
+            android:hint="Ciudad"
+            android:inputType="textEmailAddress" />
 
     </LinearLayout>
 

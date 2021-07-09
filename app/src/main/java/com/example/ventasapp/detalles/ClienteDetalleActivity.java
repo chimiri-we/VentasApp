@@ -43,7 +43,7 @@ public class ClienteDetalleActivity extends AppCompatActivity {
             bdLocal = new BaseDatos(ClienteDetalleActivity.this);
         producto = bdLocal.verProducto(Integer.parseInt(id));
         if (producto != null) {
-
+            // Cambiar título
             collapser.setTitle(producto.getNombre_producto());
           //  Toast.makeText(this, "el precio"+producto.getPrecio(), Toast.LENGTH_SHORT).show();
             imageView = findViewById(R.id.iv_avatar);
@@ -52,19 +52,10 @@ public class ClienteDetalleActivity extends AppCompatActivity {
                     .centerCrop()
                     .into(imageView);
         }
-
         }else {
-        //    Toast.makeText(this, "no hay id", Toast.LENGTH_SHORT).show();
+            String extras = getIntent().getStringExtra("nombre");
+            collapser.setTitle(extras);
         }
-
-
-
-        String extras = getIntent().getStringExtra("nombre");
-        Toast.makeText(this, "el ide es"+extras, Toast.LENGTH_SHORT).show();
-
-         // Cambiar título
-
-
 
 
 

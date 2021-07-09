@@ -130,10 +130,13 @@ public class ActividadPrincipal extends AppCompatActivity {
 
         switch (itemDrawer.getItemId()) {
             case R.id.item_inicio:
-                fragmentoGenerico = new FragmentoCompras();
+                fragmentoGenerico = new FragmentoInicio();
                 break;
             case R.id.item_cuenta:
                 fragmentoGenerico = new FragmentoCuenta();
+                break;
+            case R.id.item_lo_nuevo:
+                fragmentoGenerico = new FragmentoCompras();
                 break;
             case R.id.item_categorias:
                 fragmentoGenerico = new FragmentoCategorias();

@@ -44,6 +44,23 @@ public class Usuarios {
         this.urlImagen = imagen;
     }
 
+    public Usuarios(int id_usuario, String contra) {
+        this.id_usuario = id_usuario;
+
+        this.password = contra;
+    }
+
+    public Usuarios(int id_usuario, String nombre, String telefono, String correo, String user) {
+        this.id_usuario = id_usuario;
+        this.nombre = nombre;
+        this.correo = correo;
+
+        this.telefono = telefono;
+
+        this.user = user;
+
+    }
+
     public int getId_usuario() {
         return id_usuario;
     }

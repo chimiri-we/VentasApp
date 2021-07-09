@@ -66,11 +66,11 @@ public class RegistroPerfilFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_registro_perfil, container, false);
 
-        imgFoto = v.findViewById(R.id.img_registro_user);
+
         edtNombreCliente = v.findViewById(R.id.edt_nombre_usuario);
         edtEmailCliente = v.findViewById(R.id.edt_correo);
         edtUsername = v.findViewById(R.id.edt_username);
-        tvCambiarFoto = v.findViewById(R.id.tv_cambiar_foto);
+
         tvCambiarFoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,7 +84,7 @@ public class RegistroPerfilFragment extends Fragment {
     }else{
         tvCambiarFoto.setEnabled(false);
     }
-     btnSigiente = v.findViewById(R.id.btn_siguiente);
+
 
 
 

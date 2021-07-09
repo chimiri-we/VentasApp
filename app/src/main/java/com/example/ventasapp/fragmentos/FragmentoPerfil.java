@@ -1,7 +1,9 @@
 package com.example.ventasapp.fragmentos;
 
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -17,6 +19,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.provider.Settings;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +31,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.core.graphics.drawable.RoundedBitmapDrawable;
 import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
@@ -41,6 +46,8 @@ import com.example.ventasapp.R;
 import com.example.ventasapp.datos.BaseDatos;
 import com.example.ventasapp.entidades.Usuarios;
 import com.example.ventasapp.ui.ActividadPrincipal;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.io.File;
 import java.io.IOException;
@@ -62,7 +69,7 @@ public class FragmentoPerfil extends Fragment {
     private String path;//almacena la ruta de la imagen
     File fileImagen;
     Bitmap bitmap;
-    ImageView imgFoto;
+    ImageView imgFoto, imgEdit, imgEditdirec, imgEditContra;
     CircleImageView imgperfil;
 
     private final int MIS_PERMISOS = 100;
@@ -82,10 +89,17 @@ public class FragmentoPerfil extends Fragment {
         nombre = v.findViewById(R.id.texto_nombre);
         correo = v.findViewById(R.id.texto_email);
         tvusuario = v.findViewById(R.id.texto_usuario);
-        direccion = v.findViewById(R.id.tv_direccion_usuario);
+        direccion = v.findViewById(R.id.texto_direccion_usuario);
         telefono = v.findViewById(R.id.texto_telefono);
         imgFoto = v.findViewById(R.id.ic_cambiar_imagen);
         imgperfil = v.findViewById(R.id.img_perfil);
+        imgEdit = v.findViewById(R.id.icono_edit_datos);
+        imgEditContra = v.findViewById(R.id.icono_indicador_derecho);
+        imgEditdirec = v.findViewById(R.id.icono_editar_derecho);
+        if(ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
+        }
         usuarios = new Usuarios();
         verdatosUsuario();
 
@@ -94,9 +108,9 @@ public class FragmentoPerfil extends Fragment {
             nombre.setText(usuarios.getNombre().toString());
             correo.setText(usuarios.getCorreo().toString().toLowerCase());
             tvusuario.setText(usuarios.getUser().toString().toLowerCase());
-            direccion.setText(usuarios.getDireccion().toString().toLowerCase());
+            direccion.setText(usuarios.getDireccion());
             telefono.setText(usuarios.getTelefono().toString().toLowerCase());
-            String urlImagen = usuarios.getUrlImagen().toLowerCase();
+//            String urlImagen = usuarios.getUrlImagen().toLowerCase();
 
             Glide.with(requireContext())
                     .asBitmap()
@@ -105,15 +119,136 @@ public class FragmentoPerfil extends Fragment {
                     .centerCrop()
                     .into(imgperfil);
         }
-        imgFoto.setOnClickListener(new View.OnClickListener() {
+        imgFoto.setOnClickListener(v14 -> tomarFoto());
+
+        imgEdit.setOnClickListener(v1 -> editarDatosUsuario(usuarios));
+     //   imgEditdirec.setOnClickListener(v12 -> editarDireccion(usuarios));
+
+        imgEditContra.setOnClickListener(v13 -> editarContrasena(usuarios));
+
+        return v;
+    }
+
+    private void editarContrasena(Usuarios usuarios) {
+        LayoutInflater inflater = LayoutInflater.from(getContext());
+        View viewCon = inflater.inflate(R.layout.dialog_contrasena, null, false);
+        TextInputEditText edtContra = viewCon.findViewById(R.id.edt_contras);
+        TextInputLayout layout = viewCon.findViewById(R.id.label_password);
+        TextInputEditText edtConfirCon = viewCon.findViewById(R.id.edt_confirmar);
+        if (usuarios != null){
+            edtContra.setText(usuarios.getPassword());
+        }
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setView(viewCon);
+        builder.create();
+
+        builder.setPositiveButton("GUARDAR DATOS", (dialog, which) -> {
+            final String contra = edtContra.getText().toString();
+            final String confirmar = edtContra.getText().toString();
+            if (TextUtils.isEmpty(confirmar)) {
+                Toast.makeText(getContext(), "Algo salió mal. Verifique sus valores de entrada", Toast.LENGTH_LONG).show();
+            } else {
+               // bdLocal = new BaseDatos(getContext().getApplicationContext());
+                assert usuarios != null;
+                bdLocal.actualizarContrasena(new
+                        Usuarios(usuarios.getId_usuario(), contra));
+                ((Activity) getContext()).finish();
+                getContext().startActivity(((Activity)
+                        getContext()).getIntent());
+            }
+        });
+        builder.setNegativeButton("CANCELAR", new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                tomarFoto();
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(getContext(), "Tarea Cancelada",Toast.LENGTH_LONG).show();
             }
         });
 
+        builder.show();
+    }
 
-        return v;
+   /* private void editarDireccion(Usuarios usuarios) {
+        LayoutInflater inflater = LayoutInflater.from(getContext());
+        View viewDir = inflater.inflate(R.layout.dialog_direccion, null, false);
+        TextInputEditText edtDireccionColonia = viewDir.findViewById(R.id.edt_direcci_colonia);
+        TextInputEditText edtDireccionCiudad = viewDir.findViewById(R.id.edt_direcci_ciudad);
+
+        if (usuarios != null){
+            edtDireccionCiudad.setText(usuarios.getDireccion());
+        }
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setView(viewDir);
+        builder.create();
+
+        builder.setPositiveButton("GUARDAR DATOS", (dialog, which) -> {
+            final String ciudad = edtDireccionCiudad.getText().toString();
+            if (TextUtils.isEmpty(ciudad)) {
+                Toast.makeText(getContext(), "Algo salió mal. Verifique sus valores de entrada", Toast.LENGTH_LONG).show();
+            } else {
+                bdLocal = new BaseDatos(getContext().getApplicationContext());
+                assert usuarios != null;
+                bdLocal.actualizarDireccion(new
+                        Usuarios(usuarios.getId_usuario(), ciudad));
+                ((Activity) getContext()).finish();
+                getContext().startActivity(((Activity)
+                        getContext()).getIntent());
+            }
+        });
+        builder.setNegativeButton("CANCELAR", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(getContext(), "Tarea Cancelada",Toast.LENGTH_LONG).show();
+            }
+        });
+
+        builder.show();
+    }
+*/
+    private void editarDatosUsuario(Usuarios usuarios) {
+        LayoutInflater inflater = LayoutInflater.from(getContext());
+        View view = inflater.inflate(R.layout.fragment_registro_perfil, null, false);
+        TextInputEditText edtNombreCliente = view.findViewById(R.id.edt_nombre_usuario);
+        TextInputEditText edtEmailCliente = view.findViewById(R.id.edt_correo);
+        TextInputEditText edtUsername = view.findViewById(R.id.edt_username);
+        TextInputEditText edtTelefono = view.findViewById(R.id.edt_telefono_user);
+        if (usuarios != null){
+            edtEmailCliente.setText(usuarios.getCorreo());
+            edtNombreCliente.setText(usuarios.getNombre());
+            edtUsername.setText(usuarios.getUser());
+            edtTelefono.setText(usuarios.getTelefono());
+
+        }
+
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setView(view);
+        builder.create();
+
+        builder.setPositiveButton("GUARDAR DATOS", (dialog, which) -> {
+            final String nombre = edtNombreCliente.getText().toString();
+            final String telefono = edtTelefono.getText().toString();
+            final String correo = edtEmailCliente.getText().toString();
+            final String user = edtUsername.getText().toString();
+            if (TextUtils.isEmpty(nombre)) {
+                Toast.makeText(getContext(), "Algo salió mal. Verifique sus valores de entrada", Toast.LENGTH_LONG).show();
+            } else {
+                bdLocal = new BaseDatos(getContext().getApplicationContext());
+                assert usuarios != null;
+                bdLocal.actualizarUsuario(new
+                        Usuarios(usuarios.getId_usuario(), nombre, telefono, correo, user));
+                ((Activity) getContext()).finish();
+                getContext().startActivity(((Activity)
+                        getContext()).getIntent());
+            }
+        });
+        builder.setNegativeButton("CANCELAR", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(getContext(), "Tarea Cancelada",Toast.LENGTH_LONG).show();
+            }
+        });
+
+        builder.show();
     }
 
     private void verdatosUsuario() {
@@ -124,7 +259,7 @@ public class FragmentoPerfil extends Fragment {
         cursor = db.rawQuery("select * from Usuario", null);
         if (cursor.moveToFirst()) {
 
-            usuarios = new Usuarios();
+
             usuarios.setId_usuario(cursor.getInt(0));
             //usuarios.setId_R(cursor.getInt(1));
             usuarios.setNombre(cursor.getString(1));
