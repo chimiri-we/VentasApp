@@ -37,12 +37,11 @@ public class RegistroFragment extends Fragment {
     public static final String KEY_USUARIO = "Usuario";
     public static final String KEY_PASSWORD = "Password";
     public static final String KEY_NUMEROTELEFONO = "Telefono";
-    private RequestQueue requestQueue;
+
     private EditText edtNombreCliente, edtNumeroCliente, edtPasswordCliente, edtUsername;
 
     private ProgressDialog progressDialog;
-    private static final String TAG_SUCCESS = "success";
-    private static final String TAG_MESSAGE = "message";
+
 
     private static final String TABLE_USUARIO = "Usuario";
 
@@ -71,14 +70,12 @@ public class RegistroFragment extends Fragment {
 
         final String nombre = edtNombreCliente.getText().toString().trim();
         final String password = edtPasswordCliente.getText().toString().trim();
-
         final String telefono = edtNumeroCliente.getText().toString().trim();
-
         final String username = edtUsername.getText().toString().trim();
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, REGISTER_URL,
                 response -> {
-                    Toast.makeText(getContext(), "Registro exitoso", Toast.LENGTH_SHORT).show();
+                  //  Toast.makeText(getContext(), "Registro exitoso", Toast.LENGTH_SHORT).show();
 
         usuarios = new Usuarios();
         usuarios.setNombre(nombre);
@@ -106,6 +103,7 @@ public class RegistroFragment extends Fragment {
         edtNumeroCliente.setText("");
         edtNombreCliente.setText("");
         edtUsername.setText("");
+                    startActivity(new Intent(getContext(), ActividadPrincipal.class));
                 },
                 error -> {
                     progressDialog.hide();
@@ -123,7 +121,7 @@ public class RegistroFragment extends Fragment {
             }
 
         };
-        startActivity(new Intent(getContext(), ActividadPrincipal.class));
+
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         requestQueue.add(stringRequest);
     }

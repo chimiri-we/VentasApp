@@ -168,8 +168,8 @@ public class FragmentoPerfil extends Fragment {
 
         if (usuarios != null){
             edtDireccionCiudad.setText(usuarios.getDireccion());
-            edtDireccionCalle.setText(usuarios.getDireccion());
-            edtDireccionColonia.setText(usuarios.getDireccion());
+            edtDireccionCalle.setText(usuarios.getCalle());
+            edtDireccionColonia.setText(usuarios.getColonia());
         }
         AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
         builder.setView(viewDir);

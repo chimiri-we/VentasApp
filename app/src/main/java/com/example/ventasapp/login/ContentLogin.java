@@ -13,15 +13,15 @@ import com.example.ventasapp.R;
 public class ContentLogin extends AppCompatActivity {
 
 
-    private Fragment fragmentR,fragmentL;
+    private Fragment fragmentR, fragmentLocation;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.content_login);
-        fragmentL = new LoginActivity();
+        Fragment fragmentL = new LoginActivity();
         fragmentR = new RegistroFragment();
-      //  fragmentP = new RecuperarPasswordFragment();
+        fragmentLocation = new RegistroPerfilFragment();
        getSupportFragmentManager().beginTransaction().add(R.id.contenedorFragment, fragmentL).commit();
 
     }
@@ -33,9 +33,9 @@ public class ContentLogin extends AppCompatActivity {
             case R.id.registrarme: transaction.replace(R.id.contenedorFragment, fragmentR);
                transaction.addToBackStack(null);
                 break;
-          //  case R.id.recuperarPass: transaction.replace(R.id.contenedorFragment, fragmentP);
-         //       transaction.addToBackStack(null);
-        //        break;
+            case R.id.recuperar_password: transaction.replace(R.id.contenedorFragment, fragmentLocation);
+                transaction.addToBackStack(null);
+                break;
         }
         transaction.commit();
 
