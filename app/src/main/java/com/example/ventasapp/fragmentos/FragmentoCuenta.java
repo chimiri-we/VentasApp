@@ -64,7 +64,7 @@ public class FragmentoCuenta extends Fragment {
         adapter.addFragment(new FragmentoPerfil(), getString(R.string.titulo_tab_perfil));
         adapter.addFragment(new FragmentoDirecciones(), getString(R.string.titulo_tab_compras));
         adapter.addFragment(new FragmentoTarjetas(), getString(R.string.titulo_tab_tarjetas));
-        adapter.addFragment(new FragmentoCompras(), getString(R.string.titulo_tab_pedidos));
+        adapter.addFragment(new FragmenNotificacion(), getString(R.string.titulo_tab_notificaciones));
         viewPager.setAdapter(adapter);
     }
 

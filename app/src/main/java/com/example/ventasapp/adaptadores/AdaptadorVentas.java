@@ -70,23 +70,18 @@ public class AdaptadorVentas extends RecyclerView.Adapter<AdaptadorVentas.ViewHo
 
         holder.idUsuario.setText(idusuario);
         holder.totalVenta.setText(total);
-        holder.statusVenta.setText(status);
+       // holder.statusVenta.setText(status);
         holder.fechaVenta.setText(venta.getFecha());
 
      //   holder.departamento.setText(ventaList.get(position).getStatus());
 
-      /*  int status = ventaList.get(position).getStatus();
-        if (status == 0){
-            holder.direccion.setText("Pendiente de entrega");
+       int estatus = ventaList.get(position).getStatus();
+        if (estatus == 0){
+            holder.statusVenta.setText("Pendiente de entrega");
         }else {
-            holder.direccion.setText("Paquete entregado");
+            holder.statusVenta.setText("Paquete entregado");
         }
-        BaseDatos bdLocal = new BaseDatos(context.getApplicationContext());
-       dtVenta = bdLocal.consultarDetalleVenta(id_venta);
 
-       String nombreProducto = dtVenta.getNombre_producto();
-
-        */
 
     }
 

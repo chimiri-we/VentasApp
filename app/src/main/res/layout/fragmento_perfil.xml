@@ -260,7 +260,6 @@
                             android:id="@+id/texto_direccion_usuario"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
                             android:layout_gravity="center_vertical"
                             android:layout_toRightOf="@+id/icono_direccion"
                             android:text="@string/texto_cambiar_direccion"
@@ -275,30 +274,43 @@
                             android:src="@drawable/ic_pencil"
                             card_view:tint="#0B0A0A" />
 
+                        <TextView
+                            android:id="@+id/tv_colonia"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/texto_direccion_usuario"
+                            android:layout_marginStart="15dp"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_toEndOf="@+id/icono_direccion"
+                            android:layout_toRightOf="@+id/icono_direccion"
+                            android:layout_weight="1"
+                            android:text="TextView" />
+
+                        <TextView
+                            android:id="@+id/tv_calle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/texto_direccion_usuario"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_toEndOf="@+id/tv_colonia"
+                            android:layout_toRightOf="@+id/tv_colonia"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="TextView" />
+
                     </RelativeLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_margin="8dp"
+                        android:layout_marginBottom="20dp"
                         android:orientation="horizontal"
                         android:weightSum="2">
 
-                        <TextView
-                            android:id="@+id/tv_colonia"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="TextView" />
-
-                        <TextView
-                            android:id="@+id/tv_calle"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:text="TextView" />
                     </LinearLayout>
 
                 </LinearLayout>

@@ -124,8 +124,7 @@ Context context;
         });
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle("Agrega al Carrito");
-        builder.setMessage("Proceso de compra");
+
         builder.setView(subView);
         builder.create();
 
@@ -136,6 +135,8 @@ Context context;
             //  startActivity(getContext());
 
         });
+        builder.setNegativeButton("CANCELAR", (dialog, which) -> Toast.makeText(context, "Tarea Cancelada",Toast.LENGTH_LONG).show());
+
         builder.show();
     }
 

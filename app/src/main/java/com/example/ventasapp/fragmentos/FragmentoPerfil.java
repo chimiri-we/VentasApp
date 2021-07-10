@@ -4,6 +4,7 @@ package com.example.ventasapp.fragmentos;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -20,11 +21,13 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.text.TextUtils;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,15 +39,28 @@ import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.example.ventasapp.R;
 import com.example.ventasapp.datos.BaseDatos;
 import com.example.ventasapp.entidades.Usuarios;
+import com.example.ventasapp.entidades.VolleySingleton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -56,6 +72,18 @@ import static android.Manifest.permission_group.CAMERA;
  * Fragmento para la pestaña "PERFIL" De la sección "Mi Cuenta"
  */
 public class FragmentoPerfil extends Fragment {
+    public static final String REGISTER_URL = "https://servicioparanegocio.es/ventasApp/actualizarCliente.php";
+
+    public static final String KEY_NOMBRE = "nombre";
+    public static final String KEY_USUARIO = "usuario";
+    public static final String KEY_PASSWORD = "password";
+    public static final String KEY_CIUDAD = "direccion_ciudad";
+    public static final String KEY_COLONIA = "colonia";
+    public static final String KEY_CALLE = "calle";
+    public static final String KEY_CORREO = "correo";
+    public static final String KEY_ID = "id_usuario";
+    public static final String KEY_IMAGEN = "imagen";
+    public static final String KEY_NUMEROTELEFONO = "telefono";
 
     private static final String CARPETA_PRINCIPAL = "misImagenesApp/";//directorio principal
     private static final String CARPETA_IMAGEN = "imagenes";//carpeta donde se guardan las fotos
@@ -65,11 +93,20 @@ public class FragmentoPerfil extends Fragment {
     Bitmap bitmap;
     ImageView imgFoto, imgEdit, imgEditdirec, imgEditContra;
     CircleImageView imgperfil;
-
+ProgressDialog progreso;
     private final int MIS_PERMISOS = 100;
     private static final int COD_SELECCIONA = 10;
     private static final int COD_FOTO = 20;
     BaseDatos bdLocal;
+
+
+
+
+    // RequestQueue request;
+    JsonObjectRequest jsonObjectRequest;
+
+    TextView nombre, correo, tvusuario, direccion,  telefono, direccionCalle, direccionColonia;
+    StringRequest stringRequest;
     Usuarios usuarios;
     public FragmentoPerfil() {
     }
@@ -79,13 +116,13 @@ public class FragmentoPerfil extends Fragment {
                              Bundle savedInstanceState) {
        View v = inflater.inflate(R.layout.fragmento_perfil, container, false);
 
-        TextView nombre = v.findViewById(R.id.texto_nombre);
-        TextView correo = v.findViewById(R.id.texto_email);
-        TextView tvusuario = v.findViewById(R.id.texto_usuario);
-        TextView direccion = v.findViewById(R.id.texto_direccion_usuario);
-        TextView telefono = v.findViewById(R.id.texto_telefono);
-        TextView direccionCalle = v.findViewById(R.id.tv_calle);
-        TextView direccionColonia = v.findViewById(R.id.tv_colonia);
+      nombre = v.findViewById(R.id.texto_nombre);
+         correo = v.findViewById(R.id.texto_email);
+        tvusuario = v.findViewById(R.id.texto_usuario);
+       direccion = v.findViewById(R.id.texto_direccion_usuario);
+       telefono = v.findViewById(R.id.texto_telefono);
+        direccionCalle = v.findViewById(R.id.tv_calle);
+      direccionColonia = v.findViewById(R.id.tv_colonia);
         imgFoto = v.findViewById(R.id.ic_cambiar_imagen);
         imgperfil = v.findViewById(R.id.img_perfil);
         imgEdit = v.findViewById(R.id.icono_edit_datos);
@@ -140,6 +177,7 @@ public class FragmentoPerfil extends Fragment {
         builder.create();
 
         builder.setPositiveButton("GUARDAR DATOS", (dialog, which) -> {
+
             final String contra = Objects.requireNonNull(edtContra.getText()).toString();
             final String confirmar = edtContra.getText().toString();
             if (TextUtils.isEmpty(confirmar)) {
@@ -149,6 +187,7 @@ public class FragmentoPerfil extends Fragment {
                 assert usuarios != null;
                 bdLocal.actualizarContrasena(new
                         Usuarios(usuarios.getId_usuario(), contra));
+
                 ((Activity) getContext()).finish();
                 getContext().startActivity(((Activity)
                         getContext()).getIntent());
@@ -158,6 +197,10 @@ public class FragmentoPerfil extends Fragment {
 
         builder.show();
     }
+
+
+
+
 
     private void editarDireccion(Usuarios usuarios) {
         LayoutInflater inflater = LayoutInflater.from(getContext());
@@ -189,7 +232,7 @@ public class FragmentoPerfil extends Fragment {
                         Usuarios(usuarios.getId_usuario(), ciudad, newcalle, newcolonia));
 
                 ((Activity) requireContext()).finish();
-                requireContext().startActivity(((Activity)
+              requireContext().startActivity(((Activity)
                         requireContext()).getIntent());
             }
         });
@@ -226,13 +269,20 @@ public class FragmentoPerfil extends Fragment {
             if (TextUtils.isEmpty(nombre)) {
                 Toast.makeText(getContext(), "Algo salió mal. Verifique sus valores de entrada", Toast.LENGTH_LONG).show();
             } else {
-                bdLocal = new BaseDatos(requireContext().getApplicationContext());
+
+                        //    Toast.makeText(getContext(), "Daatos guardados", Toast.LENGTH_LONG).show();
+
+
+                            bdLocal = new BaseDatos(requireContext().getApplicationContext());
                 assert usuarios != null;
                 bdLocal.actualizarUsuario(new
                         Usuarios(usuarios.getId_usuario(), nombre, telefono, correo, user));
-                ((Activity) requireContext()).finish();
-                requireContext().startActivity(((Activity)
-                        requireContext()).getIntent());
+
+
+
+            ((Activity) requireContext()).finish();
+            requireContext().startActivity(((Activity)
+                    requireContext()).getIntent());
             }
         });
         builder.setNegativeButton("CANCELAR", (dialog, which) -> Toast.makeText(getContext(), "Tarea Cancelada",Toast.LENGTH_LONG).show());
@@ -265,6 +315,76 @@ public class FragmentoPerfil extends Fragment {
 
         }
     }
+    private void actualizarDatos() {
+        progreso=new ProgressDialog(getContext());
+        progreso.setMessage("Cargando...");
+        progreso.show();
+
+
+        stringRequest=new StringRequest(Request.Method.POST, REGISTER_URL, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                progreso.hide();
+
+                if (response.trim().equalsIgnoreCase("registra")){
+
+                    Toast.makeText(getContext(),"Se ha registrado con exito",Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(getContext(),"No se ha registrado ",Toast.LENGTH_SHORT).show();
+                    Log.i("RESPUESTA: ",""+response);
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getContext(),"No se ha podido conectar",Toast.LENGTH_SHORT).show();
+                progreso.hide();
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+
+                String nomUsuario = nombre.getText().toString();
+                String user = tvusuario.getText().toString();
+                String email = correo.getText().toString();
+                String dirCiudad = direccion.getText().toString();
+                String calle = direccionCalle.getText().toString();
+                String colonia = direccionColonia.getText().toString();
+String numeroTelefono = telefono.getText().toString();
+
+                String imagen=convertirImgString(bitmap);
+
+                Map<String,String> params = new HashMap<>();
+
+                params.put(KEY_NOMBRE, nomUsuario);
+              //  params.put(KEY_PASSWORD, usuarios.getPassword());
+                params.put(KEY_CORREO, email);
+                params.put(KEY_CIUDAD, dirCiudad);
+                params.put(KEY_COLONIA, colonia);
+                params.put(KEY_CALLE, calle);
+                params.put(KEY_USUARIO, user);
+                params.put(KEY_NUMEROTELEFONO, numeroTelefono);
+              //  params.put(KEY_IMAGEN,imagen);
+
+                return params;
+            }
+        };
+        //request.add(stringRequest);
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(DefaultRetryPolicy.DEFAULT_TIMEOUT_MS * 2, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        VolleySingleton.getIntanciaVolley(getContext()).addToRequestQueue(stringRequest);
+    }
+
+    private String convertirImgString(Bitmap bitmap) {
+        ByteArrayOutputStream array=new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG,100,array);
+        byte[] imagenByte=array.toByteArray();
+        String imagenString= Base64.encodeToString(imagenByte,Base64.DEFAULT);
+
+        return imagenString;
+    }
+
 
     public void tomarFoto() {
         mostrarDialogOpciones();
@@ -341,6 +461,7 @@ public class FragmentoPerfil extends Fragment {
                 imgperfil.setImageURI(miPath);
                 BaseDatos bdLocal = new BaseDatos(requireContext().getApplicationContext());
                 bdLocal.obtenerRutaImagen(miPath);
+                actualizarDatos();
 
                 try {
                     bitmap=MediaStore.Images.Media.getBitmap(requireContext().getContentResolver(),miPath);

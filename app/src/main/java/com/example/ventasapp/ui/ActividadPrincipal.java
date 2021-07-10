@@ -67,7 +67,7 @@ public class ActividadPrincipal extends AppCompatActivity {
         bdLocal = new BaseDatos(this);
        usuario = bdLocal.validarUsuario();
         if (usuario != null) {
-            Toast.makeText(this, "el usuario es  "+usuario.getNombre(), Toast.LENGTH_SHORT).show();
+          //  Toast.makeText(this, "el usuario es  "+usuario.getNombre(), Toast.LENGTH_SHORT).show();
 
             nombreUsuario = usuario.getNombre();
 
@@ -86,12 +86,6 @@ public class ActividadPrincipal extends AppCompatActivity {
             ab.setHomeAsUpIndicator(R.drawable.ic_inicio_base);
             ab.setDisplayHomeAsUpEnabled(true);
         }
-
-
-
-      //  TextView tvNombre = findViewById(R.id.tv_nombre_user);
-       // String nombre = getIntent().getStringExtra("nombre");
-       // tvNombre.setText(nombre);
 
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -175,12 +169,6 @@ public class ActividadPrincipal extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
-  /*  public void activyti(View view) {
-        Intent intent = new Intent(this, ClienteDetalleActivity.class);
-        startActivity(intent);
-    }
-*/
 
 
     }

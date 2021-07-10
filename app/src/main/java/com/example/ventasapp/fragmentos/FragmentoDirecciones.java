@@ -63,17 +63,11 @@ public class FragmentoDirecciones extends Fragment {
         }
         else {
             reciclador.setVisibility(View.GONE);
-            Toast.makeText(getContext(), "No hay ningún articulo guardado para este cliente", Toast.LENGTH_LONG).show();
+         //   Toast.makeText(getContext(), "No hay ningún articulo guardado para este cliente", Toast.LENGTH_LONG).show();
 
         }
 
-       /* AdaptadorDirecciones adaptador = new AdaptadorDirecciones();
-        AdaptadorVentas adaptador = new AdaptadorVentas(getContext(), ventaArrayList);
-        reciclador.setAdapter(adaptador);
-        reciclador.addItemDecoration(new DecoracionLineaDivisoria(getActivity()));
 
-        reciclador.setHasFixedSize(true);
-*/
         return view;
     }
 

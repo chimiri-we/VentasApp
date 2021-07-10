@@ -56,6 +56,23 @@
                     android:padding="@dimen/espacio_norma_1">
 
                     <TextView
+                        android:id="@+id/textView7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="30dp"
+                        android:layout_marginRight="30dp"
+                        android:layout_toEndOf="@+id/detalle_nombre_usuario"
+                        android:layout_toRightOf="@+id/detalle_nombre_usuario"
+                        android:gravity="center"
+                        android:text="TextView" />
+
+                    <TextView
                         android:id="@+id/direccion_detallle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -67,7 +84,7 @@
                         android:layout_toRightOf="@+id/icono_perfil"
                         android:text="Direccion" />
 
-                    <ImageView
+                    <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/icono_perfil"
                         android:layout_width="@dimen/avatar_size"
                         android:layout_height="@dimen/avatar_size"

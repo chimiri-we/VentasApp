@@ -145,24 +145,8 @@ public class LoginActivity extends Fragment implements Response.Listener<JSONObj
                     Log.d("Login Successful!", json.toString());
                     // save user data
                     obtenerDatosUsuario(Usuario);
-                 /*   Usuarios usuarios= new Usuarios();
-                    usuarios.setUser(Usuario);
-                    usuarios.setPassword(Password);
 
-                    ContentValues values = new ContentValues();
-                    values.put("user", usuarios.getUser());
 
-                    BaseDatos bdLocal = new BaseDatos(requireContext().getApplicationContext());
-                    SQLiteDatabase db = bdLocal.getReadableDatabase();
-                    db.insert(TABLE_USUARIO, null, values);
-                  /*  SharedPreferences sp = PreferenceManager
-                            .getDefaultSharedPreferences(getContext());
-                    SharedPreferences.Editor edit = sp.edit();
-                    edit.putString("Usuario", Usuario);
-                    edit.commit();
-*/
-                    Intent i = new Intent(getContext(), ActividadPrincipal.class);
-                    startActivity(i);
                     return json.getString(TAG_MESSAGE);
                 } else {
                     Log.d("Login Failure!", json.getString(TAG_MESSAGE));
@@ -188,7 +172,7 @@ public class LoginActivity extends Fragment implements Response.Listener<JSONObj
 
     private void obtenerDatosUsuario(String usuario) {
 
-        String url="https://servicioparanegocio.es/ventasApp/ConsultarProductoNombre.php?usuario="+usuario;
+        String url="https://servicioparanegocio.es/ventasApp/ConsultarUsuarioNombre.php?usuario="+usuario;
 
 
         jsonObjectRequest=new JsonObjectRequest(Request.Method.GET,url,null,this,this);
@@ -211,12 +195,13 @@ public class LoginActivity extends Fragment implements Response.Listener<JSONObj
 
         Usuarios user = new Usuarios();
 
-        JSONArray json=response.optJSONArray("producto");
+        JSONArray json=response.optJSONArray("usuario");
         JSONObject jsonObject=null;
 
         try {
+            assert json != null;
             jsonObject=json.getJSONObject(0);
-            user.setId_usuario(jsonObject.optInt("Id_producto"));
+            user.setId_usuario(jsonObject.optInt("id_producto"));
             user.setNombre(jsonObject.optString("Nombre"));
             user.setTelefono(jsonObject.optString("Telefono"));
             user.setUser(jsonObject.optString("Usuario"));
@@ -233,14 +218,17 @@ public class LoginActivity extends Fragment implements Response.Listener<JSONObj
             values.put("direccion", user.getDireccion());
             values.put("user", user.getUser());
             values.put("password", user.getPassword());
-            values.put("url_imagen", user.getUrlImagen());
+            values.put("uri_imagen", user.getUrlImagen());
             values.put("correo", user.getCorreo());
             values.put("calle", user.getCorreo());
-            values.put("ciudad", user.getCorreo());
+            values.put("direccion", user.getCorreo());
 
             BaseDatos bdLocal = new BaseDatos(requireContext().getApplicationContext());
             SQLiteDatabase db = bdLocal.getReadableDatabase();
             db.insert(TABLE_USUARIO, null, values);
+
+            Intent i = new Intent(getContext(), ActividadPrincipal.class);
+            startActivity(i);
 
         } catch (JSONException e) {
             e.printStackTrace();
