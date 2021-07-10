@@ -84,6 +84,8 @@ public class FragmentoPerfil extends Fragment {
         TextView tvusuario = v.findViewById(R.id.texto_usuario);
         TextView direccion = v.findViewById(R.id.texto_direccion_usuario);
         TextView telefono = v.findViewById(R.id.texto_telefono);
+        TextView direccionCalle = v.findViewById(R.id.tv_calle);
+        TextView direccionColonia = v.findViewById(R.id.tv_colonia);
         imgFoto = v.findViewById(R.id.ic_cambiar_imagen);
         imgperfil = v.findViewById(R.id.img_perfil);
         imgEdit = v.findViewById(R.id.icono_edit_datos);
@@ -103,6 +105,8 @@ public class FragmentoPerfil extends Fragment {
             tvusuario.setText(usuarios.getUser());
             direccion.setText(usuarios.getDireccion());
             telefono.setText(usuarios.getTelefono());
+            direccionCalle.setText(usuarios.getCalle());
+            direccionColonia.setText(usuarios.getColonia());
 //            String urlImagen = usuarios.getUrlImagen().toLowerCase();
 
             Glide.with(requireContext())

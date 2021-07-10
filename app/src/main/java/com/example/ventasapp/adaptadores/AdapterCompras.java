@@ -2,7 +2,9 @@ package com.example.ventasapp.adaptadores;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +17,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.load.resource.transcode.BitmapBytesTranscoder;
 import com.example.ventasapp.R;
 import com.example.ventasapp.datos.BaseDatos;
 import com.example.ventasapp.detalles.ClienteDetalleActivity;
@@ -34,6 +37,7 @@ public class AdapterCompras  extends RecyclerView.Adapter<AdapterCompras.Compras
     private static final String TABLE_DETALLE_VENTA = "DetalleVenta";
     int id_producto;
     int precio;
+    String id;
     String nombre;
     Context context;
     String piezas;
@@ -84,6 +88,7 @@ public class AdapterCompras  extends RecyclerView.Adapter<AdapterCompras.Compras
 
         precio = (int) listaUsuarios.get(position).getPrecio();
         nombre = holder.nombre.getText().toString().trim();
+        id = String.valueOf(listaUsuarios.get(position).getId_producto());
 
         if (listaUsuarios.get(position).getImagen()!=null){
             holder.imagen.setImageBitmap(listaUsuarios.get(position).getImagen());
@@ -93,10 +98,13 @@ public class AdapterCompras  extends RecyclerView.Adapter<AdapterCompras.Compras
         holder.imagen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // Toast.makeText(v.getContext(), "el id es"+nombre, Toast.LENGTH_SHORT).show();
+             //  Toast.makeText(v.getContext(), "el id es que estoy pasando es "+id, Toast.LENGTH_SHORT).show();
 
+               Bitmap img = listaUsuarios.get(position).getImagen();
                 Intent intent = new Intent(v.getContext(), ClienteDetalleActivity.class);
+                intent.putExtra("image", img);
                 intent.putExtra("nombre", nombre);
+                intent.putExtra("id", id);
                 v.getContext().startActivity(intent);
             }
         });
