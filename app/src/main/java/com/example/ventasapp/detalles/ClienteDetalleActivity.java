@@ -31,7 +31,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
-public class ClienteDetalleActivity extends AppCompatActivity implements Response.Listener<JSONObject>,Response.ErrorListener{
+public class ClienteDetalleActivity extends AppCompatActivity {
 
     ImageView imageView;
     ProgressDialog progreso;
@@ -42,11 +42,12 @@ public class ClienteDetalleActivity extends AppCompatActivity implements Respons
     String id;
     String descripcion;
 
-    String nombre;
-    String IDPRODUCTO, NOMBRE, DESCRIPCION, PRECIO;
+
+
 
     BaseDatos bdLocal;
     Producto producto;
+   // Producto p;
     CollapsingToolbarLayout collapser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +82,7 @@ public class ClienteDetalleActivity extends AppCompatActivity implements Respons
         String extras = getIntent().getStringExtra("nombre");
         collapser.setTitle(extras);
 
-        consultarProducto();
+    //    consultarProducto();
 
 
 
@@ -99,7 +100,7 @@ public class ClienteDetalleActivity extends AppCompatActivity implements Respons
 
 
     }
-
+/*
     private void consultarProducto() {
         progreso=new ProgressDialog(this);
         progreso.setMessage("Consultando...");
@@ -128,7 +129,7 @@ public class ClienteDetalleActivity extends AppCompatActivity implements Respons
 
         //    Toast.makeText(getContext(),"Mensaje: "+response,Toast.LENGTH_SHORT).show();
 
-        Producto p = new Producto();
+        p = new Producto();
 
         JSONArray json=response.optJSONArray("producto");
         JSONObject jsonObject=null;
@@ -140,13 +141,12 @@ public class ClienteDetalleActivity extends AppCompatActivity implements Respons
             p.setPrecio(jsonObject.optInt("Precio"));
             p.setDescripcion(jsonObject.optString("Descripcion"));
 
-            if (p != null){
-                IDPRODUCTO = String.valueOf(p.getId_producto());
-                DESCRIPCION = p.getDescripcion();
-                NOMBRE = p.getNombre_producto();
-                PRECIO = String.valueOf(p.getPrecio());
-                Toast.makeText(this,"Mensaje: "+NOMBRE,Toast.LENGTH_SHORT).show();
-            }
+            IDPRODUCTO = String.valueOf(p.getId_producto());
+            DESCRIPCION = p.getDescripcion();
+            NOMBRE = p.getNombre_producto();
+            PRECIO = String.valueOf(p.getPrecio());
+            Toast.makeText(this,"Mensaje: "+NOMBRE,Toast.LENGTH_SHORT).show();
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -155,7 +155,7 @@ public class ClienteDetalleActivity extends AppCompatActivity implements Respons
         descripcion = p.getDescripcion();
 
     }
-
+*/
     private void ponerEnImagen(Bitmap b) {
         ImageView image = (ImageView) findViewById(R.id.iv_avatar);
         // Usando Glide para la carga asíncrona
