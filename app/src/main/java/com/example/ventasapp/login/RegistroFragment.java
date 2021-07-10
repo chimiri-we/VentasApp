@@ -31,10 +31,18 @@ import java.util.Map;
 
 public class RegistroFragment extends Fragment {
 
+    public static final String REGISTER_URL = "https://servicioparanegocio.es/ventasApp/registro.php";
 
-    private EditText edtNombreCliente, edtNumeroCliente, edtEmailCliente, edtPasswordCliente, edtDireccion, edtUsername;
+    public static final String KEY_NOMBRE = "Nombre";
+    public static final String KEY_USUARIO = "Usuario";
+    public static final String KEY_PASSWORD = "Password";
+    public static final String KEY_NUMEROTELEFONO = "Telefono";
+    private RequestQueue requestQueue;
+    private EditText edtNombreCliente, edtNumeroCliente, edtPasswordCliente, edtUsername;
 
     private ProgressDialog progressDialog;
+    private static final String TAG_SUCCESS = "success";
+    private static final String TAG_MESSAGE = "message";
 
     private static final String TABLE_USUARIO = "Usuario";
 
@@ -45,14 +53,10 @@ public class RegistroFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_registro, container, false);
         edtNombreCliente = v.findViewById(R.id.edt_nombre_usuario);
         edtNumeroCliente = v.findViewById(R.id.edt_numero);
-
         edtPasswordCliente = v.findViewById(R.id.edt_password);
-
         edtUsername = v.findViewById(R.id.edt_username);
 
-
         Button btnRegistroCliente = v.findViewById(R.id.btn_registrarCliente);
-
         btnRegistroCliente.setOnClickListener(v1 -> registroCliente());
 
 
@@ -67,29 +71,26 @@ public class RegistroFragment extends Fragment {
 
         final String nombre = edtNombreCliente.getText().toString().trim();
         final String password = edtPasswordCliente.getText().toString().trim();
-      //  final String email = edtEmailCliente.getText().toString().trim();
+
         final String telefono = edtNumeroCliente.getText().toString().trim();
-      //  final String direccion = edtDireccion.getText().toString().trim();
+
         final String username = edtUsername.getText().toString().trim();
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, REGISTER_URL,
+                response -> {
+                    Toast.makeText(getContext(), "Registro exitoso", Toast.LENGTH_SHORT).show();
 
         usuarios = new Usuarios();
         usuarios.setNombre(nombre);
         usuarios.setUser(username);
-       // usuarios.setCorreo(email);
         usuarios.setPassword(password);
-      //  usuarios.setDireccion(direccion);
         usuarios.setTelefono(telefono);
 
         ContentValues values = new ContentValues();
-        values.put("id_usuario", usuarios.getId_usuario());
         values.put("nombre", usuarios.getNombre());
         values.put("telefono", usuarios.getTelefono());
-        values.put("direccion", usuarios.getDireccion());
         values.put("user", usuarios.getUser());
         values.put("password", usuarios.getPassword());
-      //  values.put("url_imagen", usuarios.getUrlImagen());
-        values.put("correo", usuarios.getCorreo());
-
         bdLocal = new BaseDatos(requireContext().getApplicationContext());
         SQLiteDatabase db = bdLocal.getReadableDatabase();
         if(db!= null) {
@@ -100,16 +101,33 @@ public class RegistroFragment extends Fragment {
         }
         db.insert(TABLE_USUARIO, null, values);
 
-
         progressDialog.hide();
-
         edtPasswordCliente.setText("");
         edtNumeroCliente.setText("");
         edtNombreCliente.setText("");
-
         edtUsername.setText("");
+                },
+                error -> {
+                    progressDialog.hide();
+                    Toast.makeText(getContext(), "Nose puede Registrar"+error.toString(), Toast.LENGTH_LONG).show();
+                    Log.i("ERROR", error.toString());
+                }){
+            @Override
+            protected Map<String,String> getParams(){
+                Map<String,String> params = new HashMap<>();
+                params.put(KEY_NOMBRE, nombre);
+                params.put(KEY_USUARIO, username);
+                params.put(KEY_PASSWORD, password);
+                params.put(KEY_NUMEROTELEFONO, telefono);
+                return params;
+            }
 
+        };
         startActivity(new Intent(getContext(), ActividadPrincipal.class));
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        requestQueue.add(stringRequest);
+    }
+}
 
 
 
@@ -143,5 +161,4 @@ public class RegistroFragment extends Fragment {
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         requestQueue.add(stringRequest);
     }*/
-}
-}
+
