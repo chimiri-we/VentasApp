@@ -60,6 +60,12 @@
         <activity
             android:name=".login.ContentLogin"
             android:label="@string/titulo_actividad_configuracion"/>
+        <activity
+            android:name=".coches2015.ActividadDetalle"
+            android:label="@string/titulo_actividad_configuracion"/>
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/titulo_actividad_configuracion"/>
 
         <provider
             android:name="androidx.core.content.FileProvider"

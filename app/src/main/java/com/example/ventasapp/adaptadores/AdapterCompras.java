@@ -83,7 +83,7 @@ public class AdapterCompras  extends RecyclerView.Adapter<AdapterCompras.Compras
     public void onBindViewHolder(ComprasHolder holder, int position) {
         holder.nombre.setText(listaUsuarios.get(position).getNombre_producto().toString());
         holder.precioProducto.setText("$"+listaUsuarios.get(position).getPrecio());
-        holder.descripcionProducto.setText(listaUsuarios.get(position).getDescripcion().toString());
+        holder.descripcionProducto.setText(listaUsuarios.get(position).getCaracteristicas().toString());
         id_producto = listaUsuarios.get(position).getId_producto();
 
         precio = (int) listaUsuarios.get(position).getPrecio();
@@ -190,7 +190,7 @@ public class AdapterCompras  extends RecyclerView.Adapter<AdapterCompras.Compras
             DetalleVenta detalleVenta = new DetalleVenta(idventa, id_producto, nombre, costo, piezas, resultado);
            bdLocal.agregardetalleVenta(detalleVenta);
 
-            Toast.makeText(context, "el id de la venta es el id "+idventa, Toast.LENGTH_LONG).show();
+            //Toast.makeText(context, "el id de la venta es el id "+idventa, Toast.LENGTH_LONG).show();
 
             Intent mintent = new Intent(context, CarritoComprasActivity.class);
             Bundle bundle = new Bundle();
@@ -202,6 +202,8 @@ public class AdapterCompras  extends RecyclerView.Adapter<AdapterCompras.Compras
 
 
         });
+        builder.setNegativeButton("CANCELAR", (dialog, which) -> Toast.makeText(context, "Tarea Cancelada",Toast.LENGTH_LONG).show());
+
         builder.show();
 
     }

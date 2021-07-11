@@ -69,7 +69,7 @@ public class AdaptadorVentas extends RecyclerView.Adapter<AdaptadorVentas.ViewHo
 
 
         holder.idUsuario.setText(idusuario);
-        holder.totalVenta.setText(total);
+        holder.totalVenta.setText("$ "+total);
        // holder.statusVenta.setText(status);
         holder.fechaVenta.setText(venta.getFecha());
 

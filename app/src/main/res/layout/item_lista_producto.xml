@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
+    android:layout_width="390dp"
     android:layout_height="wrap_content"
+    android:layout_gravity="center"
     android:layout_marginStart="5dp"
     android:layout_marginLeft="5dp"
     android:layout_marginTop="10dp"
@@ -22,7 +23,7 @@
         <!-- Cuerpo -->
         <ImageView
             android:id="@+id/miniatura_producto"
-            android:layout_width="400dp"
+            android:layout_width="390dp"
             android:layout_height="@dimen/altura_miniatura_comida"
             android:layout_gravity="center"
             android:scaleType="centerCrop" />
@@ -123,7 +124,8 @@
                 android:id="@+id/descripcion_producto"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." />
+                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+                android:textColor="@color/black" />
 
         </LinearLayout>
 

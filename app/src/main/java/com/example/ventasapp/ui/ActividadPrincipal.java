@@ -36,6 +36,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import com.example.ventasapp.MainActivity;
 import com.example.ventasapp.R;
 import com.example.ventasapp.datos.BaseDatos;
 import com.example.ventasapp.entidades.Usuarios;
@@ -165,6 +166,10 @@ public class ActividadPrincipal extends AppCompatActivity {
             case R.id.action_carrito:
                 Intent carritoIntent = new Intent(this, CarritoComprasActivity.class);
                 startActivity(carritoIntent);
+                break;
+            case R.id.action_settings:
+                Intent innnt = new Intent(this, MainActivity.class);
+                startActivity(innnt);
                 return true;
         }
         return super.onOptionsItemSelected(item);

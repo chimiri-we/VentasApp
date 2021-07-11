@@ -22,8 +22,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/detalle_nombre_producto"
-            android:layout_marginStart="30dp"
-            android:layout_marginLeft="30dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp"
             android:layout_marginTop="15dp"
             android:layout_toEndOf="@+id/icono_detalle_producto"
             android:layout_toRightOf="@+id/icono_detalle_producto"
@@ -58,11 +58,11 @@
 
         <ImageView
             android:id="@+id/icono_indicador_derecho"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="5dp"
             android:src="@android:drawable/ic_menu_delete" />
 
         <TextView
@@ -82,7 +82,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/icono_detalle_producto"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="15dp"
             android:gravity="center"
             android:orientation="horizontal"
             android:weightSum="3">

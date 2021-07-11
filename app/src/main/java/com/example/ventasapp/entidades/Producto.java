@@ -9,7 +9,35 @@ public class Producto {
     private String nombre_producto;
     private float precio;
     private String descripcion;
+    private String caracteristicas;
+
+    public String getCaracteristicas() {
+        return caracteristicas;
+    }
+
+    public void setCaracteristicas(String caracteristicas) {
+        this.caracteristicas = caracteristicas;
+    }
+
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
+
+    public int getStock() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
+    }
+
+    private String categoria;
     private int urlImagen;
+    private int stock;
     private String dato;
     private Bitmap imagen;
 

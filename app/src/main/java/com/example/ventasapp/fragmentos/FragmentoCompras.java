@@ -97,6 +97,9 @@ public class FragmentoCompras extends Fragment implements Response.Listener<JSON
             usuario.setNombre_producto(jsonObject.optString("Nombre_producto"));
             usuario.setPrecio(jsonObject.optInt("Precio"));
             usuario.setDescripcion(jsonObject.optString("Descripcion"));
+                usuario.setCaracteristicas(jsonObject.optString("Caracteristicas"));
+                usuario.setStock(jsonObject.optInt("Stock"));
+                usuario.setCategoria(jsonObject.optString("Categoria"));
             usuario.setDato(jsonObject.optString("Imagen_producto"));
             listaUsuarios.add(usuario);
           //  ID_PRODUCTO = String.valueOf(usuario.getId_producto());

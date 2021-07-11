@@ -65,9 +65,9 @@ public class AdaptadorCarritoCompras  extends RecyclerView.Adapter<AdaptadorCarr
         DetalleVenta detalleVenta = (DetalleVenta) detalleVentaList.get(position);
         id_detalle = detalleVentaList.get(position).getId_detalle();
         holder.detalleNombreProdcuto.setText(detalleVenta.getNombre_producto());
-        holder.detallePrecioProducto.setText(detalleVenta.getPrecio());
+        holder.detallePrecioProducto.setText("$ "+detalleVenta.getPrecio());
         holder.detalleCantidad.setText(detalleVenta.getCantidad());
-        holder.detalleTotal.setText(detalleVenta.getTotal());
+        holder.detalleTotal.setText("$ "+detalleVenta.getTotal());
       //  holder.detalleProducto.setText(detalleVenta.get);
       //  holder.detalleFecha.setText(detalleVenta.get);
 
