@@ -73,9 +73,7 @@ public class AdapterCompras  extends RecyclerView.Adapter<AdapterCompras.Compras
     @Override
     public ComprasHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View vista= LayoutInflater.from(parent.getContext()).inflate(R.layout.item_lista_producto,parent,false);
-        RecyclerView.LayoutParams layoutParams=new RecyclerView.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT);
-        vista.setLayoutParams(layoutParams);
+
         return new ComprasHolder(vista);
     }
 

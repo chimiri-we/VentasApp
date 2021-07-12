@@ -7,6 +7,7 @@
     android:background="#dee4ee"
     android:orientation="vertical"
     tools:ignore="UselessParent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="fragmentos.FirstFragment">
 
     <ScrollView
@@ -19,16 +20,33 @@
             android:gravity="center"
             android:padding="@dimen/espacio_norma_1">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/recicler_detalle_venta"
+                android:foregroundGravity="center"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/btn_pagar"
+                    android:layout_width="89dp"
+                    android:layout_height="wrap_content"
+android:onClick="onClick"
+                    android:layout_marginTop="19dp"
+                    android:text="Pagar" />
+            </LinearLayout>
+
             <TextView
                 android:id="@+id/titulo_detalle_venta"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingTop="@dimen/espacio_norma_1"
 
+                android:gravity="center"
+                android:paddingTop="@dimen/espacio_norma_1"
                 android:paddingBottom="@dimen/espacio_norma_2"
                 android:text="Producto Agregado"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
-
 
 
             <androidx.cardview.widget.CardView
@@ -59,25 +77,12 @@
                         android:id="@+id/direccion_detallle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginBottom="30dp"
+                        android:layout_above="@+id/detalle_venta_telefono"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginLeft="10dp"
                         android:layout_toEndOf="@+id/icono_perfil"
                         android:layout_toRightOf="@+id/icono_perfil"
                         android:text="Direccion" />
-
-                    <TextView
-                        android:id="@+id/textView9"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_alignParentBottom="true"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:text="TextView" />
 
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/icono_perfil"
@@ -90,14 +95,71 @@
                         android:src="@drawable/ic_categorias" />
 
                     <TextView
+                        android:id="@+id/detalle_referencia_direccion"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/icono_perfil"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="40dp"
+                        android:layout_toEndOf="@+id/icono_perfil"
+                        android:layout_toRightOf="@+id/icono_perfil"
+                        android:text="referencia" />
+
+                    <LinearLayout
+                        android:id="@+id/datos"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_below="@id/detalle_referencia_direccion"
+                        android:layout_marginTop="10dp"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal"
+                            android:weightSum="2">
+
+                            <TextView
+                                android:id="@+id/textView7"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="numero de articulos" />
+
+                            <TextView
+                                android:id="@+id/producto_total"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="TextView" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <TextView
                         android:id="@+id/detalle_nombre_usuario"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
+                        android:layout_above="@+id/direccion_detallle"
                         android:layout_gravity="center_vertical"
+                        android:layout_marginBottom="10dp"
                         android:layout_toRightOf="@+id/icono_perfil"
                         android:text="nombre Usuario"
                         android:textAppearance="?android:attr/textAppearanceSmall" />
+
+                    <TextView
+                        android:id="@+id/detalle_venta_telefono"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/icono_perfil"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_toEndOf="@+id/icono_perfil"
+                        android:layout_toRightOf="@+id/icono_perfil"
+                        android:text="telefono" />
 
                 </RelativeLayout>
 

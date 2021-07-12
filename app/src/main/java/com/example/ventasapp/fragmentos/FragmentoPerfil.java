@@ -105,7 +105,7 @@ ProgressDialog progreso;
     // RequestQueue request;
     JsonObjectRequest jsonObjectRequest;
 
-    TextView nombre, correo, tvusuario, direccion,  telefono, direccionCalle, direccionColonia;
+    TextView nombre, correo, tvusuario, direccion,  telefono, direccionCalle, direccionColonia, idUser;
     StringRequest stringRequest;
     Usuarios usuarios;
     public FragmentoPerfil() {
@@ -117,6 +117,7 @@ ProgressDialog progreso;
        View v = inflater.inflate(R.layout.fragmento_perfil, container, false);
 
       nombre = v.findViewById(R.id.texto_nombre);
+        idUser = v.findViewById(R.id.texto_foto_perfil);
          correo = v.findViewById(R.id.texto_email);
         tvusuario = v.findViewById(R.id.texto_usuario);
        direccion = v.findViewById(R.id.texto_direccion_usuario);
@@ -136,7 +137,7 @@ ProgressDialog progreso;
         verdatosUsuario();
 
         if (usuarios != null) {
-
+            idUser.setText(String.valueOf(usuarios.getId_usuario()));
             nombre.setText(usuarios.getNombre());
             correo.setText(usuarios.getCorreo());
             tvusuario.setText(usuarios.getUser());

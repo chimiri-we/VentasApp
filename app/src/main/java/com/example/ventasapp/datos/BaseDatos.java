@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 public class BaseDatos extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 30;
+    private static final int DATABASE_VERSION = 32;
     private static final String DATABASE_NAME = "Ventas.db";
 
     private static final String TABLE_USUARIO = "Usuario";
@@ -37,7 +37,7 @@ public class BaseDatos extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         String dbUsuario="create table Usuario("+
-                "id_usuario INTEGER PRIMARY KEY AUTOINCREMENT,"+
+                "id_usuario INTEGER PRIMARY KEY,"+
                 "nombre TEXT,"+
                 "uri_imagen TEXT,"+
                 "direccion TEXT,"+
@@ -340,7 +340,7 @@ Cursor cursor;
                 String cantidad = cursor.getString(5);
                 String total = cursor.getString(6);
 
-                storeContacts.add(new DetalleVenta(id_producto, id_venta, nombre_producto, precio, cantidad, total));
+                storeContacts.add(new DetalleVenta(id_venta, id_producto, nombre_producto, precio, cantidad, total));
             }
             while (cursor.moveToNext());
         }

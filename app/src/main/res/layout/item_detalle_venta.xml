@@ -40,13 +40,13 @@
 
         <TextView
             android:id="@+id/detalle_nombre_producto"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="15dp"
             android:layout_marginLeft="15dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="20dp"
             android:layout_marginRight="20dp"
             android:layout_toStartOf="@+id/icono_indicador_derecho"
@@ -65,18 +65,6 @@
             android:layout_marginTop="5dp"
             android:src="@android:drawable/ic_menu_delete" />
 
-        <TextView
-            android:id="@+id/texto_fecha_detalle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/label"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="20dp"
-            android:text="Fecha de entrega" />
-
         <LinearLayout
             android:id="@+id/label"
             android:layout_width="match_parent"
@@ -87,36 +75,57 @@
             android:orientation="horizontal"
             android:weightSum="3">
 
-            <TextView
-                android:id="@+id/texto_precio_detalle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="center"
-                android:text="Precio" />
+                app:helperText="Precio">
 
-            <TextView
-                android:id="@+id/texto_canridad_detalle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="Cantidad" />
+                <TextView
+                    android:id="@+id/texto_precio_detalle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Precio" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <TextView
-                android:id="@+id/texto_total"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginEnd="20dp"
-                android:layout_marginRight="20dp"
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="center"
-                android:text="Total" />
+                app:helperText="Cantidad">
+
+                <TextView
+                    android:id="@+id/texto_canridad_detalle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Cantidad" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:helperText="Total">
+
+                <TextView
+                    android:id="@+id/texto_total"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Total" />
+            </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
 

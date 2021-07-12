@@ -18,29 +18,9 @@
             android:background="?attr/colorPrimary"
             app:popupTheme="@style/Theme.VentasApp.NoActionBar.PopupOverlay" />
 
-        <TextView
-            android:id="@+id/tv_total_venta"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_marginEnd="20dp"
-            android:layout_marginRight="20dp"
-            android:gravity="right"
-            android:text="TextView"
-            android:textSize="16sp" />
-
     </com.google.android.material.appbar.AppBarLayout>
 
     <include layout="@layout/content_carrito" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btnPagar"
-        android:onClick="onClick"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@drawable/ic_pagar"
-        tools:ignore="ContentDescription,VectorDrawableCompat" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

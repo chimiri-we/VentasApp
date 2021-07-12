@@ -1,0 +1,55 @@
+<?xml version = "1.0" encoding = "utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/card_view"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_margin="10dp"
+    card_view:cardCornerRadius="4dp">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/imageView6"
+            android:layout_width="@dimen/avatar_size"
+            android:layout_height="@dimen/avatar_size"
+            android:layout_gravity="center"
+            card_view:srcCompat="@drawable/ic_categorias"
+            tools:ignore="VectorDrawableCompat" />
+
+        <LinearLayout
+            android:id="@+id/parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/imageView6"
+            android:layout_gravity="center"
+            android:layout_marginTop="-30dp"
+            android:background="@color/background_footer_item_grid_categorias"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/telefono"
+                android:textColor="#FFF"
+                android:textSize="25sp" />
+
+            <TextView
+                android:id="@+id/age"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="hola"
+                android:textColor="#FFF"
+                android:textSize="25sp" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

@@ -40,7 +40,7 @@ public class AdaptadorCarritoCompras  extends RecyclerView.Adapter<AdaptadorCarr
             detalleCantidad = (TextView) v.findViewById(R.id.texto_canridad_detalle);
             detalleTotal = (TextView) v.findViewById(R.id.texto_total);
             detalleProducto = (TextView) v.findViewById(R.id.texto_detalle_producto);
-            detalleFecha = (TextView) v.findViewById(R.id.texto_fecha_detalle);
+          
             imagen = (ImageView) v.findViewById(R.id.icono_detalle_producto);
 
         }

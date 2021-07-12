@@ -32,11 +32,10 @@ public class FirstFragment extends Fragment {
     Usuarios usuarios;
      int id_producto=0;
 
-
      AdaptadorCarritoCompras adaptadorCarritoCompras;
      RecyclerView recyclerViewdetalle;
     int id;
-    TextView nombreUsuario, direcionUsuario;
+    TextView nombreUsuario, direcionUsuario, totalProducto;
     public FirstFragment(){
 
     }
@@ -46,6 +45,7 @@ public class FirstFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_first, container, false);
         ImageView imgPerfil = v.findViewById(R.id.icono_perfil);
 
+        totalProducto = v.findViewById(R.id.producto_total);
         nombreUsuario = v.findViewById(R.id.detalle_nombre_usuario);
         direcionUsuario = v.findViewById(R.id.direccion_detallle);
         recyclerViewdetalle = v.findViewById(R.id.recicler_detalle_venta);
@@ -78,9 +78,19 @@ public class FirstFragment extends Fragment {
                 .error(R.drawable.ic_persona)
                 .centerCrop()
                 .into(imgPerfil);
+        totalVenta(idventa);
+
 
         return v;
 }
+
+    private void totalVenta(int idventa) {
+        BaseDatos bdLocal = new BaseDatos(getContext().getApplicationContext());
+        // SQLiteDatabase db = bdLocal.getWritableDatabase();
+        DetalleVenta dtVenta = bdLocal.sumarItems(idventa);
+
+        totalProducto.setText("$"+dtVenta.getTotal());
+    }
 
 
 }

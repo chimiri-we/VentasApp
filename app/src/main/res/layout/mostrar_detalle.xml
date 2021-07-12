@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="8dp"
+    card_view:cardCornerRadius="10dp"
+    card_view:cardElevation="@dimen/cardview_default_elevation"
+    card_view:cardUseCompatPadding="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+
+        <TableLayout
+            android:id="@+id/tab"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:stretchColumns="1">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/purple_500"
+                android:padding="10dp"
+                android:showDividers="beginning">
+
+                <LinearLayout
+                    android:layout_width="@dimen/avatar_size"
+                    android:layout_height="@dimen/avatar_size"
+                    android:layout_column="0"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/imageView5"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_column="0"
+                        card_view:srcCompat="@drawable/bg_rounded_filled" />
+                </LinearLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_column="1"
+                    android:layout_margin="5dp"
+                    android:foregroundGravity="center"
+                    app:boxBackgroundMode="outline"
+                    app:boxStrokeColor="#1C1A1A"
+                    app:endIconTint="#163194"
+                    app:helperText="Nombre del Producto"
+                    app:hintTextColor="#0288D1">
+
+                    <TextView
+
+                        android:id="@+id/dtNombre"
+                        style="@style/modifiedEditText"
+                        android:hint="@string/nombre_usuario"
+                        android:maxLines="1"
+                        android:textColor="#121010"
+                        android:textSize="14sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_column="2"
+                    android:layout_gravity="center|left"
+                    android:layout_margin="5dp"
+                    android:gravity="left"
+                    app:boxBackgroundMode="outline"
+                    app:boxStrokeColor="#1C1A1A"
+                    app:endIconTint="#163194"
+                    app:helperText="ID Remoto"
+                    app:hintTextColor="#0288D1">
+
+                    <TextView
+                        android:id="@+id/dtIdCliente"
+                        style="@style/modifiedEditText"
+                        android:layout_height="18dp"
+                        android:hint="@string/nombre_usuario"
+                        android:inputType="textEmailAddress"
+                        android:maxLines="1"
+                        android:textSize="14sp"
+                        tools:ignore="TextViewEdits" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/purple_500"
+                android:padding="10dp"
+                android:paddingLeft="5dp"
+                android:showDividers="beginning">
+
+                <com.google.android.material.textfield.TextInputLayout
+
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_column="0"
+                    android:foregroundGravity="center"
+                    app:boxBackgroundMode="outline"
+                    app:boxStrokeColor="#1C1A1A"
+                    app:endIconTint="#163194"
+                    app:helperText="Descipcion"
+                    app:hintTextColor="#0288D1">
+
+                    <TextView
+                        android:id="@+id/textView8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="TextView" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_column="1"
+                    android:layout_margin="5dp"
+                    android:foregroundGravity="center"
+                    app:boxBackgroundMode="outline"
+                    app:boxStrokeColor="#1C1A1A"
+                    app:endIconTint="#163194"
+                    app:helperText="Nombre del Producto"
+                    app:hintTextColor="#0288D1">
+
+                    <TextView
+                        android:id="@+id/txt"
+                        style="@style/modifiedEditText"
+                        android:hint="@string/nombre_usuario"
+                        android:maxLines="1"
+                        android:textColor="#121010"
+                        android:textSize="14sp" />
+
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_column="2"
+                    android:layout_gravity="center|left"
+                    android:gravity="left"
+                    app:boxBackgroundMode="outline"
+                    app:boxStrokeColor="#1C1A1A"
+                    app:endIconTint="#163194"
+                    app:helperText="ID Remoto"
+                    app:hintTextColor="#0288D1">
+
+                    <TextView
+                        android:id="@+id/textView9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="TextView" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </TableRow>
+
+        </TableLayout>
+
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>
