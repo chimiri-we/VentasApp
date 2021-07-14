@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 public class BaseDatos extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 32;
+    private static final int DATABASE_VERSION = 33                                                                                                                                ;
     private static final String DATABASE_NAME = "Ventas.db";
 
     private static final String TABLE_USUARIO = "Usuario";
@@ -429,5 +429,9 @@ Cursor cursor;
 
         SQLiteDatabase db = this.getWritableDatabase();
         db.update(TABLE_USUARIO, values, ID_USUARIO + " = ?", new String[]{String.valueOf(usuarios.getId_usuario())});
+    }
+
+    public void buscarDetalleVenta(int ultimaV) {
+
     }
 }

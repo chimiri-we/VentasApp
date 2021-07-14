@@ -41,7 +41,7 @@ import java.util.Objects;
 
 public class RegistroFragment extends Fragment {
 
-    public static final String REGISTER_URL = "https://servicioparanegocio.es/ventasApp/registro.php";
+    public static final String REGISTER_URL = "https://servicioparanegocio.es/ventasApp/registros/registro.php";
 
     public static final String KEY_NOMBRE = "Nombre";
     public static final String KEY_USUARIO = "Usuario";
@@ -170,7 +170,7 @@ public class RegistroFragment extends Fragment {
 
         db.insert(TABLE_USUARIO, null, values);
 
-        progressDialog.hide();
+       // progressDialog.hide();
         edtPasswordCliente.setText("");
         edtNumeroCliente.setText("");
         edtNombreCliente.setText("");

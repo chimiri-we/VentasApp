@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ventasapp.R;
 import com.example.ventasapp.fragmentos.FragmenNotificacion;
@@ -34,7 +33,7 @@ public class NotificacionesAdapter extends Adapter {
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View itemView = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.item_recicler, viewGroup, false);
+                .inflate(R.layout.item_recicler_imagenes, viewGroup, false);
         return new MyViewHolder(itemView);
     }
 

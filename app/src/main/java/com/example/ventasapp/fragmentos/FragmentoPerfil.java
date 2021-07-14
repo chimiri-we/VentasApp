@@ -189,9 +189,6 @@ ProgressDialog progreso;
                 bdLocal.actualizarContrasena(new
                         Usuarios(usuarios.getId_usuario(), contra));
 
-                ((Activity) getContext()).finish();
-                getContext().startActivity(((Activity)
-                        getContext()).getIntent());
             }
         });
         builder.setNegativeButton("CANCELAR", (dialog, which) -> Toast.makeText(getContext(), "Tarea Cancelada",Toast.LENGTH_LONG).show());
@@ -220,6 +217,7 @@ ProgressDialog progreso;
         builder.create();
 
         builder.setPositiveButton("GUARDAR DATOS", (dialog, which) -> {
+            actualizarDatos();
             final String ciudad = Objects.requireNonNull(edtDireccionCiudad.getText()).toString().trim();
             final String newcalle = Objects.requireNonNull(edtDireccionCalle.getText()).toString().trim();
             final String newcolonia = Objects.requireNonNull(edtDireccionColonia.getText()).toString().trim();
@@ -231,10 +229,8 @@ ProgressDialog progreso;
                 assert usuarios != null;
                 bdLocal.actualizarDireccion(new
                         Usuarios(usuarios.getId_usuario(), ciudad, newcalle, newcolonia));
+                actualizarDatos();
 
-                ((Activity) requireContext()).finish();
-              requireContext().startActivity(((Activity)
-                        requireContext()).getIntent());
             }
         });
         builder.setNegativeButton("CANCELAR", (dialog, which) -> Toast.makeText(getContext(), "Tarea Cancelada",Toast.LENGTH_LONG).show());
@@ -263,6 +259,7 @@ ProgressDialog progreso;
         builder.create();
 
         builder.setPositiveButton("GUARDAR DATOS", (dialog, which) -> {
+
             final String nombre = Objects.requireNonNull(edtNombreCliente.getText()).toString();
             final String telefono = Objects.requireNonNull(edtTelefono.getText()).toString();
             final String correo = Objects.requireNonNull(edtEmailCliente.getText()).toString();
@@ -279,12 +276,11 @@ ProgressDialog progreso;
                 bdLocal.actualizarUsuario(new
                         Usuarios(usuarios.getId_usuario(), nombre, telefono, correo, user));
 
+                actualizarDatos();
 
 
-            ((Activity) requireContext()).finish();
-            requireContext().startActivity(((Activity)
-                    requireContext()).getIntent());
             }
+
         });
         builder.setNegativeButton("CANCELAR", (dialog, which) -> Toast.makeText(getContext(), "Tarea Cancelada",Toast.LENGTH_LONG).show());
 
@@ -355,7 +351,7 @@ ProgressDialog progreso;
                 String colonia = direccionColonia.getText().toString();
 String numeroTelefono = telefono.getText().toString();
 
-                String imagen=convertirImgString(bitmap);
+             //   String imagen=convertirImgString(bitmap);
 
                 Map<String,String> params = new HashMap<>();
 
@@ -462,7 +458,7 @@ String numeroTelefono = telefono.getText().toString();
                 imgperfil.setImageURI(miPath);
                 BaseDatos bdLocal = new BaseDatos(requireContext().getApplicationContext());
                 bdLocal.obtenerRutaImagen(miPath);
-                actualizarDatos();
+
 
                 try {
                     bitmap=MediaStore.Images.Media.getBitmap(requireContext().getContentResolver(),miPath);

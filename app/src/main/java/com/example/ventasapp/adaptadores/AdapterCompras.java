@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +16,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.load.resource.transcode.BitmapBytesTranscoder;
+import com.bumptech.glide.Glide;
 import com.example.ventasapp.R;
 import com.example.ventasapp.datos.BaseDatos;
 import com.example.ventasapp.detalles.ClienteDetalleActivity;
@@ -32,9 +31,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 
 public class AdapterCompras  extends RecyclerView.Adapter<AdapterCompras.ComprasHolder> {
-    List<Producto> listaUsuarios;
+    List<Producto> productoList;
 
-    private static final String TABLE_DETALLE_VENTA = "DetalleVenta";
+
     int id_producto;
     int precio;
     String id;
@@ -44,9 +43,10 @@ public class AdapterCompras  extends RecyclerView.Adapter<AdapterCompras.Compras
     String formattedDate;
     int status = 0;
     int id_venta;
+    Bitmap img;
     public class ComprasHolder extends RecyclerView.ViewHolder{
 
-        public TextView nombre;
+        public TextView nombreProducto;
         public TextView precioProducto;
         public TextView descripcionProducto;
         public ImageView imagen;
@@ -58,16 +58,16 @@ public class AdapterCompras  extends RecyclerView.Adapter<AdapterCompras.Compras
         public ComprasHolder(View itemView) {
             super(itemView);
             btCard = itemView.findViewById(R.id.agregar_carrito);
-            nombre = (TextView) itemView.findViewById(R.id.nombre_producto);
+            nombreProducto = (TextView) itemView.findViewById(R.id.nombre_producto);
             precioProducto = (TextView) itemView.findViewById(R.id.precio_producto);
             descripcionProducto = (TextView) itemView.findViewById(R.id.descripcion_producto);
             imagen = (ImageView) itemView.findViewById(R.id.miniatura_producto);
         }
     }
 
-    public AdapterCompras(Context context, List<Producto> listaUsuarios) {
+    public AdapterCompras(Context context, List<Producto> productoList) {
         this.context = context;
-        this.listaUsuarios = listaUsuarios;
+        this.productoList = productoList;
     }
 
     @Override
@@ -79,17 +79,19 @@ public class AdapterCompras  extends RecyclerView.Adapter<AdapterCompras.Compras
 
     @Override
     public void onBindViewHolder(ComprasHolder holder, int position) {
-        holder.nombre.setText(listaUsuarios.get(position).getNombre_producto().toString());
-        holder.precioProducto.setText("$"+listaUsuarios.get(position).getPrecio());
-        holder.descripcionProducto.setText(listaUsuarios.get(position).getCaracteristicas().toString());
-        id_producto = listaUsuarios.get(position).getId_producto();
+        Producto producto = (Producto) productoList.get(position);
 
-        precio = (int) listaUsuarios.get(position).getPrecio();
-        nombre = holder.nombre.getText().toString().trim();
-        id = String.valueOf(listaUsuarios.get(position).getId_producto());
+        holder.nombreProducto.setText(producto.getNombre_producto().toString());
+        holder.precioProducto.setText("$"+ producto.getPrecio());
+        holder.descripcionProducto.setText(producto.getCaracteristicas().toString());
+        id_producto = productoList.get(position).getId_producto();
 
-        if (listaUsuarios.get(position).getImagen()!=null){
-            holder.imagen.setImageBitmap(listaUsuarios.get(position).getImagen());
+        precio = (int) productoList.get(position).getPrecio();
+        nombre = productoList.get(position).getNombre_producto();
+        id = String.valueOf(productoList.get(position).getId_producto());
+
+        if (productoList.get(position).getImagen()!=null){
+            holder.imagen.setImageBitmap(productoList.get(position).getImagen());
         }else{
             holder.imagen.setImageResource(R.drawable.ic_carrito);
         }
@@ -98,7 +100,7 @@ public class AdapterCompras  extends RecyclerView.Adapter<AdapterCompras.Compras
             public void onClick(View v) {
              //  Toast.makeText(v.getContext(), "el id es que estoy pasando es "+id, Toast.LENGTH_SHORT).show();
 
-               Bitmap img = listaUsuarios.get(position).getImagen();
+              img = productoList.get(position).getImagen();
                 Intent intent = new Intent(v.getContext(), ClienteDetalleActivity.class);
                 intent.putExtra("image", img);
                 intent.putExtra("nombre", nombre);
@@ -110,67 +112,51 @@ public class AdapterCompras  extends RecyclerView.Adapter<AdapterCompras.Compras
         holder.btCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                inflarOpciones(nombre, id_producto, precio);
+                inflarOpciones(nombre, id_producto, precio, img);
             }
         });
     }
 
-    private void inflarOpciones(String nombre, int id_producto, int precio) {
+    private void inflarOpciones(String nombre, int id_producto, int precio, Bitmap img) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View subView = inflater.inflate(R.layout.dialogo, null);
         int cantPro = 1;
 
 
 
+        ImageView imgMiniaturaPro = subView.findViewById(R.id.img_producto);
+        Glide.with(context)
+                .load(img)
+                .centerCrop()
+                .into(imgMiniaturaPro);
         CircleImageView menosUno = subView.findViewById(R.id.btn_menosuno);
         CircleImageView masUno = subView.findViewById(R.id.btn_masuno);
         TextView mensaje = subView.findViewById(R.id.titulo_producto);
         TextView tvprecio = subView.findViewById(R.id.precio);
         EditText cantidad = subView.findViewById(R.id.tv_cantidad_compra);
+
         mensaje.setText(nombre);
         tvprecio.setText("$"+(String.valueOf(precio)));
         cantidad.setText(String.valueOf(cantPro));
-        masUno.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        masUno.setOnClickListener(v -> {
 
-                int suma = Integer.parseInt(cantidad.getText().toString());
-                int resultado = suma+1;
-                cantidad.setText(String.valueOf(resultado));
-            }
+            int suma = Integer.parseInt(cantidad.getText().toString());
+            int resultado = suma+1;
+            cantidad.setText(String.valueOf(resultado));
         });
-        menosUno.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        menosUno.setOnClickListener(v -> {
 
-                int resta = Integer.parseInt(cantidad.getText().toString());
-                int residuo =  resta-1;
-                cantidad.setText(String.valueOf(residuo));
+            int resta = Integer.parseInt(cantidad.getText().toString());
+            int residuo =  resta-1;
+            cantidad.setText(String.valueOf(residuo));
 
-            }
         });
 
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setView(subView);
         builder.create();
         builder.setPositiveButton("AGREGAR",  (dialog, which) -> {
-           /* Date fechaActual= Calendar.getInstance().getTime();
-            SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
-            formattedDate = df.format(fechaActual);
-            Usuarios usuarios;
-            BaseDatos bdLocal = new BaseDatos(context.getApplicationContext());
-            usuarios = bdLocal.verdatosUsuario();
-            if (usuarios != null){
-                int id_usuario = usuarios.getId_usuario();
-                Venta nuevaventa = new Venta(id_usuario, formattedDate, status);
-                bdLocal.generarVenta(nuevaventa);
 
-                id_venta = nuevaventa.getId_venta();
-
-                generarDetalleVenta(cantidad);
-            }
-
-*/
 
            piezas = cantidad.getText().toString();
             String costo = String.valueOf(precio);
@@ -206,7 +192,7 @@ public class AdapterCompras  extends RecyclerView.Adapter<AdapterCompras.Compras
 
     }
 
-    private void generarDetalleVenta(EditText cantidad) {
+ /*   private void generarDetalleVenta(EditText cantidad) {
         piezas = cantidad.getText().toString();
         String costo = String.valueOf(precio);
 
@@ -231,10 +217,10 @@ public class AdapterCompras  extends RecyclerView.Adapter<AdapterCompras.Compras
 
     }
 
-
+*/
     @Override
     public int getItemCount() {
-        return listaUsuarios.size();
+        return productoList.size();
     }
 
 

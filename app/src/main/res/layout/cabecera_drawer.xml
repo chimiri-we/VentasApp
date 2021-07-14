@@ -29,64 +29,80 @@
 
             android:src="@drawable/ic_persona" />
 
-        <LinearLayout
+        <TableLayout
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="10dp"
             android:layout_weight="1"
-            android:gravity="bottom"
-            android:orientation="vertical">
+            android:columnCount="2"
+            android:orientation="vertical"
+            android:rowCount="2">
 
-            
-        </LinearLayout>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/icono_carrito"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="8dp"
+                    android:src="@drawable/ic_shopping_cart" />
+
+                <TextView
+                    android:id="@+id/etiqueta_carrito"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="@string/etiqueta_carrito"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textStyle="bold" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/texto_total_carrito"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_column="1"
+                    android:layout_gravity="center_vertical"
+                    android:text="$ 0"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textStyle="bold" />
+            </TableRow>
+
+        </TableLayout>
 
     </LinearLayout>
 
-    <TableLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_marginTop="10dp"
-        android:columnCount="2"
-        android:orientation="vertical"
-        android:rowCount="2">
+        android:layout_height="match_parent"
+        android:layout_margin="25dp"
+        android:layout_weight="1"
+        android:gravity="bottom"
+        android:orientation="vertical">
 
 
-        <TableRow
+        <TextView
+            android:id="@+id/textView11"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:text="Hola" />
 
-            <ImageView
-                android:id="@+id/icono_carrito"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="8dp"
-                android:src="@drawable/ic_shopping_cart" />
+        <TextView
+            android:id="@+id/nombre_usuario_navigation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textSize="20sp" />
+    </LinearLayout>
 
-            <TextView
-                android:id="@+id/etiqueta_carrito"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:text="@string/etiqueta_carrito"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textStyle="bold" />
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:id="@+id/texto_total_carrito"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_column="1"
-                android:layout_gravity="center_vertical"
-                android:text="$ 0"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textStyle="bold" />
-        </TableRow>
-
-    </TableLayout>
 </LinearLayout>

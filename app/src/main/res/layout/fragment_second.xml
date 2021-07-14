@@ -7,17 +7,29 @@
     android:orientation="vertical"
     tools:context="fragmentos.SecondFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recicler_producto"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/button_terminar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:onClick="onClick"
-        android:text="Terminar Compra" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recicler_producto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/button_terminar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:onClick="onClick"
+                android:text="Terminar Compra" />
+        </LinearLayout>
+    </ScrollView>
+
 </LinearLayout>

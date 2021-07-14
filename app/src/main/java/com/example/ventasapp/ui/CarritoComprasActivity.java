@@ -43,8 +43,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CarritoComprasActivity extends AppCompatActivity {
-    public static final String REGISTER_URL = "https://servicioparanegocio.es/ventasApp/regist_venta.php";
-    public static final String REGISTRO_DETALLE = "https://servicioparanegocio.es/ventasApp/registro_venta.php";
+    public static final String REGISTER_URL = "https://servicioparanegocio.es/ventasApp/registros/regist_venta.php";
+    public static final String REGISTRO_DETALLE = "https://servicioparanegocio.es/ventasApp/registros/registro_venta.php";
     public static final String KEY_ID_USUARIO = "Id_usuario";
     public static final String KEY_TOTAL_VENTA = "Total_venta";
     public static final String KEY_FECHA_VENTA = "Fecha_venta";

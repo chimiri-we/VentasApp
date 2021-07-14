@@ -1,7 +1,9 @@
 package com.example.ventasapp.detalles;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,7 +13,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -19,14 +24,24 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.bumptech.glide.Glide;
 import com.example.ventasapp.R;
+import com.example.ventasapp.adaptadores.AdaptadorCarritoCompras;
+import com.example.ventasapp.adaptadores.AdapterDetalleImagenes;
+import com.example.ventasapp.adaptadores.NotificacionesAdapter;
 import com.example.ventasapp.datos.BaseDatos;
+import com.example.ventasapp.entidades.DetalleVenta;
 import com.example.ventasapp.entidades.Producto;
 import com.example.ventasapp.entidades.VolleySingleton;
+import com.example.ventasapp.fragmentos.FragmenNotificacion;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 public class ClienteDetalleFragment extends Fragment implements Response.Listener<JSONObject>,Response.ErrorListener{
 
@@ -42,7 +57,10 @@ Producto p;
     private TextView precioProducto;
     private TextView descripcionProducto, txtNombre;
 
-
+    ImageView imageView;
+    RecyclerView reciclerImagenes;
+AdapterDetalleImagenes adapterDetalleImagenes;
+    ArrayList<Producto> ArraylistaPro;
 
     public ClienteDetalleFragment() {
         // Required empty public constructor
@@ -57,6 +75,9 @@ ClienteDetalleFragment fragment = new ClienteDetalleFragment();
         fragment.setArguments(extras);
         return fragment;
     }
+    private NotificacionesAdapter studentAdapter;
+    private List studentDataList = new ArrayList<>();
+    @TargetApi(Build.VERSION_CODES.O)
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -69,6 +90,7 @@ ClienteDetalleFragment fragment = new ClienteDetalleFragment();
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -77,8 +99,34 @@ ClienteDetalleFragment fragment = new ClienteDetalleFragment();
         mAvatar = (ImageView) requireActivity().findViewById(R.id.iv_avatar);
         precioProducto = root.findViewById(R.id.tv_phone_number);
         descripcionProducto = root.findViewById(R.id.tv_specialty);
+        imageView = root.findViewById(R.id.img_remplazo_recicler);
         txtNombre = root.findViewById(R.id.tv_bio);
+      //  ArraylistaPro = new ArrayList<>();
+        reciclerImagenes = root.findViewById(R.id.recicler_imagenes);
+        studentAdapter = new NotificacionesAdapter(studentDataList,getActivity());
+        RecyclerView.LayoutManager manager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        reciclerImagenes.setLayoutManager(manager);
+        reciclerImagenes.setHasFixedSize(true);
+        reciclerImagenes.setAdapter(studentAdapter);
         consultarProducto();
+        StudentDataPrepare();
+       /* LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        reciclerImagenes.setLayoutManager(layoutManager);
+        reciclerImagenes.setHasFixedSize(true);
+
+
+
+        if (ArraylistaPro.size() > 0){
+            reciclerImagenes.setVisibility(View.VISIBLE);
+            adapterDetalleImagenes = new AdapterDetalleImagenes(getContext(), ArraylistaPro);
+            reciclerImagenes.setAdapter(adapterDetalleImagenes);
+            imageView.setVisibility(View.GONE);
+        }else {
+
+            reciclerImagenes.setVisibility(View.GONE);
+            imageView.setVisibility(View.VISIBLE);
+
+        }
 
 /*
         if (idProducto != null) {
@@ -95,6 +143,36 @@ ClienteDetalleFragment fragment = new ClienteDetalleFragment();
 */
         return root;
     }
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private void StudentDataPrepare() {
+        FragmenNotificacion.studentData data = new FragmenNotificacion.studentData("sai", 25);
+        studentDataList.add(data);
+        data = new FragmenNotificacion.studentData("sai raj", 25);
+        studentDataList.add(data);
+        data = new FragmenNotificacion.studentData("raghu", 20);
+        studentDataList.add(data);
+        data = new FragmenNotificacion.studentData("raj", 28);
+        studentDataList.add(data);
+        data = new FragmenNotificacion.studentData("amar", 15);
+        studentDataList.add(data);
+        data = new FragmenNotificacion.studentData("bapu", 19);
+        studentDataList.add(data);
+        data = new FragmenNotificacion.studentData("chandra", 52);
+        studentDataList.add(data);
+        data = new FragmenNotificacion.studentData("deraj", 30);
+        studentDataList.add(data);
+        data = new FragmenNotificacion.studentData("eshanth", 28);
+        studentDataList.add(data);
+        Collections.sort(studentDataList, new Comparator() {
+            @Override
+            public int compare(Object o1, Object o2) {
+                return 0;
+            }
+
+
+        });
+    }
+
 
     private void consultarProducto() {
         progreso=new ProgressDialog(getContext());
@@ -103,7 +181,7 @@ ClienteDetalleFragment fragment = new ClienteDetalleFragment();
 
 
 
-        String url="https://servicioparanegocio.es/ventasApp/consultar_ProductoPorId.php?id_producto="+idProducto;
+        String url="https://servicioparanegocio.es/ventasApp/consultas/consultar_ProductoPorId.php?id_producto="+idProducto;
 
 
         jsonObjectRequest=new JsonObjectRequest(Request.Method.GET,url,null,this,this);
@@ -135,6 +213,7 @@ ClienteDetalleFragment fragment = new ClienteDetalleFragment();
             p.setNombre_producto(jsonObject.optString("nombre"));
             p.setPrecio(jsonObject.optInt("Precio"));
             p.setDescripcion(jsonObject.optString("Descripcion"));
+         //  ArraylistaPro.add(p);
 
             IDPRODUCTO = String.valueOf(p.getId_producto());
             DESCRIPCION = p.getDescripcion();
@@ -144,7 +223,7 @@ ClienteDetalleFragment fragment = new ClienteDetalleFragment();
             txtNombre.setText(NOMBRE);
             descripcionProducto.setText(DESCRIPCION);
             precioProducto.setText(PRECIO);
-            Toast.makeText(getContext(),"Mensaje: "+NOMBRE,Toast.LENGTH_SHORT).show();
+           // Toast.makeText(getContext(),"Mensaje: "+NOMBRE,Toast.LENGTH_SHORT).show();
 
         } catch (JSONException e) {
             e.printStackTrace();

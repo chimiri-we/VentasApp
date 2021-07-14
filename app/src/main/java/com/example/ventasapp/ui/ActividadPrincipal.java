@@ -20,6 +20,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -96,6 +97,9 @@ public class ActividadPrincipal extends AppCompatActivity {
             prepararDrawer(navigationView);
             // Seleccionar item por defecto
             seleccionarItem(navigationView.getMenu().getItem(0));
+            View header = navigationView.getHeaderView(0);
+            TextView txtNombreHeader = header.findViewById(R.id.nombre_usuario_navigation);
+            txtNombreHeader.setText(usuario.getNombre());
         }
         if(ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED) {

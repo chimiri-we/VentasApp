@@ -1,6 +1,5 @@
 package com.example.ventasapp.fragmentos;
 
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,7 +7,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -36,8 +34,8 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class FragmentoCompras extends Fragment implements Response.Listener<JSONObject>,Response.ErrorListener{
-    RecyclerView recyclerUsuarios;
-    ArrayList<Producto> listaUsuarios;
+    RecyclerView recyclerView;
+    ArrayList<Producto> productoArrayList;
 
     ProgressDialog dialog;
     String ID_PRODUCTO;
@@ -53,10 +51,10 @@ public class FragmentoCompras extends Fragment implements Response.Listener<JSON
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragmento_compras, container, false);
-        listaUsuarios=new ArrayList<>();
-        recyclerUsuarios = (RecyclerView) v.findViewById(R.id.reciclerProductos);
-        recyclerUsuarios.setLayoutManager(new LinearLayoutManager(this.getContext()));
-        recyclerUsuarios.setHasFixedSize(true);
+        productoArrayList =new ArrayList<>();
+        recyclerView = (RecyclerView) v.findViewById(R.id.reciclerProductos);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
+        recyclerView.setHasFixedSize(true);
         cargarWebService();
        img = v.findViewById(R.id.img_sinInternet);
        img.setVisibility(View.GONE);
@@ -74,7 +72,7 @@ public class FragmentoCompras extends Fragment implements Response.Listener<JSON
 
 
 
-        String url="https://servicioparanegocio.es/ventasApp/consultarProducto.php";
+        String url="https://servicioparanegocio.es/ventasApp/consultas/consultarProducto.php";
         jsonObjectRequest=new JsonObjectRequest(Request.Method.GET,url,null,this,this);
         // request.add(jsonObjectRequest);
         VolleySingleton.getIntanciaVolley(getContext()).addToRequestQueue(jsonObjectRequest);
@@ -82,31 +80,31 @@ public class FragmentoCompras extends Fragment implements Response.Listener<JSON
 
     @Override
     public void onResponse(JSONObject response) {
-        Producto usuario;
+        Producto producto;
         JSONArray json=response.optJSONArray("producto");
 
 
         try {
 
             for (int i = 0; i< Objects.requireNonNull(json).length(); i++){
-                usuario=new Producto();
+                producto=new Producto();
             JSONObject jsonObject=null;
             jsonObject=json.getJSONObject(i);
 
-            usuario.setId_producto(jsonObject.optInt("Id_producto"));
-            usuario.setNombre_producto(jsonObject.optString("Nombre_producto"));
-            usuario.setPrecio(jsonObject.optInt("Precio"));
-            usuario.setDescripcion(jsonObject.optString("Descripcion"));
-                usuario.setCaracteristicas(jsonObject.optString("Caracteristicas"));
-                usuario.setStock(jsonObject.optInt("Stock"));
-                usuario.setCategoria(jsonObject.optString("Categoria"));
-            usuario.setDato(jsonObject.optString("Imagen_producto"));
-            listaUsuarios.add(usuario);
+            producto.setId_producto(jsonObject.optInt("Id_producto"));
+            producto.setNombre_producto(jsonObject.optString("Nombre_producto"));
+            producto.setPrecio(jsonObject.optInt("Precio"));
+            producto.setDescripcion(jsonObject.optString("Descripcion"));
+                producto.setCaracteristicas(jsonObject.optString("Caracteristicas"));
+                producto.setStock(jsonObject.optInt("Stock"));
+                producto.setCategoria(jsonObject.optString("Categoria"));
+            producto.setDato(jsonObject.optString("Imagen_producto"));
+            productoArrayList.add(producto);
           //  ID_PRODUCTO = String.valueOf(usuario.getId_producto());
              }
             dialog.hide();
-            AdapterCompras adapter=new AdapterCompras(getContext(), listaUsuarios);
-            recyclerUsuarios.setAdapter(adapter);
+            AdapterCompras adapter=new AdapterCompras(getContext(), productoArrayList);
+            recyclerView.setAdapter(adapter);
 
         } catch (JSONException e) {
             e.printStackTrace();

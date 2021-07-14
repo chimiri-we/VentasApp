@@ -172,7 +172,7 @@ public class LoginActivity extends Fragment implements Response.Listener<JSONObj
 
     private void obtenerDatosUsuario(String usuario) {
 
-        String url="https://servicioparanegocio.es/ventasApp/ConsultarUsuarioNombre.php?usuario="+usuario;
+        String url="https://servicioparanegocio.es/ventasApp/consultas/ConsultarUsuarioNombre.php?usuario="+usuario;
 
 
         jsonObjectRequest=new JsonObjectRequest(Request.Method.GET,url,null,this,this);
